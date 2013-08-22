@@ -10,11 +10,29 @@ $(function() {
 	});
 
 	yourCollection = new Models.ItemListings();
+	friendCollection = new Models.ItemListings();
+	featuredCollection = new Models.ItemListings();
+	publicCollection = new Models.ItemListings();
 
 	yourView = new Views.ListingView({
 		collection: yourCollection,
-		el: document.getElementById('you-listing')
+		el: $('#you-listing')[0]
 	});
+
+	friendView = new Views.ListingView({
+		collection: friendCollection,
+		el: $('#friend-listing')[0]
+	});
+
+	featuredView = new Views.ListingView({
+		collection: featuredCollection,
+		el: $('#featured-listing')[0]
+	});
+
+	publicView = new Views.ListingView({
+		collection: publicCollection,
+		el: $('#public-listing')[0]
+	})
 
 	yourCollection.add(testModel);
 });
