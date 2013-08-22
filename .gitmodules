@@ -1,0 +1,3 @@
+[submodule "service/cakephp"]
+	path = service/cakephp
+	url = git@github.com:cakephp/cakephp.git
