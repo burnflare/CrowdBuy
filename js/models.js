@@ -6,7 +6,8 @@ Models.ItemListing = Backbone.Model.extend({
 		price: '',
 		location: '',
 		buyers: [],
-		owner: ''
+		owner: '',
+		imageUrl: ''
 	}
 	initialize: function() {
 
