@@ -1,7 +1,9 @@
 var Views = {};
 Views.ListingView = Backbone.View.extend({
 	initialise: function() {
+		this.listenTo(this.collection, "add", this.render);
 		this.listenTo(this.collection, "change", this.render);
+		this.listenTo(this.collection, "remove", this.render);
 		this.childViews = [];
 	},
 
