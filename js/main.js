@@ -1,5 +1,5 @@
-
-	var testModel = new Models.ItemListing({
+$(function() {
+	testModel = new Models.ItemListing({
 		id: 0,
 		name: "Test Item",
 		price: "(USD) $5",
@@ -9,11 +9,12 @@
 		imageUrl: 'http://placehold.it/96x96'
 	});
 
-	var yourCollection = new Models.ItemListings();
+	yourCollection = new Models.ItemListings();
 
-	var yourView = new Views.ListingView({
+	yourView = new Views.ListingView({
 		collection: yourCollection,
-		id: "you-listing"
+		el: document.getElementById('you-listing')
 	});
 
 	yourCollection.add(testModel);
+});
