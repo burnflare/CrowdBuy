@@ -8,8 +8,12 @@ Models.ItemListing = Backbone.Model.extend({
 		buyers: [],
 		owner: '',
 		imageUrl: ''
-	}
+	},
 	initialize: function() {
 
 	}
+});
+
+Models.ItemListings = Backbone.Collection.extend({
+	model: Models.ItemListing
 });
