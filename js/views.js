@@ -11,11 +11,12 @@ Views.ListingView = Backbone.View.extend({
 		var fragment = document.createDocumentFragment();
 
 		var currentChildView;
+		var that = this;
 		this.collection.each(function(currentModel) {
 			currentChildView = new Views.ItemView({
 				model: currentModel
 			});
-			this.childViews.push(currentChildView);
+			that.childViews.push(currentChildView);
 			fragment.appendChild(currentChildView.render().el);
 		});
 
