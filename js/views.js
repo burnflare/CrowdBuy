@@ -2,15 +2,12 @@ var Views = {};
 Views.ListingView = Backbone.View.extend({
 	initialize: function() {
 		this.listenTo(this.collection, 'add', this.collectionAdded);
-		this.listenTo(this.collection, 'change', this.render);
+		this.listenTo(this.collection, 'change', this.collectionChanged);
 		this.listenTo(this.collection, 'remove', this.collectionRemoved);
 		
 		this.childViews = [];
 
-		var that = this;
-		this.collection.each(function(item) {
-			that.collectionAdded(item);
-		});
+		this._addAllModels();
 	},
 
 	render: function() {
@@ -25,15 +22,31 @@ Views.ListingView = Backbone.View.extend({
 	},
 
 	collectionAdded: function(item) {
-		this.childViews.push(new Views.ItemView({
-			model: item
-		}));
+		this._addViewForModel(item);
 		this.render();
 	},
 
 	collectionRemoved: function(item) {
 		this.childViews = this.childViews.filter(function(view) {
 			return view.model.id !== item.id;
+		});
+		this.render();
+	},
+
+	collectionChanged: function() {
+		this.childViews = [];
+		this._addAllModels();
+	},
+
+	_addViewForModel: function(item) {
+		this.childViews.push(new Views.ItemView({
+			model: item
+		}));
+	},
+
+	_addAllModels: function() {
+		this.collection.each(function(item) {
+			_addViewForModel(item);
 		});
 		this.render();
 	}
