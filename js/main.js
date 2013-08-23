@@ -27,7 +27,7 @@ $(function() {
 	yourCollection.add({
 		id: 0,
 		name: "Test Item",
-		price: "(USD) $5",
+		price: "5.00 (USD)",
 		location: "Singapore",
 		buyers: [0],
 		owner: 0,
@@ -36,7 +36,7 @@ $(function() {
 	friendCollection.add({
 		id: 1,
 		name: "Another Item",
-		price: "(USD) $25",
+		price: "25.00 (USD)",
 		location: "Singapore",
 		buyers: [0, 1, 2],
 		owner:  1,
