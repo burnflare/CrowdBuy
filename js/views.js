@@ -3,7 +3,7 @@ Views.ListingView = Backbone.View.extend({
 	initialize: function() {
 		this.listenTo(this.collection, 'add', this.collectionAdded);
 		this.listenTo(this.collection, 'change', this.render);
-		this.listenTo(this.collection, 'remove', this.render);
+		this.listenTo(this.collection, 'remove', this.collectionRemoved);
 		
 		this.childViews = [];
 
@@ -28,6 +28,13 @@ Views.ListingView = Backbone.View.extend({
 		this.childViews.push(new Views.ItemView({
 			model: item
 		}));
+		this.render();
+	},
+
+	collectionRemoved: function(item) {
+		this.childViews = this.childViews.filter(function(view) {
+			return view.model.id !== item.id;
+		});
 		this.render();
 	}
 });
