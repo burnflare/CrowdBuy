@@ -10,6 +10,10 @@ Views.ListingView = Backbone.View.extend({
 		this._addAllModels();
 	},
 
+	events: {
+		"click h3.section-header" : "headingClicked"
+	},
+
 	render: function() {
 		var fragment = document.createDocumentFragment();
 
@@ -36,6 +40,10 @@ Views.ListingView = Backbone.View.extend({
 	collectionChanged: function() {
 		this.childViews = [];
 		this._addAllModels();
+	},
+
+	headingClicked: function() {
+		console.log();
 	},
 
 	_addViewForModel: function(item) {
