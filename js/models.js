@@ -7,7 +7,9 @@ Models.ItemListing = Backbone.Model.extend({
 		location: '',
 		buyers: [],
 		owner: '',
-		imageUrl: ''
+		imageUrl: '',
+		dateStart: '',
+		dateExpire: ''
 	},
 	initialize: function() {
 
