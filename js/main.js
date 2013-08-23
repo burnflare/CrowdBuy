@@ -22,7 +22,7 @@ $(function() {
 	publicView = new Views.ListingView({
 		collection: publicCollection,
 		el: $('#public-listing')[0]
-	})
+	});
 
 	yourCollection.add({
 		id: 0,
@@ -34,12 +34,12 @@ $(function() {
 		imageUrl: 'http://placehold.it/96x96'
 	});
 	friendCollection.add({
-		id: 1, 
-		name: "Another Item", 
-		price: "(USD) $25", 
-		location: "Singapore", 
-		buyers: [0, 1, 2], 
-		owner:  1, 
+		id: 1,
+		name: "Another Item",
+		price: "(USD) $25",
+		location: "Singapore",
+		buyers: [0, 1, 2],
+		owner:  1,
 		imageUrl: 'http://placehold.it/96x96'
 	});
 });
