@@ -14,4 +14,13 @@ class Person extends AppModel {
 			'unique' => true
 		)
 	);
+	
+	/**
+	 * Gets the listings by the given person.
+	 * 
+	 * @param string $id
+	 */
+	public function listings($id) {
+		return $this->ProductListings->findByPersonId($id);
+	}
 }
