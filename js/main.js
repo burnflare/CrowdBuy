@@ -31,7 +31,9 @@ $(function() {
 		location: "Singapore",
 		buyers: [0],
 		owner: 0,
-		imageUrl: 'http://placehold.it/96x96'
+		imageUrl: 'http://placehold.it/96x96',
+		dateStart: new Date(2013, 8, 23),
+		dateEnd: new Date(2013, 9, 22)
 	});
 	friendCollection.add({
 		id: 1,
@@ -40,6 +42,8 @@ $(function() {
 		location: "Singapore",
 		buyers: [0, 1, 2],
 		owner:  1,
-		imageUrl: 'http://placehold.it/96x96'
+		imageUrl: 'http://placehold.it/96x96',
+		dateStart: new Date(2013, 8, 22),
+		dateEnd: new Date(2013, 9, 16)
 	});
 });
