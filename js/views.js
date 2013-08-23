@@ -20,7 +20,7 @@ Views.ListingView = Backbone.View.extend({
 			fragment.appendChild(currentView.render().el);
 		});
 
-		this.$el.html(fragment);
+		this.$('.item-listing').html(fragment);
 		return this;
 	},
 

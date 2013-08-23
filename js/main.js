@@ -6,22 +6,22 @@ $(function() {
 
 	yourView = new Views.ListingView({
 		collection: yourCollection,
-		el: $('#you-listing')[0]
+		el: document.getElementById('you-section')
 	});
 
 	friendView = new Views.ListingView({
 		collection: friendCollection,
-		el: $('#friend-listing')[0]
+		el: document.getElementById('friend-section')
 	});
 
 	featuredView = new Views.ListingView({
 		collection: featuredCollection,
-		el: $('#featured-listing')[0]
+		el: document.getElementById('featured-section')
 	});
 
 	publicView = new Views.ListingView({
 		collection: publicCollection,
-		el: $('#public-listing')[0]
+		el: document.getElementById('public-section')
 	});
 
 	yourCollection.add({
