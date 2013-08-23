@@ -33,6 +33,11 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 /**
+ * Allow different file extensions to yield different types of responses.
+ */
+	Router::parseExtensions('html', 'json');
+
+/**
  * Load all plugin routes. See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
