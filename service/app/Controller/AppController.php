@@ -58,4 +58,23 @@ class AppController extends Controller
 		//Currently, logged-in users can do everything.
 		return !empty($user);
 	}
+	
+	public function checkFacebookAuthToken()
+	{
+		if (!isset($this->request->query['auth']))
+		{
+			throw new ForbiddenException();
+		}
+
+		$info = FB::api(sprintf('/debug_token?input_token={%s}&access_token={%s}',
+			$this->request->query['auth']['accessToken'],
+			Configure::read('Facebook.appId') . '|' . Configure::read('Facebook.secret')));
+		if (isset($info['data']['error']))
+		{
+			//Invalid token.
+			throw new ForbiddenException();
+		}
+		
+		//TODO: Check that the token belongs to us!
+	}
 }
