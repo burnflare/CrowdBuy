@@ -31,7 +31,10 @@ Models.SearchItem = Backbone.Model.extend({
     },
 	initialize: function() {
 
-	}
+	},
+    parse: function(response, options) {
+        return response;
+    }
 });
 
 Models.SearchResults = Backbone.Collection.extend({
