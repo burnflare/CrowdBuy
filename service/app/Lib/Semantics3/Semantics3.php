@@ -38,9 +38,15 @@ class Semantics3
 	 * 
 	 * @param string $type The type of query.
 	 * @param stdClass $query An object with the query parameters.
+	 * @param integer $start The offset for results to start from
+	 * @param integer $limit The number of matches to return, starting from the
+	 *        $start value.
 	 */
-	private function query($type, $query)
+	private function query($type, $query, $start = 0, $limit = 20)
 	{
+		$query->offset = $start;
+		$query->limit = $limit;
+
 		$request = new OAuthRequester(self::URI . $type . '?q=' . json_encode($query), 'GET', '');
 		$result = $request->doRequest();
 		$response = $result['body'];
