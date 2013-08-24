@@ -1,62 +1,71 @@
-$(function() {
-	$.ajaxSetup({ cache: true });
-	$.getScript('//connect.facebook.net/en_US/all.js', function(){
-		FB.init({
-		  appId: '509825915758193',
-		  channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
-		});     
-		
-		$('#loginbutton,#feedbutton').removeAttr('disabled');
-
-		FB.getLoginStatus(authenticationCallback);
+define(['jquery', 'underscore', 'backbone', 'text!../../templates/main.html', 'facebook'], function($, _, Backbone, mainTemplate, FB) {
+	var Main = Backbone.View.extend({
+		initialize: function() {
+			this.$el.html(_.template(mainTemplate, {}));
+		}
 	});
+
+	return Main;
 });
+	// $(function() {
+	// 	$.ajaxSetup({ cache: true });
+	// 	$.getScript('//connect.facebook.net/en_US/all.js', function(){
+	// 		FB.init({
+	// 		  appId: '509825915758193',
+	// 		  channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
+	// 		});     
+			
+	// 		$('#loginbutton,#feedbutton').removeAttr('disabled');
 
-function authenticationCallback(response) {
-	if (response.status === 'connected') {
-		// Handle authentication here.
-        setUpBackbone();
-	} else {
-		alert("Whoa, something went wrong! Try refreshing this page.");
-	}
-}
+	// 		FB.getLoginStatus(authenticationCallback);
+	// 	});
+	// });
 
-function setUpBackbone() {
-	yourCollection = new Models.Wants();
-	friendCollection = new Models.Wants();
-	featuredCollection = new Models.Wants();
-	publicCollection = new Models.Wants();
+	// function authenticationCallback(response) {
+	// 	if (response.status === 'connected') {
+	// 		// Handle authentication here.
+	//         setUpBackbone();
+	// 	} else {
+	// 		alert("Whoa, something went wrong! Try refreshing this page.");
+	// 	}
+	// }
 
-	yourView = new Views.ListingView({
-		collection: yourCollection,
-		el: document.getElementById('you-section'),
-		id: "you"
-	});
+	// function setUpBackbone() {
+	// 	yourCollection = new Models.Wants();
+	// 	friendCollection = new Models.Wants();
+	// 	featuredCollection = new Models.Wants();
+	// 	publicCollection = new Models.Wants();
 
-	friendView = new Views.ListingView({
-		collection: friendCollection,
-		el: document.getElementById('friend-section'),
-		id: "friend"
-	});
+	// 	yourView = new Views.ListingView({
+	// 		collection: yourCollection,
+	// 		el: document.getElementById('you-section'),
+	// 		id: "you"
+	// 	});
 
-	featuredView = new Views.ListingView({
-		collection: featuredCollection,
-		el: document.getElementById('featured-section'),
-		id: "featured"
-	});
+	// 	friendView = new Views.ListingView({
+	// 		collection: friendCollection,
+	// 		el: document.getElementById('friend-section'),
+	// 		id: "friend"
+	// 	});
 
-	publicView = new Views.ListingView({
-		collection: publicCollection,
-		el: document.getElementById('public-section'),
-		id: "public"
-	});
+	// 	featuredView = new Views.ListingView({
+	// 		collection: featuredCollection,
+	// 		el: document.getElementById('featured-section'),
+	// 		id: "featured"
+	// 	});
 
-	yourCollection.fetch({ data: $.param({ type:'you' }) });
-    friendCollection.fetch({ data: $.param({ type:'friend' }) });
-    featuredCollection.fetch({ data: $.param({ type:'featured' }) });
-    publicCollection.fetch({ data: $.param({ type:'public' }) });
+	// 	publicView = new Views.ListingView({
+	// 		collection: publicCollection,
+	// 		el: document.getElementById('public-section'),
+	// 		id: "public"
+	// 	});
 
-	FB.api('/me', function(response) {
-		$('#welcome').html('Welcome, ' + response.name + '!');
-	});
-}
+	// 	yourCollection.fetch({ data: $.param({ type:'you' }) });
+	//     friendCollection.fetch({ data: $.param({ type:'friend' }) });
+	//     featuredCollection.fetch({ data: $.param({ type:'featured' }) });
+	//     publicCollection.fetch({ data: $.param({ type:'public' }) });
+
+	// 	FB.api('/me', function(response) {
+	// 		$('#welcome').html('Welcome, ' + response.name + '!');
+	// 	});
+	// }
