@@ -53,7 +53,7 @@ class MeController extends AppController
 			if ($this->ProductListingBuyers->save($this->request->data))
 			{
 				//Set a session flash message and redirect.
-				$this->Session->setFlash('Recipe Saved!');
+				$this->Session->setFlash('Want saved.');
 				$this->set('serialize', array());
 			}
 			else
