@@ -22,6 +22,8 @@
  */
 App::uses('Controller', 'Controller');
 
+App::import('Lib', 'Facebook');
+
 /**
  * Application Controller
  *
@@ -33,7 +35,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller
 {
-	public $helpers = array('Js', 'Facebook.Facebook');
+	public $helpers = array('Js');
 	public $components = array('Session',
 		'Auth'				 => array(
 			'authenticate'	 => array(
@@ -46,4 +48,10 @@ class AppController extends Controller
 			'loginAction'	 => 'me/login'
 		),
 	);
+	
+	public function isAuthorized($user)
+	{
+		//Currently, logged-in users can do everything.
+		return !empty($user);
+	}
 }
