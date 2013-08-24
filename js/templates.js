@@ -15,3 +15,9 @@ Templates.ItemListingTemplate = _.template('\
 			<button type="button" id="btn-pledge" class="btn btn-default pull-right">I\'m in!</button>\
 		</div>\
 	</div>');
+
+Templates.EmptyListingTemplate = _.template('\
+	<div class="item">\
+		<h3>Nothing\'s here yet. :(</h3>\
+	</div>\
+	');
