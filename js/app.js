@@ -17,7 +17,10 @@ requirejs.config({
 		"underscore": "libs/underscore.min",
 		"backbone": "libs/backbone.min",
 		"json": "libs/json2",
-		"text": "libs/text"
+		"text": "libs/text",
+
+		'models': 'app/models/index',
+		'model_want', 'app/models/want'
 	}
 });
 
