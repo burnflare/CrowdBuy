@@ -36,6 +36,7 @@ requirejs(["jquery", "underscore", "backbone", "views"], function($, _, Backbone
 		el: $('#page-content')
 	});
 	new Views.SearchForm({
-		el: $('search-section')
+		el: $('search-section'),
+		id: 'search'
 	});
 });
