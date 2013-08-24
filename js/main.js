@@ -74,6 +74,6 @@ function setUpBackbone() {
 	});
 
 	FB.api('/me', function(response) {
-		$('#welcome').html('Welcome, ' + response.name);
+		$('#welcome').html('Welcome, ' + response.name + '!');
 	});
 }
