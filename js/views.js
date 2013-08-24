@@ -48,7 +48,7 @@ Views.ListingView = Backbone.View.extend({
 
 	addItemClick: function() {
 		
-	}
+	},
 
 	_addViewForModel: function(item) {
 		this.childViews.push(new Views.ItemView({
