@@ -64,25 +64,3 @@ Views.ListingView = Backbone.View.extend({
 	}
 });
 
-Views.ItemView = Backbone.View.extend({
-	template: Templates.ItemListingTemplate,
-
-	events: {
-		"click button#btn-pledge" : "pledgeClick"
-	},
-
-	pledgeClick: function() {
-		
-	},
-
-	initialize: function() {
-		this.listenTo(this.model, "change", this.render);
-		this.id = "item-" + this.model.attributes.id;
-	},
-
-	render: function() {
-		this.$el.html(this.template(this.model.attributes));
-		return this;
-	}
-});
-

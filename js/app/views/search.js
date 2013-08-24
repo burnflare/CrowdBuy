@@ -1,7 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 
 	'text!./app/views/templates/search-form.html', 
-	'text!./app/views/templates/empty-search-template.html', 
-	'text!./app/views/templates/search-listing-template.html',
+	'text!./app/views/templates/search-empty.html', 
+	'text!./app/views/templates/search-listing.html',
 	'models'], function($, _, Backbone, searchFormTemplate, emptySearchTemplate, searchListingTemplate, Models) {
 	var Views = {};
 
