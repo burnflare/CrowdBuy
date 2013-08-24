@@ -15,13 +15,13 @@ $(function() {
 function authenticationCallback(response) {
 	if (response.status === 'connected') {
 		// Handle authentication here.
-        setUpBackbone(response.authResponse);
+        setUpBackbone();
 	} else {
 		alert("Whoa, something went wrong! Try refreshing this page.");
 	}
 }
 
-function setUpBackbone(auth) {
+function setUpBackbone() {
 	yourCollection = new Models.Wants();
 	friendCollection = new Models.Wants();
 	featuredCollection = new Models.Wants();
@@ -51,10 +51,10 @@ function setUpBackbone(auth) {
 		id: "public"
 	});
 
-	yourCollection.fetch({ data: $.param({ type:'you', auth:auth }) });
-    friendCollection.fetch({ data: $.param({ type:'friend', auth:auth }) });
-    featuredCollection.fetch({ data: $.param({ type:'featured', auth:auth }) });
-    publicCollection.fetch({ data: $.param({ type:'public', auth:auth }) });
+	yourCollection.fetch({ data: $.param({ type:'you' }) });
+    friendCollection.fetch({ data: $.param({ type:'friend' }) });
+    featuredCollection.fetch({ data: $.param({ type:'featured' }) });
+    publicCollection.fetch({ data: $.param({ type:'public' }) });
 
 	FB.api('/me', function(response) {
 		$('#welcome').html('Welcome, ' + response.name + '!');
