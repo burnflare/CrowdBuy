@@ -21,26 +21,6 @@ Templates.EmptyListingTemplate = _.template('\
 		<h3 class="centered">Nothing\'s here yet. :(</h3>\
 	</div>\
 	');
-Templates.SearchFormTemplate = _.template('\
-    <div class="background-panel">\
-    	<div class="input-group">\
-    		<input id="txt-search" type="text" class="form-control" placeholder="What do you want to buy?" />\
-    		<a id="btn-search" class="input-group-addon btn">Find it!</a>\
-    	</div>\
-    </div>\
-    <div id="search-results" class="hide">\
-    	<div class="row">\
-    		<div id="search-section" class="section">\
-    			<h3 class="section-header">\
-    				SEARCH RESULTS FOR ""\
-    			</h3>\
-    			<div id="search-listing" class="item-listing">\
-		            \
-    			</div>\
-    		</div>\
-    	</div>\
-    </div>\
-    ');
 Templates.SearchListingTemplate = _.template('\
 	<div class="item media">\
 		<div class="media-body">\
