@@ -11,7 +11,7 @@ Views.ListingView = Backbone.View.extend({
 	},
 
 	events: {
-		"click h3.section-header" : "headingClicked"
+		
 	},
 
 	render: function() {
@@ -44,10 +44,6 @@ Views.ListingView = Backbone.View.extend({
 	collectionChanged: function() {
 		this.childViews = [];
 		this._addAllModels();
-	},
-
-	headingClicked: function() {
-		console.log();
 	},
 
 	_addViewForModel: function(item) {
