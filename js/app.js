@@ -20,7 +20,8 @@ requirejs.config({
 		"text": "libs/text",
 
 		'models': 'app/models/index',
-		'model_want', 'app/models/want'
+		'model_want', 'app/models/want',
+		'model_wants', 'app/models/wants'
 	}
 });
 

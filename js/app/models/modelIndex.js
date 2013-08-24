@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'model_want'], function($, _, Backbone) {
+define(['jquery', 'underscore', 'backbone', 'model_want', 'model_wants'], function($, _, Backbone) {
 
 	var Models = {};
 
