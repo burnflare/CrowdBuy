@@ -21,4 +21,12 @@ class ProductsController extends AppController
 	 * @var array
 	 */
 	public $uses = array();
+	
+	/**
+	 * Searches for a product like the given string.
+	 */
+	public function search($description)
+	{
+		Semantics3::search($description);
+	}
 }
