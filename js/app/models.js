@@ -21,14 +21,14 @@ Models.Wants = Backbone.Collection.extend({
     url: '/service/me/wants',
 	model: Models.ItemListing
 });
-
+/*
 Models.SearchItem = Backbone.Model.extend({
     defaults: {
         id: '',
         productId: '',
         category: '',
         name: '',
-        price: '',
+        price: ''
     },
 	initialize: function() {
 
@@ -38,4 +38,4 @@ Models.SearchItem = Backbone.Model.extend({
 Models.SearchResults = Backbone.Collection.extend({
     url: '/service/products/results/',
     model: Models.SearchItem
-});
+});*/
