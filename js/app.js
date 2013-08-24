@@ -21,7 +21,9 @@ requirejs.config({
 
 		'models': 'app/models/index',
 		'model_want', 'app/models/want',
-		'model_wants', 'app/models/wants'
+		'model_wants', 'app/models/wants',
+		'model_search_item', 'app/models/searchItem',
+		'model_search_results', 'app/models/searchResults'
 	}
 });
 
