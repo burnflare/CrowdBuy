@@ -48,4 +48,14 @@ class Person extends AppModel
 		
 		return $this->ProductListing->findByCreatorId($friend_ids);
 	}
+	
+	/**
+	 * Gets suggested products for the given person.
+	 * 
+	 * @param string $id
+	 */
+	public function suggestions($id)
+	{
+		return $this->ProductSuggestion->findAllByPersonId($id);
+	}
 }

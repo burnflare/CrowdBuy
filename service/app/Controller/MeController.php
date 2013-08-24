@@ -16,11 +16,15 @@ class MeController extends AppController
 	public $name = 'Me';
 
 	/**
-	 * This controller does not use a model
+	 * The models this controller uses
 	 *
 	 * @var array
 	 */
-	public $uses = array('Person', 'ProductListingBuyers');
+	public $uses = array(
+		'Person',
+		'ProductListingBuyers',
+		'ProductSuggestion'
+	);
 	
 	public function login()
 	{
@@ -62,6 +66,9 @@ class MeController extends AppController
 		}
 	}
 	
+	/**
+	 * Get a list of items my friends want to buy.
+	 */
 	public function friendsWants()
 	{
 		$this->set('listings',
@@ -70,10 +77,12 @@ class MeController extends AppController
 	}
 	
 	/**
-	 * Gets a list of requests my friends want me to buy.
+	 * Gets a list of products recommended.
 	 */
-	public function requests()
+	public function recommended()
 	{
-		
+		$this->set('products',
+			$this->Person->suggestions($this->Auth->user('id')));
+		$this->set('_serialize', array('products'));
 	}
 }
