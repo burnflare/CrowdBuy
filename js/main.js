@@ -14,7 +14,7 @@ $(function() {
 
 function authenticationCallback(response) {
 	if (response.status === 'connected') {
-		console.log(response);
+		// Handle authentication here.
 		setUpBackbone();
 	} else {
 		alert("Whoa, something went wrong! Try refreshing this page.");
