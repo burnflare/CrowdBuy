@@ -31,14 +31,15 @@ function setUpBackbone() {
     
     searchFormView = new Views.SearchFormView({
         el: document.getElementById('search-section'),
-        id: "search"
+        id: "search-section"
     });
+    searchFormView.render();
     
-    /*searchListingView = new Views.SearchListingView({
+    searchListingView = new Views.SearchListingView({
         collection: searchCollection,
         el: document.getElementById('search-results'),
         id: "search-results"
-    });*/
+    });
 
 	yourView = new Views.ListingView({
 		collection: yourCollection,
