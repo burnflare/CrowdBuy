@@ -51,10 +51,10 @@ function setUpBackbone() {
 		id: "public"
 	});
 
-	yourCollection.fetch({ type:'you' });
-    friendCollection.fetch({ type:'friend' });
-    featuredCollection.fetch({ type:'featured' });
-    publicCollection.fetch({ type:'public' });
+	yourCollection.fetch({ data: $.param({ type:'you' }) });
+    friendCollection.fetch({ data: $.param({ type:'friend' }) });
+    featuredCollection.fetch({ data: $.param({ type:'featured' }) });
+    publicCollection.fetch({ data: $.param({ type:'public' }) });
 
 	FB.api('/me', function(response) {
 		$('#welcome').html('Welcome, ' + response.name + '!');
