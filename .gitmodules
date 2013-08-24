@@ -2,5 +2,5 @@
 	path = service/cakephp
 	url = git@github.com:cakephp/cakephp.git
 [submodule "service/app/Plugin/facebook"]
-	path = service/app/Plugin/Facebook
+	path = service/app/Plugin/facebook
 	url = git@github.com:webtechnick/CakePHP-Facebook-Plugin.git
