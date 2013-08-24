@@ -17,9 +17,13 @@ Views.ListingView = Backbone.View.extend({
 	render: function() {
 		var fragment = document.createDocumentFragment();
 
-		_(this.childViews).each(function(currentView) {
-			fragment.appendChild(currentView.render().el);
-		});
+		if(this.childViews.length >= 0) {
+			_(this.childViews).each(function(currentView) {
+				fragment.appendChild(currentView.render().el);
+			});
+		} else {
+			fragment.appendChild(Templates.EmptyListingTemplate());
+		}
 
 		this.$('.item-listing').html(fragment);
 		return this;
