@@ -6,6 +6,7 @@ App::uses('AppModel', 'Model');
  */
 class Person extends AppModel
 {
+	public $primaryKey = 'facebook_id';
 	public $hasMany = array(
 		'ProductListing' => array(
 			'className' => 'ProductListing',
