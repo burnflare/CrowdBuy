@@ -10,7 +10,7 @@
 	    // init the FB JS SDK
 	    FB.init({
 	      appId      : '509825915758193',                        // App ID from the app dashboard
-	      channelUrl : '//http://54.251.105.40//channel.html', // Channel file for x-domain comms
+	      channelUrl : '//http://crowdbuy.fuzzie.sg//channel.html', // Channel file for x-domain comms
 	      status     : true,                                 // Check Facebook Login status
 	      cookie	 : true,
 	      xfbml      : true                                  // Look for social plugins on the page
@@ -19,7 +19,7 @@
 	    // Additional initialization code such as adding Event Listeners goes here
 	    FB.Event.subscribe('auth.authResponseChange', function(response) {
 	    	if (response.status === 'connected') {
-	    		// Success.
+	    		// Success. Redirect to main page.
 	    	} else if (response.status === 'not_authorized') {
 	    		// Logged in to Facebook, but not the app.
 	    		FB.login();
