@@ -14,6 +14,7 @@ $(function() {
 
 function authenticationCallback(response) {
 	if (response.status === 'connected') {
+		// Handle authentication here.
 		setUpBackbone();
 	} else {
 		alert("Whoa, something went wrong! Try refreshing this page.");
@@ -74,6 +75,6 @@ function setUpBackbone() {
 	});
 
 	FB.api('/me', function(response) {
-		$('#welcome').html('Welcome, ' + response.name);
+		$('#welcome').html('Welcome, ' + response.name + '!');
 	});
 }
