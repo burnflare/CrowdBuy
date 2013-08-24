@@ -1,4 +1,3 @@
-document.domain = "facebook.com";
 $(function() {
 	yourCollection = new Models.ItemListings();
 	friendCollection = new Models.ItemListings();
