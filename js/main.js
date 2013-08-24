@@ -1,13 +1,13 @@
 $(function() {
 	$.ajaxSetup({ cache: true });
-	  $.getScript('//connect.facebook.net/en_US/all.js', function(){
-	    FB.init({
-	      appId: '509825915758193',
-	      channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
-	    });     
-	    $('#loginbutton,#feedbutton').removeAttr('disabled');
-	    FB.getLoginStatus(updateStatusCallback);
-	  });
+	$.getScript('//connect.facebook.net/en_US/all.js', function(){
+	FB.init({
+	  appId: '509825915758193',
+	  channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
+	});     
+	$('#loginbutton,#feedbutton').removeAttr('disabled');
+	FB.getLoginStatus(updateStatusCallback);
+	});
 
 	yourCollection = new Models.ItemListings();
 	friendCollection = new Models.ItemListings();
