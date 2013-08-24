@@ -28,9 +28,9 @@ Templates.SearchFormTemplate = _.template('\
     		<a id="btn-search" class="input-group-addon btn">Find it!</a>\
     	</div>\
     </div>\
-    <div id="search-results" class="hide">\
+    <div id="search-results" style="display:none">\
     	<div class="row">\
-    		<div id="search-section" class="section">\
+    		<div id="search-section" class="col-sm-12 section">\
     			<h3 class="section-header">\
     				SEARCH RESULTS FOR ""\
     			</h3>\
