@@ -1,3 +1,4 @@
+<?php
 $config = array(
     'Facebook' => array(
         'appId'  => 'YOUR_APP_ID',
