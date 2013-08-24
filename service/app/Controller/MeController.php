@@ -33,8 +33,7 @@ class MeController extends AppController
 	 */
 	public function wants()
 	{
-		var_dump($this->Person->findByFacebookId($this->Auth->user('id')));
-		var_dump($this->Person->listings($this->Auth->user('id')));
+		$this->Person->listings($this->Auth->user('id'));
 		$this->set(compact('posts', 'comments'));
 		$this->set('_serialize', array('posts', 'comments'));
 	}
@@ -54,7 +53,7 @@ class MeController extends AppController
 			{
 				//Set a session flash message and redirect.
 				$this->Session->setFlash('Want saved.');
-				$this->set('serialize', array());
+				$this->set('_serialize', array());
 			}
 			else
 			{

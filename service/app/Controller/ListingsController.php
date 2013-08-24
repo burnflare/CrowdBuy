@@ -35,7 +35,7 @@ class ListingsController extends AppController
 			{
 				//Set a session flash message and redirect.
 				$this->Session->setFlash('Listing saved.');
-				$this->set('serialize', array());
+				$this->set('_serialize', array());
 			}
 			else
 			{
