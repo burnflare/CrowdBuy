@@ -7,7 +7,8 @@ App::uses('AppModel', 'Model');
 class Product extends AppModel
 {
 	public $hasMany = array(
-		'ProductListing'
+		'ProductListing',
+		'ProductSuggestion'
 	);
 	
 	/**

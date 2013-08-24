@@ -10,9 +10,9 @@ class Person extends AppModel
 
 	public $hasMany = array(
 		'ProductListing' => array(
-			'className' => 'ProductListing',
 			'foreignKey' => 'creator'
-		)
+		),
+		'ProductSuggestion'
 	);
 
 	public $hasAndBelongsToMany = array(
