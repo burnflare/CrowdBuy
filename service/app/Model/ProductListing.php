@@ -4,7 +4,8 @@ App::uses('AppModel', 'Model');
 /**
  * Product Listing Model
  */
-class ProductListing extends AppModel {
+class ProductListing extends AppModel
+{
 	public $hasMany = array(
 		'Comment' => array(
 			'className' => 'ProductListingComment',

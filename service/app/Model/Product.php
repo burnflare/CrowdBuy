@@ -4,11 +4,12 @@ App::uses('AppModel', 'Model');
 /**
  * Product model
  */
-class Product extends AppModel {
+class Product extends AppModel
+{
 	public $hasAndBelongsToMany = array(
 		'Person' => array(
 			'className' => 'Person',
-			'joinTable' => 'ProductListings',
+			'joinTable' => 'productlistings',
 			'foreignKey' => 'product_id',
 			'associationForeignKey' => 'person_id',
 			'unique' => true
@@ -18,7 +19,8 @@ class Product extends AppModel {
 	/**
 	 * Gets the listings by the given person.
 	 */
-	public function listings(Person $for) {
+	public function listings(Person $for)
+	{
 		return $this->ProductListings->findByPerson($for);
 	}
 }

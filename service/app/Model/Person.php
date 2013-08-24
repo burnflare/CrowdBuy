@@ -4,7 +4,8 @@ App::uses('AppModel', 'Model');
 /**
  * Person model
  */
-class Person extends AppModel {
+class Person extends AppModel
+{
 	public $hasMany = array(
 		'ProductListing' => array(
 			'className' => 'ProductListing',
@@ -17,7 +18,8 @@ class Person extends AppModel {
 	 * 
 	 * @param string $id
 	 */
-	public function listings($id) {
+	public function listings($id)
+	{
 		return $this->ProductListing->findById($id);
 	}
 }
