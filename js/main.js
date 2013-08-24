@@ -53,8 +53,8 @@ function setUpBackbone() {
 
 	yourCollection.fetch({ type:'you' });
     friendCollection.fetch({ type:'friend' });
-    featuredCollection.fetch( type:'featured' );
-    publicCollection.fetch( type:'public' );
+    featuredCollection.fetch({ type:'featured' });
+    publicCollection.fetch({ type:'public' });
 
 	FB.api('/me', function(response) {
 		$('#welcome').html('Welcome, ' + response.name + '!');
