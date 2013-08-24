@@ -17,10 +17,12 @@ class Product extends AppModel
 	);
 	
 	/**
-	 * Gets the listings by the given person.
+	 * Gets the listings about the given product ID.
+	 * 
+	 * @param string $id The EAN ID.
 	 */
-	public function listings(Person $for)
+	public function listings($id)
 	{
-		return $this->ProductListings->findByPerson($for);
+		return $this->ProductListings->findByProductId($for);
 	}
 }

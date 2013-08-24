@@ -21,6 +21,6 @@ class Person extends AppModel
 	 */
 	public function listings($id)
 	{
-		return $this->ProductListing->findById($id);
+		return $this->ProductListing->findByCreatorId($id);
 	}
 }
