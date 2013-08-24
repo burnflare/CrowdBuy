@@ -29,10 +29,10 @@ function setUpBackbone() {
 	featuredCollection = new Models.Wants();
 	publicCollection = new Models.Wants();
     
-    searchFormView = new Views.SearchFormView({
+    /*searchFormView = new Views.SearchFormView({
         el: document.getElementById('search-section'),
         id: "search"
-    });
+    });*/
     
     /*searchListingView = new Views.SearchListingView({
         collection: searchCollection,
