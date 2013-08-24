@@ -86,7 +86,6 @@ Views.ItemView = Backbone.View.extend({
 	}
 });
 
-/*
 Views.SearchFormView = Backbone.View.extend({
 	template: Templates.SearchFormTemplate,
 
@@ -176,4 +175,4 @@ Views.SearchView = Backbone.View.extend({
 		this.$el.html(this.template(this.model.attributes));
 		return this;
 	}
-});*/
+});
