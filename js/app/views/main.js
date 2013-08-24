@@ -1,4 +1,7 @@
-define(['jquery', 'underscore', 'backbone', 'text!./app/views/templates/main.html', 'models', 'facebook'], function($, _, Backbone, mainTemplate, Models) {
+define(['jquery', 'underscore', 'backbone', 
+	'text!./app/views/templates/main.html',
+	'text!./app/views/templates/item-listing-empty.html',
+	'models', 'facebook'], function($, _, Backbone, mainTemplate, itemListingEmptyTemplate, Models) {
 	var Views = {};
 	Views.Main = Backbone.View.extend({
 		initialize: function() {
@@ -104,7 +107,7 @@ define(['jquery', 'underscore', 'backbone', 'text!./app/views/templates/main.htm
 					fragment.appendChild(currentView.render().el);
 				});
 			} else {
-				$(Templates.EmptyListingTemplate()).appendTo(fragment);
+				$(itemListingEmptyTemplate).appendTo(fragment);
 			}
 
 			this.$('.item-listing').html(fragment);
