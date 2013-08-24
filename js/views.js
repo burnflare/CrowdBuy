@@ -11,7 +11,7 @@ Views.ListingView = Backbone.View.extend({
 	},
 
 	events: {
-		
+		"click span#add-item" : "addItemClick"
 	},
 
 	render: function() {
@@ -45,6 +45,10 @@ Views.ListingView = Backbone.View.extend({
 		this.childViews = [];
 		this._addAllModels();
 	},
+
+	addItemClick: function() {
+		
+	}
 
 	_addViewForModel: function(item) {
 		this.childViews.push(new Views.ItemView({
