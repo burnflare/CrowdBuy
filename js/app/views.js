@@ -106,8 +106,8 @@ Views.SearchFormView = Backbone.View.extend({
         this.searchCollection = new Models.SearchResults();
         this.searchListingView = new Views.SearchListingView({
             collection: this.searchCollection,
-            el: '#search-results',
-            id: 'search-results'
+            el: '#search-listing',
+            id: 'search-listing'
         });
 	},
     
