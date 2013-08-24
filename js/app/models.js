@@ -37,5 +37,8 @@ Models.SearchItem = Backbone.Model.extend({
 
 Models.SearchResults = Backbone.Collection.extend({
     url: '/service/products/results/',
-    model: Models.SearchItem
+    model: Models.SearchItem,
+    parse: function(response, options) {
+        console.log(response);
+    }
 });
