@@ -22,7 +22,7 @@ Views.ListingView = Backbone.View.extend({
 				fragment.appendChild(currentView.render().el);
 			});
 		} else {
-			fragment.appendChild(Templates.EmptyListingTemplate());
+			$(Templates.EmptyListingTemplate()).appendTo(fragment);
 		}
 
 		this.$('.item-listing').html(fragment);
