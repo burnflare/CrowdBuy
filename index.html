@@ -1,45 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>CrowdBuy Login</title>
+	<title>CrowdBuy</title>
+	<link href='http://fonts.googleapis.com/css?family=Raleway:300,400' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./css/custom-theme.css" />
 </head>
 <body>
 	<div id="fb-root"></div>
 	<script>
-	  window.fbAsyncInit = function() {
-	    // init the FB JS SDK
-	    FB.init({
-	      appId      : '509825915758193',                        // App ID from the app dashboard
-	      channelUrl : '//http://crowdbuy.sapuan.org/channel.html', // Channel file for x-domain comms
-	      status     : true,                                 // Check Facebook Login status
-	      cookie	 : true,
-	      xfbml      : true                                  // Look for social plugins on the page
-	    });
+		window.fbAsyncInit = function() {
+		// init the FB JS SDK
+		FB.init({
+		appId : '509825915758193', // App ID from the app dashboard
+		channelUrl : '//http://crowdbuy.sapuan.org/channel.html', // Channel file for x-domain comms
+		status : true, // Check Facebook Login status
+		cookie	: true,
+		xfbml : true // Look for social plugins on the page
+		});
 
-	    // Additional initialization code such as adding Event Listeners goes here
-	    FB.Event.subscribe('auth.authResponseChange', function(response) {
-	    	if (response.status === 'connected') {
-	    		// Success. Redirect to main page.
-	    		location.href = "./main.html"
-	    	} else if (response.status === 'not_authorized') {
-	    		// Logged in to Facebook, but not the app.
-	    		FB.login();
-	    	} else {
-	    		// Not logged in to Facebook at all.
-	    		FB.login();
-	    	}
-	    });
-	  };
+		// Additional initialization code such as adding Event Listeners goes here
+		FB.Event.subscribe('auth.authResponseChange', function(response) {
+		if (response.status === 'connected') {
+		// Success. Redirect to main page.
+		location.href = "./main.html"
+		} else if (response.status === 'not_authorized') {
+		// Logged in to Facebook, but not the app.
+		FB.login();
+		} else {
+		// Not logged in to Facebook at all.
+		FB.login();
+		}
+		});
+		};
 
-	  // Load the SDK asynchronously
-	  (function(d, s, id){
-	     var js, fjs = d.getElementsByTagName(s)[0];
-	     if (d.getElementById(id)) {return;}
-	     js = d.createElement(s); js.id = id;
-	     js.src = "//connect.facebook.net/en_US/all.js";
-	     fjs.parentNode.insertBefore(js, fjs);
-	   }(document, 'script', 'facebook-jssdk'));
-	</script>
+		// Load the SDK asynchronously
+		(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/all.js";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		</script>
 
 	<fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
 </body>
