@@ -16,6 +16,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .section-header {
 	border-bottom: 1px solid #919191;
+	cursor: pointer;
+}
+.section-header:hover{
+	color: blue;
 }
 
 .item-listing {
@@ -30,9 +34,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .item {
 	border: 1px solid #919191;
-	height: 120px;
+	padding: 6px;
 }
 
-.item img {
-	margin: 6px;
+.glyphicon {
+	margin-right: 6px;
 }
