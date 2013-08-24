@@ -6,6 +6,15 @@ App::uses('AppModel', 'Model');
  */
 class ProductListing extends AppModel
 {
+	public $hasAndBelongsToMany = array(
+		'Buyer' => array(
+			'className' => 'Person',
+			'joinTable' => 'product_listing_buyers',
+			'associationForeignKey' => 'person_id',
+			'unique' => true
+		)
+	);
+
 	public $hasMany = array(
 		'Comment' => array(
 			'className' => 'ProductListingComment',

@@ -6,14 +6,8 @@ App::uses('AppModel', 'Model');
  */
 class Product extends AppModel
 {
-	public $hasAndBelongsToMany = array(
-		'Person' => array(
-			'className' => 'Person',
-			'joinTable' => 'productlistings',
-			'foreignKey' => 'product_id',
-			'associationForeignKey' => 'person_id',
-			'unique' => true
-		)
+	public $hasMany = array(
+		'ProductListing'
 	);
 	
 	/**
@@ -23,6 +17,6 @@ class Product extends AppModel
 	 */
 	public function listings($id)
 	{
-		return $this->ProductListings->findByProductId($for);
+		return $this->ProductListing->findByProductId($for);
 	}
 }

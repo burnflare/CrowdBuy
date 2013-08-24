@@ -7,10 +7,20 @@ App::uses('AppModel', 'Model');
 class Person extends AppModel
 {
 	public $primaryKey = 'facebook_id';
+
 	public $hasMany = array(
 		'ProductListing' => array(
 			'className' => 'ProductListing',
 			'foreignKey' => 'creator'
+		)
+	);
+
+	public $hasAndBelongsToMany = array(
+		'Buys' => array(
+			'className' => 'ProductListing',
+			'joinTable' => 'product_listing_buyers',
+			'associationForeignKey' => 'product_listing_id',
+			'unique' => true
 		)
 	);
 	
