@@ -25,8 +25,19 @@ class ProductsController extends AppController
 	/**
 	 * Searches for a product like the given string.
 	 */
-	public function search($description)
+	public function search($description, $start = 0)
 	{
-		Semantics3::search($description);
+		$result = Semantics3::search($description, $start);
+		$display = (object)array(
+			'total_results_count' => $result->total_results_count,
+			'results' => array_map(function($item) {
+				$item->id = $item->sem3_id;
+				unset($item->sem3_id);
+				return $item;
+			}, $result->results)
+		);
+		
+		$this->set(array('result' => &$display));
+		$this->set('_serialize', array('result'));
 	}
 }

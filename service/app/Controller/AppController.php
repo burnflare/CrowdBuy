@@ -24,6 +24,7 @@ App::uses('Controller', 'Controller');
 App::uses('Semantics3', 'Semantics3');
 
 App::import('Lib', 'Facebook');
+App::uses('FB', 'Facebook.Lib');
 
 /**
  * Application Controller
@@ -36,7 +37,7 @@ App::import('Lib', 'Facebook');
  */
 class AppController extends Controller
 {
-	public $helpers = array('Js');
+	public $helpers = array('Js', 'Facebook.Facebook');
 	public $components = array('Session',
 		'Auth'				 => array(
 			'authenticate'	 => array(
@@ -48,6 +49,8 @@ class AppController extends Controller
 			'model'			 => 'Person',
 			'loginAction'	 => 'me/login'
 		),
+		'Facebook.Connect',
+		'RequestHandler'
 	);
 	
 	public function isAuthorized($user)

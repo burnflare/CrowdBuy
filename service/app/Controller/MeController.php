@@ -20,7 +20,7 @@ class MeController extends AppController
 	 *
 	 * @var array
 	 */
-	public $uses = array('Person');
+	public $uses = array('Person', 'ProductListingBuyers');
 	
 	public function login()
 	{
@@ -37,6 +37,35 @@ class MeController extends AppController
 		var_dump($this->Person->listings($this->Auth->user('id')));
 		$this->set(compact('posts', 'comments'));
 		$this->set('_serialize', array('posts', 'comments'));
+	}
+	
+	/**
+	 * Tells the server the user wants something.
+	 * 
+	 * @param string $productListing The product listing ID the user wants.
+	 */
+	public function want()
+	{
+		if ($this->request->is('post'))
+		{
+			//If the form data can be validated and saved...
+			$this->request->data['person_id'] = $this->Auth->user('id');
+			if ($this->ProductListingBuyers->save($this->request->data))
+			{
+				//Set a session flash message and redirect.
+				$this->Session->setFlash('Want saved.');
+				$this->set('serialize', array());
+			}
+			else
+			{
+				debug($this->Recipe->validationErrors);
+			}
+		}
+	}
+	
+	public function friendsWants()
+	{
+		$this->Person->friendListings($this->Auth->user('id'));
 	}
 	
 	/**
