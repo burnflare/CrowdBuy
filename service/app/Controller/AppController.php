@@ -24,6 +24,7 @@ App::uses('Controller', 'Controller');
 App::uses('Semantics3', 'Semantics3');
 
 App::import('Lib', 'Facebook');
+App::uses('FacebookApi', 'Facebook.Lib');
 
 /**
  * Application Controller
