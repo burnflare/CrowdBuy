@@ -96,7 +96,8 @@ Views.SearchFormView = Backbone.View.extend({
 	searchClick: function() {
         var search = $('#txt-search').val();
 		$('#search-results').show();
-        this.searchCollection.fetch({ data: $.param({ search:search }) });
+        this.searchCollection.url = '/service/products/results/' + search;
+        this.searchCollection.fetch();
 	},
     
 	initialize: function() {
