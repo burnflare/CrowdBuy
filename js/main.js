@@ -15,8 +15,6 @@ $(function() {
 function authenticationCallback(response) {
 	if (response.status === 'connected') {
 		// Handle authentication here.
-        console.log(response);
-        
 		setUpBackbone();
 	} else {
 		alert("Whoa, something went wrong! Try refreshing this page.");
@@ -24,10 +22,10 @@ function authenticationCallback(response) {
 }
 
 function setUpBackbone() {
-	yourCollection = new Models.ItemListings();
-	friendCollection = new Models.ItemListings();
-	featuredCollection = new Models.ItemListings();
-	publicCollection = new Models.ItemListings();
+	yourCollection = new Models.Wants();
+	friendCollection = new Models.Wants();
+	featuredCollection = new Models.Wants();
+	publicCollection = new Models.Wants();
 
 	yourView = new Views.ListingView({
 		collection: yourCollection,
@@ -53,8 +51,10 @@ function setUpBackbone() {
 		id: "public"
 	});
 
-	yourCollection.fetch({ type:'your' });
+	yourCollection.fetch({ type:'you' });
     friendCollection.fetch({ type:'friend' });
+    featuredCollection.fetch( type:'featured' );
+    publicCollection.fetch( type:'public' );
 
 	FB.api('/me', function(response) {
 		$('#welcome').html('Welcome, ' + response.name + '!');

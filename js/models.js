@@ -1,5 +1,5 @@
 var Models = {};
-Models.ItemListing = Backbone.Model.extend({
+Models.Want = Backbone.Model.extend({
     url: '/service/me/want',
 	defaults: {
 		id: '',
@@ -17,6 +17,7 @@ Models.ItemListing = Backbone.Model.extend({
 	}
 });
 
-Models.ItemListings = Backbone.Collection.extend({
+Models.Wants = Backbone.Collection.extend({
+    url: '/service/me/wants',
 	model: Models.ItemListing
 });
