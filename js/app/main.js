@@ -34,11 +34,11 @@ function setUpBackbone() {
         id: "search"
     });
     
-    searchListingView = new Views.SearchListingView({
+    /*searchListingView = new Views.SearchListingView({
         collection: searchCollection,
         el: document.getElementById('search-results'),
         id: "search-results"
-    });
+    });*/
 
 	yourView = new Views.ListingView({
 		collection: yourCollection,
