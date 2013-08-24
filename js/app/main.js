@@ -36,6 +36,12 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/main.html', 'f
 	// 	featuredCollection = new Models.Wants();
 	// 	publicCollection = new Models.Wants();
 
+   //  searchFormView = new Views.SearchFormView({
+    //     el: '#search-section',
+    //     id: 'search'
+    // });
+    // searchFormView.render();
+
 	// 	yourView = new Views.ListingView({
 	// 		collection: yourCollection,
 	// 		el: document.getElementById('you-section'),
