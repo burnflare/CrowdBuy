@@ -50,4 +50,8 @@ $(function() {
 		dateStart: new Date(2013, 8, 22),
 		dateEnd: new Date(2013, 9, 16)
 	});
+
+	FB.api('/me', function(response) {
+		$('#welcome').html('Welcome, ' + response.name);
+	});
 });
