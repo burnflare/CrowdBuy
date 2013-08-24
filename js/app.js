@@ -2,7 +2,14 @@ requirejs.config({
 	shim: {
 		'facebook' : {
 			export: 'FB'
-		}
+		},
+        'backbone': {
+            deps: ["underscore", "jquery"],
+            exports: "Backbone"
+        },
+        'underscore': {
+            exports: "_"
+        }
 	},
 	"paths": {
 		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min",
@@ -14,8 +21,8 @@ requirejs.config({
 	}
 });
 
-requirejs(["jquery", "underscore", "backbone", "app/login"], function($, _, Backbone, Login) {
-	new Login({
-		el: $('#application')
+requirejs(["jquery", "underscore", "backbone", "app/main"], function($, _, Backbone, Main) {
+	new Main({
+		el: $('#page-content')
 	});
 });
