@@ -19,19 +19,23 @@ requirejs.config({
 		"json": "libs/json2",
 		"text": "libs/text",
 
-		'models': 'app/models/index',
-		'model_want', 'app/models/want',
-		'model_wants', 'app/models/wants',
-		'model_search_item', 'app/models/searchItem',
-		'model_search_results', 'app/models/searchResults'
+		'models': 'app/models/modelIndex',
+		'model_want': 'app/models/want',
+		'model_wants': 'app/models/wants',
+		'model_search_item': 'app/models/searchItem',
+		'model_search_results': 'app/models/searchResults',
+
+		'views': 'app/views/viewIndex',
+		'view_main': 'app/views/main',
+		'view_search': 'app/views/search'
 	}
 });
 
-requirejs(["jquery", "underscore", "backbone", "app/views/main", "app/views/searchForm"], function($, _, Backbone, Main, SearchForm) {
-	new Main({
+requirejs(["jquery", "underscore", "backbone", "views"], function($, _, Backbone, Views) {
+	new Views.Main({
 		el: $('#page-content')
 	});
-	new SearchForm({
+	new Views.SearchForm({
 		el: $('search-section')
 	});
 });

@@ -1,11 +1,12 @@
-define(['jquery', 'underscore', 'backbone', 'text!../../templates/main.html', 'facebook'], function($, _, Backbone, mainTemplate, FB) {
-	var Main = Backbone.View.extend({
+define(['jquery', 'underscore', 'backbone', 'text!./app/views/templates/main.html', 'facebook'], function($, _, Backbone, mainTemplate, FB) {
+	var Views = {};
+	Views.Main = Backbone.View.extend({
 		initialize: function() {
 			this.$el.html(_.template(mainTemplate, {}));
 		}
 	});
 
-	return Main;
+	return Views;
 });
 	// $(function() {
 	// 	$.ajaxSetup({ cache: true });
