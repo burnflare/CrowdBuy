@@ -50,7 +50,7 @@ class Semantics3
 		$query->offset = $start;
 		$query->limit = $limit;
 
-		$request = new OAuthRequester(self::URI . $type . '?q=' . json_encode($query), 'GET', '');
+		$request = new OAuthRequester(self::URI . $type . '?q=' . urlencode(json_encode($query)), 'GET', '');
 		$result = $request->doRequest();
 		$response = $result['body'];
 
@@ -66,8 +66,24 @@ class Semantics3
 	
 	public static function search($description, $start)
 	{
-		return self::get()->query('products', (object)array(
-			'search' => $description
-		), $start);
+		//Do something smarter if we detect a URL
+		$query = array();
+		$pattern = '/^(?:[;\/?:@&=+$,]|(?:[^\W_]|[-_.!~*\()\[\] ])|(?:%[\da-fA-F]{2}))*$/';
+		if (preg_match($pattern, $description))
+		{
+			$query = array(
+				'url' => $description
+			);
+		}
+		
+		//Otherwise, just search for it.
+		else
+		{
+			$query = array(
+				'search' => $description
+			);
+		}
+		
+		return self::get()->query('products', (object)$query, $start);
 	}
 }
