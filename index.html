@@ -1,63 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>CrowdBuy - Not That This Will Display</title>
-	<link href='http://fonts.googleapis.com/css?family=Raleway:300,400' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="./css/custom-theme.css" />
-	<script type="text/javascript" src="./js/libs/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="./js/libs/json2.js"></script>
-	<script type="text/javascript" src="./js/libs/underscore.min.js"></script>
-	<script type="text/javascript" src="./js/libs/backbone.min.js"></script>
-	<script type="text/javascript" src="./js/models.js"></script>
-	<script type="text/javascript" src="./js/templates.js"></script>
-	<script type="text/javascript" src="./js/views.js"></script>
-	<script type="text/javascript" src="./js/main.js"></script>
+	<title>CrowdBuy Login</title>
 </head>
 <body>
-	<div class="container">
-		<div class="page-header">
-			<h1>CrowdBuy <small>Group ordering made easy.</small></h1>
-		</div>
+	<div id="fb-root"></div>
+	<script>
+	  window.fbAsyncInit = function() {
+	    // init the FB JS SDK
+	    FB.init({
+	      appId      : '509825915758193',                        // App ID from the app dashboard
+	      channelUrl : '//http://crowdbuy.sapuan.org/channel.html', // Channel file for x-domain comms
+	      status     : true,                                 // Check Facebook Login status
+	      cookie	 : true,
+	      xfbml      : true                                  // Look for social plugins on the page
+	    });
 
-		<div class="background-panel">
-			<div class="input-group">
-				<input type="text" class="form-control" placeholder="What do you want to buy?" />
-				<span class="input-group-addon"><a>Find it!</a></span>
-			</div>
-		</div>
+	    // Additional initialization code such as adding Event Listeners goes here
+	    FB.Event.subscribe('auth.authResponseChange', function(response) {
+	    	if (response.status === 'connected') {
+	    		// Success. Redirect to main page.
+	    		location.href = "./main.html"
+	    	} else if (response.status === 'not_authorized') {
+	    		// Logged in to Facebook, but not the app.
+	    		FB.login();
+	    	} else {
+	    		// Not logged in to Facebook at all.
+	    		FB.login();
+	    	}
+	    });
+	  };
 
-		<div class="row">
-			<div id="you-section" class="col-md-6 section">
-				<h3 class="section-header">YOU</h3>
-				<div id="you-listing" class="item-listing">
-					
-				</div>
-			</div>
+	  // Load the SDK asynchronously
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/all.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
 
-			<div id="friend-section" class="col-md-6 section">
-				<h3 class="section-header">FRIENDS</h3>
-				<div id="friend-listing" class="item-listing">
-					
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div id="featured-section" class="col-md-6 section">
-				<h3 class="section-header">FEATURED</h3>
-				<div id="featured-listing" class="item-listing featured-item">
-					
-				</div>
-			</div>
-			
-			<div id="public-section" class="col-md-6 section">
-				<h3 class="section-header">PUBLIC</h3>
-				<div id="public-listing" class="item-listing">
-					
-				</div>
-			</div>
-
-		</div>
+	<fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
 </body>
 </html>

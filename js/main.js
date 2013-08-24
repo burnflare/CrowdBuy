@@ -1,4 +1,26 @@
 $(function() {
+	$.ajaxSetup({ cache: true });
+	$.getScript('//connect.facebook.net/en_US/all.js', function(){
+		FB.init({
+		  appId: '509825915758193',
+		  channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
+		});     
+		
+		$('#loginbutton,#feedbutton').removeAttr('disabled');
+
+		FB.getLoginStatus(authenticationCallback);
+	});
+});
+
+function authenticationCallback(response) {
+	if (response.status === 'connected') {
+		setUpBackbone();
+	} else {
+		alert("Whoa, something went wrong! Try refreshing this page.");
+	}
+}
+
+function setUpBackbone() {
 	yourCollection = new Models.ItemListings();
 	friendCollection = new Models.ItemListings();
 	featuredCollection = new Models.ItemListings();
@@ -50,4 +72,8 @@ $(function() {
 		dateStart: new Date(2013, 8, 22),
 		dateEnd: new Date(2013, 9, 16)
 	});
-});
+
+	FB.api('/me', function(response) {
+		$('#welcome').html('Welcome, ' + response.name);
+	});
+}
