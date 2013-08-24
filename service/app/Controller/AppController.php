@@ -49,7 +49,8 @@ class AppController extends Controller
 			'model'			 => 'Person',
 			'loginAction'	 => 'me/login'
 		),
-		'Facebook.Connect'
+		'Facebook.Connect',
+		'RequestHandler'
 	);
 	
 	public function isAuthorized($user)
