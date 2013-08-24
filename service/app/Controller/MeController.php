@@ -33,9 +33,9 @@ class MeController extends AppController
 	 */
 	public function wants()
 	{
-		$this->Person->listings($this->Auth->user('id'));
-		$this->set(compact('posts', 'comments'));
-		$this->set('_serialize', array('posts', 'comments'));
+		$this->set('listings',
+			$this->Person->listings($this->Auth->user('id')));
+		$this->set('_serialize', array('listings'));
 	}
 	
 	/**
@@ -64,7 +64,9 @@ class MeController extends AppController
 	
 	public function friendsWants()
 	{
-		$this->Person->friendListings($this->Auth->user('id'));
+		$this->set('listings',
+			$this->Person->friendListings($this->Auth->user('id')));
+		$this->set('_serialize', array('listings'));
 	}
 	
 	/**
