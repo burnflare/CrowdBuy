@@ -31,7 +31,7 @@ class Person extends AppModel
 	 */
 	public function listings($id)
 	{
-		return $this->ProductListing->findByCreatorId($id);
+		return $this->ProductListing->findAllByCreatorId($id);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ class Person extends AppModel
 				return $friend['id'];
 			}, $friends['data']);
 		
-		return $this->ProductListing->findByCreatorId($friend_ids);
+		return $this->ProductListing->findAllByCreatorId($friend_ids);
 	}
 	
 	/**
