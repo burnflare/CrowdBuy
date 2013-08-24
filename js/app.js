@@ -1,21 +1,21 @@
 requirejs.config({
-	"baseUrl": "js/lib",
 	shim: {
 		'facebook' : {
 			export: 'FB'
 		}
 	},
 	"paths": {
-		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js",
-		"text": "text.js",
-		"underscore": "underscore.min.js",
-		"backbone": "backbone.min.js",
-		"facebook": "//connect.facebook.net/en_US/all"
+		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min",
+		"facebook": "//connect.facebook.net/en_US/all",
+		"underscore": "libs/underscore.min",
+		"backbone": "libs/backbone.min",
+		"json": "libs/json2",
+		"text": "libs/text"
 	}
 });
 
-requirejs(["jquery", "text", "underscore", "backbone", "fb"], function($, _, Backbone, FB, App) {
-	new App({
-		el: $('#application');
-	})
+requirejs(["jquery", "underscore", "backbone", "app/login"], function($, _, Backbone, Login) {
+	new Login({
+		el: $('#application')
+	});
 });
