@@ -17,7 +17,7 @@ Views.ListingView = Backbone.View.extend({
 	render: function() {
 		var fragment = document.createDocumentFragment();
 
-		if(this.childViews.length >= 0) {
+		if(this.childViews.length > 0) {
 			_(this.childViews).each(function(currentView) {
 				fragment.appendChild(currentView.render().el);
 			});
