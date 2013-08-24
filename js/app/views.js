@@ -130,6 +130,15 @@ Views.SearchListingView = Backbone.View.extend({
 
 	render: function() {
 		var fragment = document.createDocumentFragment();
+
+		if(this.childViews.length > 0) {
+			_(this.childViews).each(function(currentView) {
+				fragment.appendChild(currentView.render().el);
+			});
+		} else {
+			$(Templates.EmptySearchTemplate()).appendTo(fragment);
+		}
+
 		this.$('.item-listing').html(fragment);
 		return this;
 	},
