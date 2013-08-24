@@ -15,6 +15,8 @@ $(function() {
 function authenticationCallback(response) {
 	if (response.status === 'connected') {
 		// Handle authentication here.
+        console.log(response);
+        
 		setUpBackbone();
 	} else {
 		alert("Whoa, something went wrong! Try refreshing this page.");
@@ -51,8 +53,8 @@ function setUpBackbone() {
 		id: "public"
 	});
 
-	yourCollection.fetch();
-    friendCollection.fetch();
+	yourCollection.fetch({ type:'your' });
+    friendCollection.fetch({ type:'friend' });
 
 	FB.api('/me', function(response) {
 		$('#welcome').html('Welcome, ' + response.name + '!');
