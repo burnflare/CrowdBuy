@@ -51,28 +51,8 @@ function setUpBackbone() {
 		id: "public"
 	});
 
-	yourCollection.add({
-		id: 0,
-		name: "Test Item",
-		price: "5.00 (USD)",
-		location: "Singapore",
-		buyers: [0],
-		owner: 0,
-		imageUrl: 'http://placehold.it/96x96',
-		dateStart: new Date(2013, 8, 23),
-		dateEnd: new Date(2013, 9, 22)
-	});
-	friendCollection.add({
-		id: 1,
-		name: "Another Item",
-		price: "25.00 (USD)",
-		location: "Singapore",
-		buyers: [0, 1, 2],
-		owner:  1,
-		imageUrl: 'http://placehold.it/96x96',
-		dateStart: new Date(2013, 8, 22),
-		dateEnd: new Date(2013, 9, 16)
-	});
+	yourCollection.fetch();
+    friendCollection.fetch();
 
 	FB.api('/me', function(response) {
 		$('#welcome').html('Welcome, ' + response.name + '!');
