@@ -4,7 +4,10 @@ App::import('Vendor/oauth-php/library', 'OAuthStore');
 App::import('Vendor/oauth-php/library', 'OAuthRequester');
 
 /**
- * Semantics3 API for CrowdBuy
+ * Semantics3 API for CrowdBuy.
+ * 
+ * Basically, the API calls will always be assumed to succeed; errors will be
+ * exceptions thrown.
  */
 class Semantics3
 {
@@ -51,14 +54,20 @@ class Semantics3
 		$result = $request->doRequest();
 		$response = $result['body'];
 
-		return json_decode($response);
+		$result = json_decode($response);
+		if ($result->code !== 'OK')
+		{
+			//TODO: Define this exception class.
+			throw new Semantics3Exception();
+		}
+		
+		return $result;
 	}
 	
-	public static function search($description)
+	public static function search($description, $start)
 	{
-		var_dump(self::get()->query('products', (object)array(
+		return self::get()->query('products', (object)array(
 			'search' => $description
-		)));
-		die();
+		), $start);
 	}
 }
