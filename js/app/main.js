@@ -29,32 +29,32 @@ function setUpBackbone() {
     
     searchFormView = new Views.SearchFormView({
         el: '#search-section',
-        id: "search"
+        id: 'search'
     });
     searchFormView.render();
     
 	yourView = new Views.ListingView({
 		collection: yourCollection,
 		el: '#you-section',
-		id: "you"
+		id: 'you'
 	});
 
 	friendView = new Views.ListingView({
 		collection: friendCollection,
 		el: '#friend-section',
-		id: "friend"
+		id: 'friend'
 	});
 
 	featuredView = new Views.ListingView({
 		collection: featuredCollection,
 		el: '#featured-section',
-		id: "featured"
+		id: 'featured'
 	});
 
 	publicView = new Views.ListingView({
 		collection: publicCollection,
 		el: '#public-section',
-		id: "public"
+		id: 'public'
 	});
 
 	yourCollection.fetch({ data: $.param({ type:'you' }) });
