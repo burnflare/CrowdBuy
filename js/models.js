@@ -1,6 +1,6 @@
 var Models = {};
 Models.ItemListing = Backbone.Model.extend({
-    url: '/service/me/want'
+    url: '/service/me/want',
 	defaults: {
 		id: '',
 		name: '',
