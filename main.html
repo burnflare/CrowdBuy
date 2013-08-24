@@ -15,10 +15,35 @@
 	<script type="text/javascript" src="./js/main.js"></script>
 </head>
 <body>
+	<div id="fb-root"></div>
+	<script>
+	  window.fbAsyncInit = function() {
+	    // init the FB JS SDK
+	    FB.init({
+	      appId      : '509825915758193',                        // App ID from the app dashboard
+	      channelUrl : '//http://crowdbuy.sapuan.org//channel.html', // Channel file for x-domain comms
+	      status     : true,                                 // Check Facebook Login status
+	      cookie	 : true,
+	      xfbml      : true                                  // Look for social plugins on the page
+	    });
+	  };
+
+	  // Load the SDK asynchronously
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/all.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	</script>
+
 	<div class="container">
 		<div class="page-header">
 			<h1>CrowdBuy <small>Group ordering made easy.</small></h1>
 		</div>
+
+		<h4 id="welcome">Welcome!</h4>
 
 		<div class="background-panel">
 			<div class="input-group">
