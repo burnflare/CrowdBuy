@@ -50,7 +50,7 @@ class Semantics3
 		$query->offset = $start;
 		$query->limit = $limit;
 
-		$request = new OAuthRequester(self::URI . $type . '?q=' . json_encode($query), 'GET', '');
+		$request = new OAuthRequester(self::URI . $type . '?q=' . urlencode(json_encode($query)), 'GET', '');
 		$result = $request->doRequest();
 		$response = $result['body'];
 
@@ -68,6 +68,13 @@ class Semantics3
 	{
 		return self::get()->query('products', (object)array(
 			'search' => $description
+		), $start);
+	}
+	
+	public static function searchByUrl($url, $start)
+	{
+		return self::get()->query('products', (object)array(
+			'url' => $url
 		), $start);
 	}
 }

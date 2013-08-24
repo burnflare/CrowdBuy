@@ -27,7 +27,16 @@ class ProductsController extends AppController
 	 */
 	public function search($description, $start = 0)
 	{
-		$result = Semantics3::search($description, $start);
+		$pattern = '/^(http|https|spdy):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.([A-Z]+))(:(\d+))?\/?/i';
+		if (preg_match($pattern, $description))
+		{
+			$result = Semantics3::searchByUrl($description, $start);
+		}
+		else
+		{
+			$result = Semantics3::search($description, $start);
+		}
+		
 		$display = (object)array(
 			'total_results_count' => $result->total_results_count,
 			'results' => array_map(function($item) {
