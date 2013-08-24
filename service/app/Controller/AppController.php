@@ -34,4 +34,15 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller
 {
 	public $helpers = array('Js', 'Facebook.Facebook');
+	public $components = array('Session',
+		AuthComponent::ALL	 => array('model' => 'Person'),
+		'Auth'				 => array(
+			'authenticate'	 => array(
+				'Form' => array(
+					'fields' => array('username' => 'email')
+				)
+			),
+			'authorize'		 => 'Controller'
+		)
+	);
 }
