@@ -66,24 +66,15 @@ class Semantics3
 	
 	public static function search($description, $start)
 	{
-		//Do something smarter if we detect a URL
-		$query = array();
-		$pattern = '/^(?:[;\/?:@&=+$,]|(?:[^\W_]|[-_.!~*\()\[\] ])|(?:%[\da-fA-F]{2}))*$/';
-		if (preg_match($pattern, $description))
-		{
-			$query = array(
-				'url' => $description
-			);
-		}
-		
-		//Otherwise, just search for it.
-		else
-		{
-			$query = array(
-				'search' => $description
-			);
-		}
-		
-		return self::get()->query('products', (object)$query, $start);
+		return self::get()->query('products', (object)array(
+			'search' => $description
+		), $start);
+	}
+	
+	public static function searchByUrl($url, $start)
+	{
+		return self::get()->query('products', (object)array(
+			'url' => $url
+		), $start);
 	}
 }
