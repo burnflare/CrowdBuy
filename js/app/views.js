@@ -119,7 +119,7 @@ Views.SearchListingView = Backbone.View.extend({
 	},
 
 	events: {
-		"click a#searcn-btn" : "search"
+		"click a#btn-search" : "search"
 	},
 
 	render: function() {
