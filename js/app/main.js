@@ -22,7 +22,7 @@ function authenticationCallback(response) {
 }
 
 function setUpBackbone() {
-    searchCollection = new Models.SearchResults();
+    //searchCollection = new Models.SearchResults();
     
 	yourCollection = new Models.Wants();
 	friendCollection = new Models.Wants();
