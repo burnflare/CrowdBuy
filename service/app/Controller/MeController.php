@@ -20,14 +20,16 @@ class MeController extends AppController
 	 *
 	 * @var array
 	 */
-	public $uses = array();
+	public $uses = array('Person');
 	
 	/**
 	 * Gets a list of items which I want to buy.
 	 */
 	public function wants()
 	{
-		
+		var_dump($this->Person->listings(1234));
+		$this->set(compact('posts', 'comments'));
+		$this->set('_serialize', array('posts', 'comments'));
 	}
 	
 	/**
