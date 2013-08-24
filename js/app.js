@@ -25,7 +25,7 @@ requirejs.config({
 	}
 });
 
-requirejs(["jquery", "underscore", "backbone", "app/main", "app/searchform"], function($, _, Backbone, Main, SearchForm) {
+requirejs(["jquery", "underscore", "backbone", "app/views/main", "app/views/searchForm"], function($, _, Backbone, Main, SearchForm) {
 	new Main({
 		el: $('#page-content')
 	});
