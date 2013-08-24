@@ -97,6 +97,10 @@ Views.SearchFormView = Backbone.View.extend({
 		alert('hello');
 	},
     
+	initialize: function() {
+		
+	},
+    
 	render: function() {
 		this.$el.html(this.template());
 		return this;
@@ -169,6 +173,11 @@ Views.SearchView = Backbone.View.extend({
 	initialize: function() {
 		this.listenTo(this.model, "change", this.render);
 		this.id = "item-" + this.model.attributes.id;
+	},
+    
+	initialize: function() {
+		this.listenTo(this.model, "change", this.render);
+		this.id = "search-" + this.model.attributes.id;
 	},
 
 	render: function() {
