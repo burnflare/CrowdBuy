@@ -18,6 +18,6 @@ Templates.ItemListingTemplate = _.template('\
 
 Templates.EmptyListingTemplate = _.template('\
 	<div class="item">\
-		<h3>Nothing\'s here yet. :(</h3>\
+		<h3 class="centered">Nothing\'s here yet. :(</h3>\
 	</div>\
 	');
