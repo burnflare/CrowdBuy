@@ -32,7 +32,7 @@ Templates.SearchFormTemplate = _.template('\
     	<div class="row">\
     		<div id="search-section" class="col-sm-12 section">\
     			<h3 class="section-header">\
-    				SEARCH RESULTS FOR ""\
+    				SEARCH RESULTS FOR &quot;<span id="lbl-search"></span>&quot;\
     			</h3>\
     			<div id="search-listing" class="item-listing">\
 		            \
