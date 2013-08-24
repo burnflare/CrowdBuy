@@ -33,4 +33,19 @@ class Person extends AppModel
 	{
 		return $this->ProductListing->findByCreatorId($id);
 	}
+	
+	/**
+	 * Gets the listings from the friends of the given person.
+	 * 
+	 * @param string $id
+	 */
+	public function friendListings($id)
+	{
+		$friends = FB::api('/' . $id . '/friends');
+		$friend_ids = array_map(function($friend) {
+				return $friend['id'];
+			}, $friends['data']);
+		
+		return $this->ProductListing->findByCreatorId($friend_ids);
+	}
 }
