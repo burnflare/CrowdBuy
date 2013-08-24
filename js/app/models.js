@@ -29,7 +29,7 @@ Models.SearchItem = Backbone.Model.extend({
         category: '',
         name: '',
         price: '',
-    }
+    },
 	initialize: function() {
 
 	}
