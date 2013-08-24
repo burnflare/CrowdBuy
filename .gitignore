@@ -2,3 +2,5 @@
 /service/app/tmp
 /service/app/nbproject/private/
 /service/app/Config/database.php
+
+/service/app/Config/facebook.php
