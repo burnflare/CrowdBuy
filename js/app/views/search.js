@@ -1,4 +1,8 @@
-define(['jquery', 'underscore', 'backbone', 'text!./app/views/templates/search-form.html', 'text!./app/views/templates/empty-search-template.html', 'models'], function($, _, Backbone, searchFormTemplate, emptySearchTemplate, Models) {
+define(['jquery', 'underscore', 'backbone', 
+	'text!./app/views/templates/search-form.html', 
+	'text!./app/views/templates/empty-search-template.html', 
+	'text!./app/views/templates/search-listing-template.html',
+	'models'], function($, _, Backbone, searchFormTemplate, emptySearchTemplate, searchListingTemplate, Models) {
 	var Views = {};
 
 	Views.SearchForm = Backbone.View.extend({
@@ -91,7 +95,7 @@ define(['jquery', 'underscore', 'backbone', 'text!./app/views/templates/search-f
 	});
 
 	Views.SearchView = Backbone.View.extend({
-		template: Templates.SearchListingTemplate,
+		template: _.template(searchListingTemplate),
 
 		events: {
 			"click button#btn-pledge": "pledgeClick"
