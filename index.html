@@ -20,6 +20,7 @@
 	    FB.Event.subscribe('auth.authResponseChange', function(response) {
 	    	if (response.status === 'connected') {
 	    		// Success. Redirect to main page.
+	    		location.href = "./main.html"
 	    	} else if (response.status === 'not_authorized') {
 	    		// Logged in to Facebook, but not the app.
 	    		FB.login();
