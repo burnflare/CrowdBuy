@@ -118,10 +118,6 @@ Views.SearchListingView = Backbone.View.extend({
 		this._addAllModels();
 	},
 
-	events: {
-		"click a#btn-search" : "search"
-	},
-
 	render: function() {
 		var fragment = document.createDocumentFragment();
 		this.$('.item-listing').html(fragment);
