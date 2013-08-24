@@ -25,7 +25,6 @@ Models.Wants = Backbone.Collection.extend({
 Models.SearchItem = Backbone.Model.extend({
     defaults: {
         id: '',
-        productId: '',
         category: '',
         name: '',
         price: ''
@@ -39,6 +38,6 @@ Models.SearchResults = Backbone.Collection.extend({
     url: '/service/products/results/',
     model: Models.SearchItem,
     parse: function(response, options) {
-        console.log(response);
+        return response.result.results;
     }
 });
