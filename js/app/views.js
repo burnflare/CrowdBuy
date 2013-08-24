@@ -94,11 +94,18 @@ Views.SearchFormView = Backbone.View.extend({
 	},
 
 	searchClick: function() {
-		alert('hello');
+        var search = $('#txt-search').val();
+		$('#search-results').show();
+        this.searchCollection.fetch({ data: $.param({ search:search }) });
 	},
     
 	initialize: function() {
-		
+        this.searchCollection = new Models.SearchResults();
+        this.searchListingView = new Views.SearchListingView({
+            collection: searchCollection,
+            el: '#search-results'),
+            id: "search-results"
+        });
 	},
     
 	render: function() {

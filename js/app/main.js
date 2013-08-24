@@ -22,46 +22,38 @@ function authenticationCallback(response) {
 }
 
 function setUpBackbone() {
-    searchCollection = new Models.SearchResults();
-    
 	yourCollection = new Models.Wants();
 	friendCollection = new Models.Wants();
 	featuredCollection = new Models.Wants();
 	publicCollection = new Models.Wants();
     
     searchFormView = new Views.SearchFormView({
-        el: document.getElementById('search-section'),
-        id: "search-section"
+        el: '#search-section',
+        id: "search"
     });
     searchFormView.render();
     
-    searchListingView = new Views.SearchListingView({
-        collection: searchCollection,
-        el: document.getElementById('search-results'),
-        id: "search-results"
-    });
-
 	yourView = new Views.ListingView({
 		collection: yourCollection,
-		el: document.getElementById('you-section'),
+		el: '#you-section',
 		id: "you"
 	});
 
 	friendView = new Views.ListingView({
 		collection: friendCollection,
-		el: document.getElementById('friend-section'),
+		el: '#friend-section',
 		id: "friend"
 	});
 
 	featuredView = new Views.ListingView({
 		collection: featuredCollection,
-		el: document.getElementById('featured-section'),
+		el: '#featured-section',
 		id: "featured"
 	});
 
 	publicView = new Views.ListingView({
 		collection: publicCollection,
-		el: document.getElementById('public-section'),
+		el: '#public-section',
 		id: "public"
 	});
 

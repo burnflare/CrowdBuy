@@ -24,7 +24,7 @@ Templates.EmptyListingTemplate = _.template('\
 Templates.SearchFormTemplate = _.template('\
     <div class="background-panel">\
     	<div class="input-group">\
-    		<input type="text" class="form-control" placeholder="What do you want to buy?" />\
+    		<input id="txt-search" type="text" class="form-control" placeholder="What do you want to buy?" />\
     		<a id="btn-search" class="input-group-addon btn">Find it!</a>\
     	</div>\
     </div>\
