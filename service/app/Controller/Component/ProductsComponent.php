@@ -43,18 +43,20 @@ class ProductsComponent extends Component
 		$currency = FB::api(sprintf('/%s?fields=currency', $fbid));
 		if (isset($currency['currency']))
 		{
+			$exchange_currency = $currency['currency']['user_currency'];
 			$exchange_rate = $currency['currency']['usd_exchange_inverse'];
 		}
 		
 		return (object)array(
 			'total_results_count' => $result->total_results_count,
-			'results' => array_map(function($item) use (&$exchange_rate) {
+			'results' => array_map(function($item) use (&$exchange_rate, &$exchange_currency) {
 				$item->id = $item->sem3_id;
 				unset($item->sem3_id);
 				
 				if (isset($exchange_rate) && isset($item->price))
 				{
-					$item->user_price = floatval($item->price) * $exchange_rate;
+					$item->user_price = round(floatval($item->price) * $exchange_rate, 2);
+					$item->user_currency = $exchange_currency;
 				}
 				return $item;
 			}, $result->results)

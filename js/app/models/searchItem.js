@@ -6,6 +6,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 			category: '',
 			name: '',
 			price: '',
+			user_price: '',
+			user_currency: '',
 			length: '',
 			width: '',
 			height: ''
