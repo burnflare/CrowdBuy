@@ -2,18 +2,60 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/search-empty.html',
 	'text!./app/views/templates/search-listing.html',
 	'text!./app/views/templates/search-listings.html',
-	'models', 'utils'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, Models, Utils) {
+	'text!./app/views/templates/add-listing.html',
+	'models', 'utils'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, addListingTemplate, Models, Utils) {
 	var Views = {};
+
+	Views.AddItemModal = Backbone.View.extend({
+		template: _.template(addListingTemplate),
+
+		initialize: function() {
+			this.render();
+		},
+
+		render: function() {
+			this.$el.html(this.template(this.model.attributes));
+		},
+
+		events: {
+			"click button.btn-success": "submitRequest"
+		},
+
+		submitRequest: function() {
+			var city = $('select.form-control').val();
+			var country = $('#inputPickupCity').val();
+			var locationCombined = city + ", " + country;
+
+			// JS uses milliseconds, we need seconds.
+			var dateStart = (Date.now()).getTime() / 1000;
+
+			var inputDate = $('#inputExpiryDate').val();
+			var dateEnd = (new Date(inputDate)).getTime() / 1000;
+
+			$.post('/service/listing/create', {
+				product_id: this.model.attributes.id,
+				date_start: dateStart,
+				date_expire: dateEnd,
+				location: locationCombined
+			});
+
+			$('#add-listing-modal').modal('hide');
+		}
+	});
 
 	Views.SearchResult = Backbone.View.extend({
 		template: _.template(searchListingTemplate),
 
 		events: {
-			"click button#btn-pledge": "pledgeClick"
+			"click a.search-result": "clickResult"
 		},
 
-		pledgeClick: function() {
-
+		clickResult: function() {
+			var modal = new Views.AddItemModal({
+				model: this.model,
+				el: '#modal-container'
+			});
+			$('#add-listing-modal').modal('show');
 		},
 
 		initialize: function() {
@@ -111,7 +153,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		render: function() {
-			this.$el.html(_.template(searchContainerTemplate, { 
+			this.$el.html(_.template(searchContainerTemplate, {
 				searchTerm: this.options.searchTerm
 			}));
 
