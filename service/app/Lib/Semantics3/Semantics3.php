@@ -64,17 +64,17 @@ class Semantics3
 		return $result;
 	}
 	
-	public static function search($description, $start)
+	public static function search($description, $start, $limit = 20)
 	{
 		return self::get()->query('products', (object)array(
 			'search' => $description
-		), $start);
+		), $start, $limit);
 	}
 	
-	public static function searchByUrl($url, $start)
+	public static function searchByUrl($url, $start, $limit = 20)
 	{
 		return self::get()->query('products', (object)array(
 			'url' => $url
-		), $start);
+		), $start, $limit);
 	}
 }
