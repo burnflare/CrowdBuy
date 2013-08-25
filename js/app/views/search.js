@@ -27,7 +27,7 @@ define(['jquery', 'underscore', 'backbone',
 			var locationCombined = city + ", " + country;
 
 			// JS uses milliseconds, we need seconds.
-			var dateStart = (Date.now()).getTime() / 1000;
+			var dateStart = Date.now() / 1000;
 
 			var inputDate = $('#inputExpiryDate').val();
 			var dateEnd = (new Date(inputDate)).getTime() / 1000;
