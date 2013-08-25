@@ -1,5 +1,4 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
-	var Models = {};
+define(['jquery', 'underscore', 'backbone', 'model_search_item'], function($, _, Backbone, Models) {
 	Models.SearchResults = Backbone.Collection.extend({
 		url: '/service/products/results/',
 		model: Models.SearchItem,
