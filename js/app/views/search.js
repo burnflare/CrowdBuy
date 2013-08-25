@@ -97,7 +97,7 @@ define(['jquery', 'underscore', 'backbone',
                 case 13: 
                 searchClick();
             }
-        } 
+        },
 
 		searchClick: function() {
 			var search = $('#txt-search').val();
