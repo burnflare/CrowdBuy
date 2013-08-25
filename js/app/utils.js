@@ -11,9 +11,14 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 
 	Utils.loadView = function(viewToLoad) {
 		$('#page-content').html();
-		new viewToLoad({
-			el: '#page-content'
-		});
+		if (typeof viewToLoad === 'function') {
+			new viewToLoad({
+				el: '#page-content'
+			});
+		} else {
+			viewToLoad.el = '#page-content';
+			viewToLoad.render();
+		}
 	};
 
 	return Utils;
