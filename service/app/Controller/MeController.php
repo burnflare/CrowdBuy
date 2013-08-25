@@ -36,8 +36,8 @@ class MeController extends AppController
 
 		//Exchange the short-term access token for a long-lived access token.
 		FB::setExtendedAccessToken();
+		$this->Person->id = $userId;
 		$this->Person->save(array(
-			'person_id' => $userId,
 			'oauth_token' => FB::getAccessToken()
 		));
 
