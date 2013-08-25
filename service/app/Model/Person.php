@@ -10,7 +10,7 @@ class Person extends AppModel
 
 	public $hasMany = array(
 		'ProductListing' => array(
-			'foreignKey' => 'creator'
+			'foreignKey' => 'creator_id'
 		),
 		'ProductSuggestion'
 	);
