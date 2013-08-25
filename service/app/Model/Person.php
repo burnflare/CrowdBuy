@@ -10,7 +10,7 @@ class Person extends AppModel
 
 	public $hasMany = array(
 		'ProductListing' => array(
-			'foreignKey' => 'creator'
+			'foreignKey' => 'creator_id'
 		),
 		'ProductSuggestion'
 	);
@@ -23,6 +23,24 @@ class Person extends AppModel
 			'unique' => true
 		)
 	);
+	
+	/**
+	 * Override to allow inserting a new Person specifying the primary key.
+	 */
+	public function set($one, $two = null)
+	{
+		parent::set($one, $two);
+
+		// if not already found in database
+		if (!$this->exists())
+		{
+			if ($this->id)
+			{
+				$this->data[$this->alias][$this->primaryKey] = $this->id;
+				$this->id = false;
+			}
+		}
+	}
 	
 	/**
 	 * Gets the listings by the given person.

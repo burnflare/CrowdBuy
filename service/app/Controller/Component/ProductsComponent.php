@@ -34,10 +34,16 @@ class ProductsComponent extends Component
 		}
 		
 		//query for the current user's native currency.
-		$currency = FB::api('/' . AuthComponent::user('id') . '?fields=currency&access_token=' . FB::getAccessToken());
-		if (isset($currency->currency))
+		$fbid = AuthComponent::user('id');
+		$personModel = ClassRegistry::init('Person');
+		$token = $personModel->findByFacebookId($fbid);
+		$token = $token['Person']['oauth_token'];
+		
+		FB::setAccessToken($token);
+		$currency = FB::api(sprintf('/%s?fields=currency', $fbid));
+		if (isset($currency['currency']))
 		{
-			$exchange_rate = $currency->currency->usd_exchange_inverse;
+			$exchange_rate = $currency['currency']['usd_exchange_inverse'];
 		}
 		
 		return (object)array(
@@ -48,7 +54,7 @@ class ProductsComponent extends Component
 				
 				if (isset($exchange_rate))
 				{
-					$item->user_price = $item->proce * $exchange_rate;
+					$item->user_price = $item->price * $exchange_rate;
 				}
 				return $item;
 			}, $result->results)
