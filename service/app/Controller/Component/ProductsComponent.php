@@ -52,9 +52,9 @@ class ProductsComponent extends Component
 				$item->id = $item->sem3_id;
 				unset($item->sem3_id);
 				
-				if (isset($exchange_rate))
+				if (isset($exchange_rate) && isset($item->price))
 				{
-					$item->user_price = $item->price * $exchange_rate;
+					$item->user_price = floatval($item->price) * $exchange_rate;
 				}
 				return $item;
 			}, $result->results)
