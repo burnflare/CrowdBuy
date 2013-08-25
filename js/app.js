@@ -44,6 +44,25 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 			FB.login(function() {}, { scope: 'read_friendlists, user_about_me' });
 
 			$('#loginbutton,#feedbutton').removeAttr('disabled');
+
+			FB.getLoginStatus((function(that) {
+				return function(response) {
+					if (response.status === 'connected') {
+						// Handle authentication here.
+						Utils.logIn();
+
+						FB.api('/me', function(response) {
+							var welcomeString = that._randomWelcome();
+							$('#welcome').html(welcomeString + response.first_name + '!');
+						});
+						that._setUpCollections();
+					} else {
+						alert("Whoa, something went wrong! Try refreshing this page.");
+					}
+
+				};
+			})(this));
+			
 			this.loadHome();
 
 			this.SearchPane = new Views.SearchForm({
