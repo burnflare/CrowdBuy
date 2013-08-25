@@ -45,3 +45,10 @@ h1, h2, h3, h4, h5, h6 {
 .add-item {
 	padding: 2px;
 }
+
+.search-result {
+	width: 49%;
+	min-height: 100px;
+	float: left;
+	margin: 4px;
+}
