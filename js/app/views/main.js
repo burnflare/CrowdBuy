@@ -8,24 +8,6 @@ define(['jquery', 'underscore', 'backbone',
 	Views.Main = Backbone.View.extend({
 		initialize: function() {
 			this.$el.html(_.template(mainTemplate, {}));
-
-			FB.getLoginStatus((function(that) {
-				return function(response) {
-					if (response.status === 'connected') {
-						// Handle authentication here.
-						Utils.logIn();
-
-						FB.api('/me', function(response) {
-							var welcomeString = that._randomWelcome();
-							$('#welcome').html(welcomeString + response.first_name + '!');
-						});
-						that._setUpCollections();
-					} else {
-						alert("Whoa, something went wrong! Try refreshing this page.");
-					}
-
-				};
-			})(this));
 		},
 
 		_setUpCollections: function() {
