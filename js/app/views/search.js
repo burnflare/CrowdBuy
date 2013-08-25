@@ -133,6 +133,8 @@ define(['jquery', 'underscore', 'backbone',
 				collection: this.collection,
 				el: '#search-listing'
 			});
+
+			$('#search-section').fadeIn();
 		}
 	});
     
