@@ -28,23 +28,16 @@ class ProductsController extends AppController
 	 * This can be invoked through a call to requestAction, which then will return
 	 * the object that would otherwise be serialised to the client.
 	 */
-	public function search($description, $start = 0, $count = 20)
+	public function search($description, $start = 0)
 	{
-		//If we aren't requesting through requestAction, cap the number of results
-		//returned to 100.
-		if (empty($this->request->params['requested']))
-		{
-			$count = max(min($count, 100), 1);
-		}
-
 		$pattern = '/^(http|https|spdy):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.([A-Z]+))(:(\d+))?\/?/i';
 		if (preg_match($pattern, $description))
 		{
-			$result = Semantics3::searchByUrl($description, $start, $count);
+			$result = Semantics3::searchByUrl($description, $start);
 		}
 		else
 		{
-			$result = Semantics3::search($description, $start, $count);
+			$result = Semantics3::search($description, $start);
 		}
 		
 		$display = (object)array(
@@ -56,14 +49,7 @@ class ProductsController extends AppController
 			}, $result->results)
 		);
 		
-		if (!empty($this->request->params['requested']))
-		{
-			return $display;
-		}
-		else
-		{
-			$this->set(array('result' => &$display));
-			$this->set('_serialize', array('result'));
-		}
+		$this->set('result', $display);
+		$this->set('_serialize', array('result'));
 	}
 }

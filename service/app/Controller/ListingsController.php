@@ -13,7 +13,7 @@ class ListingsController extends AppController
 	 *
 	 * @var string
 	 */
-	public $name = 'Me';
+	public $name = 'Listing';
 
 	/**
 	 * This controller does not use a model
@@ -43,20 +43,6 @@ class ListingsController extends AppController
 			}
 		}
 	}
-	
-	/**
-	 * Searches for listings which include the following products.
-	 * @param array $productIds An array of products.
-	 * @throws ForbiddenException
-	 */
-	public function searchInternal(array $productIds)
-	{
-		//This is internal.
-		if (!empty($this->request->params['requested']))
-		{
-			throw new ForbiddenException();
-		}
-	}
 
 	/**
 	 * Searches for a listing containing the given product.
@@ -66,17 +52,23 @@ class ListingsController extends AppController
 	 */
 	public function search($description, $start = 0)
 	{
-		$products = $this->requestAction(array(
-			'controller' => 'products',
-			'action' => 'search'),
-			array('pass' => array($description, $start)));
+		$pattern = '/^(http|https|spdy):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.([A-Z]+))(:(\d+))?\/?/i';
+		if (preg_match($pattern, $description))
+		{
+			$result = Semantics3::searchByUrl($description, $start);
+		}
+		else
+		{
+			$result = Semantics3::search($description, $start);
+		}
 		
-		$results = $this->searchInternal(
-			array_map(function($item) {
-				return $item->id;
-			}, $products->results));
-			
-		$this->set('listings', $results);
+		$productIds = array_map(function($item) {
+				return $item->sem3_id;
+			}, $result->results);
+
+		$listings = $this->ProductListing->findByProductId($productIds);
+
+		$this->set('listings', $listings);
 		$this->set('_serialize', array('listings'));
 	}
 }
