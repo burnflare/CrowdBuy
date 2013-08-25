@@ -3,7 +3,7 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 		appId: '509825915758193',
 		channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
 	});
-	FB.getLoginStatus(function(response) {
+	FB.login(function(response) {
 		if (response.status !== 'connected') {
 			FB.login();
 		}
