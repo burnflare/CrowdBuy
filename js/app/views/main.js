@@ -42,6 +42,8 @@ define(['jquery', 'underscore', 'backbone',
 			friendCollection = new Models.Wants();
 			featuredCollection = new Models.Wants();
 			publicCollection = new Models.Wants();
+            
+            console.log(yourCollection);
 
 			yourView = new Views.ListingView({
                 collection: yourCollection,
