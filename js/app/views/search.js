@@ -110,8 +110,9 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_addAllModels: function() {
+			var that = this;
 			this.collection.each(function(item) {
-				_addViewForModel(item);
+				that._addViewForModel(item);
 			});
 			this.render();
 		}
