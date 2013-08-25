@@ -87,7 +87,7 @@ define(['jquery', 'underscore', 'backbone',
 
 	Views.SearchSession = Backbone.View.extend({
 		initialize: function() {
-			var searchUrl = '/service/products/search' + Utils.urlencode(Utils.urlencode(this.options.searchTerm));
+			var searchUrl = '/service/products/search/' + Utils.urlencode(Utils.urlencode(this.options.searchTerm));
 			var resultCollection = new Models.SearchResults({
 				url: searchUrl
 			});
