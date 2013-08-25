@@ -43,7 +43,7 @@ class MeController extends AppController
 		}
 		else
 		{
-			$this->response->location($this->request->referer());
+			$this->redirect($this->request->referer(), 303);
 		}
 	}
 
