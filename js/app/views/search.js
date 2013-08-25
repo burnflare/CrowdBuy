@@ -131,7 +131,6 @@ define(['jquery', 'underscore', 'backbone',
         },
 
 		searchClick: function() {
-			console.log("Clicked.");
 			Utils.loadView(this.searchListingView);
 			$('#search-results').show();
 			$('#lbl-search').text(search);
