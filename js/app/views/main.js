@@ -23,7 +23,7 @@ define(['jquery', 'underscore', 'backbone',
 
 						FB.api('/me', function(response) {
 							var welcomeString = that._randomWelcome();
-							$('#welcome').html(welcomeString + response.name + '!');
+							$('#welcome').html(welcomeString + response.first_name + '!');
 						});
 						that._setUpCollections();
 					} else {
@@ -74,7 +74,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_randomWelcome: function() {
-			var welcomeMessages = ["Welcome, ", "Hey ", "Hello ", "Hey there "];
+			var welcomeMessages = ["Welcome, ", "Hey ", "Hello ", "Hi "];
 			var rand = Math.floor(Math.random() * 4);
 			return welcomeMessages[rand];
 		}
