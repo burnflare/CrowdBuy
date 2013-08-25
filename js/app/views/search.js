@@ -101,13 +101,13 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		initialize: function() {
+			this.render();
 			this.searchCollection = new Models.SearchResults();
 			this.searchListingView = new Views.SearchListing({
 				collection: this.searchCollection,
 				el: '#search-results',
 				id: 'search-results'
 			});
-			this.render();
 		},
 
 		render: function() {
