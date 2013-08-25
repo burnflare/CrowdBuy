@@ -2,7 +2,7 @@ define(['jquery', 'underscore', 'backbone', 'model_want'], function($, _, Backbo
 	Models.Wants = Backbone.Collection.extend({
 		model: Models.Want,
 		initialize: function() {
-			this.fetch();
+			this.fetch({dataType: 'json'});
 		}
 	});
 	return Models;
