@@ -105,7 +105,7 @@ define(['jquery', 'underscore', 'backbone',
 				searchTerm: this.options.searchTerm
 			}));
 
-			this.searchResultView.setElement('#search-listing');
+			this.searchResultView.setElement('#product-listing');
 			this.searchResultView.render();
 
 			$('#search-section').fadeIn();
