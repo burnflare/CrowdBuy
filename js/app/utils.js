@@ -16,7 +16,7 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 				el: '#page-content'
 			});
 		} else {
-			viewToLoad.el = '#page-content';
+			viewToLoad.setElement('#page-content');
 			viewToLoad.render();
 		}
 	};
