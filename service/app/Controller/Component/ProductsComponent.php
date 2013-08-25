@@ -22,6 +22,7 @@ class ProductsComponent extends Component
 	 */
 	public function searchSemantics3($description, $start = 0)
 	{
+		//Decide if it is a URL.
 		$pattern = '/^(http|https|spdy):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.([A-Z]+))(:(\d+))?\/?/i';
 		if (preg_match($pattern, $description))
 		{
@@ -32,11 +33,23 @@ class ProductsComponent extends Component
 			$result = Semantics3::search($description, $start);
 		}
 		
+		//query for the current user's native currency.
+		$currency = FB::api('/' . AuthComponent::user('id') . '?fields=currency&access_token=' . FB::getAccessToken());
+		if (isset($currency->currency))
+		{
+			$exchange_rate = $currency->currency->usd_exchange_inverse;
+		}
+		
 		return (object)array(
 			'total_results_count' => $result->total_results_count,
-			'results' => array_map(function($item) {
+			'results' => array_map(function($item) use (&$exchange_rate) {
 				$item->id = $item->sem3_id;
 				unset($item->sem3_id);
+				
+				if (isset($exchange_rate))
+				{
+					$item->user_price = $item->proce * $exchange_rate;
+				}
 				return $item;
 			}, $result->results)
 		);
