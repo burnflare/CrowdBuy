@@ -37,6 +37,13 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 
 	var App = _.extend({
 		init: function() {
+			FB.init({
+				appId: '509825915758193',
+				channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
+			});
+			FB.login(function() {}, { scope: 'read_friendlists, user_about_me' });
+
+			$('#loginbutton,#feedbutton').removeAttr('disabled');
 			this.loadHome();
 
 			this.SearchPane = new Views.SearchForm({
@@ -56,6 +63,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 
 		changeView: function(newView) {
 			this.view = newView;
+			Utils.loadView(this.view);
 			this.listenTo(newView, 'changeView', this.changeView);
 			this.listenTo(newView, 'goHome', this.loadHome);
 		}

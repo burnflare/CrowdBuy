@@ -9,14 +9,6 @@ define(['jquery', 'underscore', 'backbone',
 		initialize: function() {
 			this.$el.html(_.template(mainTemplate, {}));
 
-			FB.init({
-				appId: '509825915758193',
-				channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
-			});
-			FB.login(function() {}, { scope: 'read_friendlists, user_about_me' });
-
-			$('#loginbutton,#feedbutton').removeAttr('disabled');
-
 			FB.getLoginStatus((function(that) {
 				return function(response) {
 					if (response.status === 'connected') {
