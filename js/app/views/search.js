@@ -1,8 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 
-	'text!./app/views/templates/search-form.html', 
 	'text!./app/views/templates/search-empty.html', 
 	'text!./app/views/templates/search-listing.html',
-	'models', 'utils'], function($, _, Backbone, searchFormTemplate, emptySearchTemplate, searchListingTemplate, Models, Utils) {
+	'models', 'utils'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, Models, Utils) {
 	var Views = {};
     
     function urlencode (str) {
@@ -142,9 +141,7 @@ define(['jquery', 'underscore', 'backbone',
 		initialize: function() {
 			this.searchCollection = new Models.SearchResults();
 			this.searchListingView = new Views.SearchListing({
-				collection: this.searchCollection,
-				el: '#search-results',
-				id: 'search-results'
+				collection: this.searchCollection
 			});
 		}
 	});
