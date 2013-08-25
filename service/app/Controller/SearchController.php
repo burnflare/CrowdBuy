@@ -15,7 +15,16 @@ class SearchController extends AppController
 			'action' => 'search'),
 			array('pass' => array($description, $start)));
 		
+		$listings = $this->requestAction(array(
+			'controller' => 'listings',
+			'action' => 'searchInternal'),
+			array('pass' => array(
+				array_map(function($item) {
+					return $item->id;
+				}, $products->results))
+			));
 		$this->set('products', $products);
-		$this->set('_serialize', array('products'));
+		$this->set('listings', $listings);
+		$this->set('_serialize', array('products', 'listings'));
 	}
 }

@@ -43,4 +43,40 @@ class ListingsController extends AppController
 			}
 		}
 	}
+	
+	/**
+	 * Searches for listings which include the following products.
+	 * @param array $productIds An array of products.
+	 * @throws ForbiddenException
+	 */
+	public function searchInternal(array $productIds)
+	{
+		//This is internal.
+		if (!empty($this->request->params['requested']))
+		{
+			throw new ForbiddenException();
+		}
+	}
+
+	/**
+	 * Searches for a listing containing the given product.
+	 * 
+	 * This can be invoked through a call to requestAction, which then will return
+	 * the object that would otherwise be serialised to the client.
+	 */
+	public function search($description, $start = 0)
+	{
+		$products = $this->requestAction(array(
+			'controller' => 'products',
+			'action' => 'search'),
+			array('pass' => array($description, $start)));
+		
+		$results = $this->searchInternal(
+			array_map(function($item) {
+				return $item->id;
+			}, $products->results));
+			
+		$this->set('listings', $results);
+		$this->set('_serialize', array('listings'));
+	}
 }
