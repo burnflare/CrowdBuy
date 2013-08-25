@@ -56,6 +56,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 
 		changeView: function(newView) {
 			this.view = newView;
+			Utils.loadView(this.view);
 			this.listenTo(newView, 'changeView', this.changeView);
 			this.listenTo(newView, 'goHome', this.loadHome);
 		}
