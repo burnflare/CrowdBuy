@@ -1,8 +1,8 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define(['jquery', 'underscore', 'backbone', 'model_want'], function($, _, Backbone) {
 	var Models = {};
 	Models.Wants = Backbone.Collection.extend({
 	    url: '/service/me/wants',
-		model: Models.ItemListing
+		model: Models.Want
 	});
 	return Models;
 });
