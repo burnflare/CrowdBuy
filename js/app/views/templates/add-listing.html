@@ -34,6 +34,23 @@
 			<p>We may be able to fill in some information below if you enter this.</p>
 		</div>
 	</div>
+	<div class="form-group">
+		<label for="inputItemPrice" class="col-lg-3 control-label">How much does it cost?</label>
+		<div class="col-lg-3">
+			<input type="number" class="form-control" id="inputItemPrice">
+			<p>This should be the cost per unit.</p>
+		</div>
+		<label for="inputItemCurrency" class="col-lg-2 control-label">What currency is that in?</label>
+		<div class="col-lg-3">
+			<input type="text" class="form-control" id="inputItemCurrency">
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputItemDescription" class="col-lg-3 control-label">Describe the item.</label>
+		<div class="col-lg-8">
+			<textarea class="form-control" id="inputItemDescription" rows="5"></textarea>
+		</div>
+	</div>
 	
 	<h4>LOGISTICS <small>Where and when?</small></h4>
 	<div class="form-group">
@@ -310,7 +327,7 @@
 	<div class="form-group">
 		<label for="inputExpiryDate" class="control-label col-lg-3">When will you stop accepting pledges?</label>
 		<div class="col-lg-4">
-			<input type="text" class="form-control" id="inputExpiryDate">
+			<input type="datetime" class="form-control" id="inputExpiryDate">
 		</div>
 	</div>
 	<button type="button" class="btn btn-success col-lg-4">Post It!</button>
