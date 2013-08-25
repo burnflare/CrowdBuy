@@ -21,7 +21,6 @@ h1, h2, h3, h4, h5, h6 {
 .item-listing {
 	width: 100%;
 	min-height: 125px;
-	max-height: 250px;
 }
 
 .featured-item {
