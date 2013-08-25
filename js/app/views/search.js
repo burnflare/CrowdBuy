@@ -90,11 +90,12 @@ define(['jquery', 'underscore', 'backbone',
 			"click button.close": "clickClose"
 		},
 		initialize: function() {
-			var searchUrl = '/service/products/search/' + Utils.urlencode(Utils.urlencode(this.options.searchTerm));
-			var resultCollection = new Models.SearchResults();
-			resultCollection.url = searchUrl;
-			resultCollection.fetch();
-			this.searchResultView = new Views.SearchResultListing({
+			var escapedSearchTerm = Utils.urlencode(Utils.urlencode(this.option.searchTerm));
+			var productSearchUrl = '/service/products/search/' + escapedSearchTerm;
+			var productResultCollection = new Models.ProductSearchResults([] {
+				url: productSearchUrl
+			});
+			this.productSearchResultView = new Views.SearchResultListing({
 				collection: resultCollection
 			});
 			this.render();
@@ -105,8 +106,8 @@ define(['jquery', 'underscore', 'backbone',
 				searchTerm: this.options.searchTerm
 			}));
 
-			this.searchResultView.setElement('#product-listing');
-			this.searchResultView.render();
+			this.productSearchResultView.setElement('#product-listing');
+			this.productSearchResultView.render();
 
 			$('#search-section').fadeIn();
 		},
