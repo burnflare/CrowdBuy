@@ -1,7 +1,9 @@
 define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/main.html',
+	'text!./app/views/templates/item-listing.html',
 	'text!./app/views/templates/item-listing-empty.html',
-	'models', 'facebook'], function($, _, Backbone, mainTemplate, itemListingEmptyTemplate, Models) {
+	'models', 'facebook'
+], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models) {
 	var Views = {};
 	Views.Main = Backbone.View.extend({
 		initialize: function() {
@@ -44,30 +46,52 @@ define(['jquery', 'underscore', 'backbone',
 			publicCollection = new Models.Wants([], {
 				url: '/service/me/want/public' // I don't think this exists, but hey.
 			});
-            
+
 			yourView = new Views.ListingView({
-                collection: yourCollection,
+				collection: yourCollection,
 				el: document.getElementById('you-section'),
 				id: "you"
 			});
 
 			friendView = new Views.ListingView({
-                collection: friendCollection,
+				collection: friendCollection,
 				el: document.getElementById('friend-section'),
 				id: "friend"
 			});
 
 			featuredView = new Views.ListingView({
-                collection: featuredCollection,
+				collection: featuredCollection,
 				el: document.getElementById('featured-section'),
 				id: "featured"
 			});
 
 			publicView = new Views.ListingView({
-                collection: publicCollection,
+				collection: publicCollection,
 				el: document.getElementById('public-section'),
 				id: "public"
 			});
+		}
+	});
+
+	Views.ItemView = Backbone.View.extend({
+		template: _.template(itemListingTemplate),
+
+		events: {
+			"click button#btn-pledge": "pledgeClick"
+		},
+
+		pledgeClick: function() {
+
+		},
+
+		initialize: function() {
+			this.listenTo(this.model, "change", this.render);
+			this.id = "item-" + this.model.attributes.id;
+		},
+
+		render: function() {
+			this.$el.html(this.template(this.model.attributes));
+			return this;
 		}
 	});
 
