@@ -104,7 +104,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_addViewForModel: function(item) {
-			this.childViews.push(new Views.SearchView({
+			this.childViews.push(new Views.SearchResult({
 				model: item
 			}));
 		},
