@@ -22,7 +22,7 @@ define(['jquery', 'underscore', 'backbone',
 						// Handle authentication here.
 
 						FB.api('/me', function(response) {
-							var welcomeString = this._randomWelcome();
+							var welcomeString = that._randomWelcome();
 							$('#welcome').html(welcomeString + response.name + '!');
 						});
 						that._setUpCollections();
