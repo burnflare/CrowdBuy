@@ -88,7 +88,7 @@ define(['jquery', 'underscore', 'backbone',
 	Views.SearchSession = Backbone.View.extend({
 		initialize: function() {
 			var resultCollection = new Models.SearchResults({
-				url: '/service/products/search/' + Utils.urlencode(Utils.urlencode(this.searchTerm))
+				url: '/service/products/search/' + Utils.urlencode(Utils.urlencode(this.options.searchTerm))
 			});
 			this.searchResultView = new Views.SearchResultListing({
 				collection: resultCollection
@@ -98,7 +98,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		render: function() {
 			this.$el.html(_.template(searchContainerTemplate, { 
-				searchTerm: this.searchTerm
+				searchTerm: this.options.searchTerm
 			}));
 
 			this.searchResultView.setElement('#search-listing');
