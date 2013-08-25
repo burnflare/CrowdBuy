@@ -2,7 +2,7 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/search-form.html', 
 	'text!./app/views/templates/search-empty.html', 
 	'text!./app/views/templates/search-listing.html',
-	'models'], function($, _, Backbone, searchFormTemplate, emptySearchTemplate, searchListingTemplate, Models) {
+	'models', 'utils'], function($, _, Backbone, searchFormTemplate, emptySearchTemplate, searchListingTemplate, Models, Utils) {
 	var Views = {};
     
     function urlencode (str) {
@@ -133,6 +133,7 @@ define(['jquery', 'underscore', 'backbone',
         },
 
 		searchClick: function() {
+			Utils.loadView(this.searchListingView);
 			$('#search-results').show();
 			$('#lbl-search').text(search);
 			var search = $('#txt-search').val();

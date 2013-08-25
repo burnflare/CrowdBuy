@@ -38,7 +38,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 	Utils.loadView(Views.Main);
     
     new Views.SearchForm({
-		el: '#search-section',
+		el: '#search-bar',
 		id: 'search'
 	});
 });
