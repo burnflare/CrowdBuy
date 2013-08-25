@@ -2,8 +2,8 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/main.html',
 	'text!./app/views/templates/item-listing.html',
 	'text!./app/views/templates/item-listing-empty.html',
-	'models', 'facebook'
-], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models) {
+	'models', 'utils', 'facebook'
+], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models, Utils) {
 	var Views = {};
 	Views.Main = Backbone.View.extend({
 		initialize: function() {
@@ -20,11 +20,7 @@ define(['jquery', 'underscore', 'backbone',
 				return function(response) {
 					if (response.status === 'connected') {
 						// Handle authentication here.
-						$.ajax({
-							url: '/service/me/login',
-							async: false,
-							dataType: 'json'
-						});
+						Utils.logIn();
 
 						FB.api('/me', function(response) {
 							var welcomeString = that._randomWelcome();
