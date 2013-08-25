@@ -8,6 +8,7 @@ define(['jquery', 'underscore', 'backbone',
 	Views.Main = Backbone.View.extend({
 		initialize: function() {
 			this.$el.html(_.template(mainTemplate, {}));
+			this._setUpCollections();
 		},
 
 		_setUpCollections: function() {
@@ -47,12 +48,6 @@ define(['jquery', 'underscore', 'backbone',
 				el: document.getElementById('public-section'),
 				id: "public"
 			});
-		},
-
-		_randomWelcome: function() {
-			var welcomeMessages = ["Welcome, ", "Hey ", "Hello ", "Hi "];
-			var rand = Math.floor(Math.random() * 4);
-			return welcomeMessages[rand];
 		}
 	});
 

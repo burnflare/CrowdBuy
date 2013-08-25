@@ -1,15 +1,15 @@
 requirejs.config({
 	shim: {
-		'facebook' : {
+		'facebook': {
 			export: 'FB'
 		},
-        'backbone': {
-            deps: ["underscore", "jquery"],
-            exports: "Backbone"
-        },
-        'underscore': {
-            exports: "_"
-        }
+		'backbone': {
+			deps: ["underscore", "jquery"],
+			exports: "Backbone"
+		},
+		'underscore': {
+			exports: "_"
+		}
 	},
 	"paths": {
 		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min",
@@ -41,7 +41,9 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 				appId: '509825915758193',
 				channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
 			});
-			FB.login(function() {}, { scope: 'read_friendlists, user_about_me' });
+			FB.login(function() {}, {
+				scope: 'read_friendlists, user_about_me'
+			});
 
 			$('#loginbutton,#feedbutton').removeAttr('disabled');
 
@@ -52,17 +54,16 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 						Utils.logIn();
 
 						FB.api('/me', function(response) {
-							var welcomeString = that._randomWelcome();
+							var welcomeString = this._randomWelcome();
 							$('#welcome').html(welcomeString + response.first_name + '!');
 						});
-						that._setUpCollections();
 					} else {
 						alert("Whoa, something went wrong! Try refreshing this page.");
 					}
 
 				};
 			})(this));
-			
+
 			this.loadHome();
 
 			this.SearchPane = new Views.SearchForm({
@@ -86,10 +87,16 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 			this.view = Utils.loadView(newView);
 			this.listenTo(this.view, 'changeView', this.changeView);
 			this.listenTo(this.view, 'goHome', this.loadHome);
+		},
+
+		_randomWelcome: function() {
+			var welcomeMessages = ["Welcome, ", "Hey ", "Hello ", "Hi "];
+			var rand = Math.floor(Math.random() * 4);
+			return welcomeMessages[rand];
 		}
 
 	}, Backbone.Events);
-    App.init();
+	App.init();
 
 
 });
