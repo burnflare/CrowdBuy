@@ -118,14 +118,12 @@ define(['jquery', 'underscore', 'backbone',
 	});
 
 	Views.SearchSession = Backbone.View.extend({
-		template : _.template(searchContainerTemplate),
-
 		initialize: function() {
 
 		},
 
 		render: function() {
-			this.$el.html(searchContainerTemplate({ 
+			this.$el.html(_.template(searchContainerTemplate, { 
 				searchTerm: this.searchTerm
 			}));
 
