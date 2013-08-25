@@ -54,7 +54,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 						Utils.logIn();
 
 						FB.api('/me', function(response) {
-							var welcomeString = this._randomWelcome();
+							var welcomeString = that._randomWelcome();
 							$('#welcome').html(welcomeString + response.first_name + '!');
 						});
 					} else {
