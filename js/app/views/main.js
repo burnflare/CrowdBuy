@@ -44,7 +44,7 @@ define(['jquery', 'underscore', 'backbone',
 				url: '/service/me/recommended'
 			});
 			publicCollection = new Models.Wants([], {
-				url: '/service/me/want/public' // I don't think this exists, but hey.
+				url: '/service/public/wants' // I don't think this exists, but hey.
 			});
 
 			yourView = new Views.ListingView({
