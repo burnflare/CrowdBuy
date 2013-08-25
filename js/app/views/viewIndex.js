@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'view_main', 'view_search', 'view_item'], function($, _, Backbone) {
+define(['jquery', 'underscore', 'backbone', 'view_item', 'view_search', 'view_main'], function($, _, Backbone) {
 
 	var Views = {};
 

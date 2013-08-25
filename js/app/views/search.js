@@ -5,38 +5,28 @@ define(['jquery', 'underscore', 'backbone',
 	'models'], function($, _, Backbone, searchFormTemplate, emptySearchTemplate, searchListingTemplate, Models) {
 	var Views = {};
 
-	Views.SearchForm = Backbone.View.extend({
-		template: _.template(searchFormTemplate),
+	Views.SearchView = Backbone.View.extend({
+		template: _.template(searchListingTemplate),
 
 		events: {
-			"click a#btn-search": "searchClick"
+			"click button#btn-pledge": "pledgeClick"
 		},
 
-		searchClick: function() {
-			var search = $('#txt-search').val();
-			$('#lbl-search').text(search);
-			$('#search-results').show();
-			this.searchCollection.url = '/service/products/search/' + search;
-			this.searchCollection.fetch();
-			this.searchListingView.render();
+		pledgeClick: function() {
+
 		},
 
 		initialize: function() {
-			this.searchCollection = new Models.SearchResults();
-			this.searchListingView = new Views.SearchListing({
-				collection: this.searchCollection,
-				el: '#search-results',
-				id: 'search-results'
-			});
-			this.render();
+			this.listenTo(this.model, "change", this.render);
+			this.id = "search-" + this.model.attributes.id;
 		},
 
 		render: function() {
-			this.$el.html(this.template());
+			this.$el.html(this.template(this.model.attributes));
 			return this;
 		}
 	});
-
+    
 	Views.SearchListing = Backbone.View.extend({
 		initialize: function() {
 			this.listenTo(this.collection, 'add', this.collectionAdded);
@@ -93,25 +83,35 @@ define(['jquery', 'underscore', 'backbone',
 			this.render();
 		}
 	});
-
-	Views.SearchView = Backbone.View.extend({
-		template: _.template(searchListingTemplate),
+    
+	Views.SearchForm = Backbone.View.extend({
+		template: _.template(searchFormTemplate),
 
 		events: {
-			"click button#btn-pledge": "pledgeClick"
+			"click a#btn-search": "searchClick"
 		},
 
-		pledgeClick: function() {
-
+		searchClick: function() {
+			var search = $('#txt-search').val();
+			$('#lbl-search').text(search);
+			$('#search-results').show();
+			this.searchCollection.url = '/service/products/search/' + search;
+			this.searchCollection.fetch();
+			this.searchListingView.render();
 		},
 
 		initialize: function() {
-			this.listenTo(this.model, "change", this.render);
-			this.id = "search-" + this.model.attributes.id;
+			this.searchCollection = new Models.SearchResults();
+			this.searchListingView = new Views.SearchListing({
+				collection: this.searchCollection,
+				el: '#search-results',
+				id: 'search-results'
+			});
+			this.render();
 		},
 
 		render: function() {
-			this.$el.html(this.template(this.model.attributes));
+			this.$el.html(this.template());
 			return this;
 		}
 	});
