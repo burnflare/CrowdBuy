@@ -29,12 +29,6 @@ define(['jquery', 'underscore', 'backbone',
 
 				};
 			})(this));
-            
-            this.searchForm = new Views.SearchForm({
-        		el: $('search-section'),
-        		id: 'search'
-        	});
-            this.searchForm.render();
 		},
 
 		_setUpCollections: function() {
@@ -43,8 +37,6 @@ define(['jquery', 'underscore', 'backbone',
 			featuredCollection = new Models.Wants();
 			publicCollection = new Models.Wants();
             
-            console.log(yourCollection);
-
 			yourView = new Views.ListingView({
                 collection: yourCollection,
 				el: document.getElementById('you-section'),
