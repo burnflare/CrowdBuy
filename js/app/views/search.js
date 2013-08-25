@@ -133,12 +133,12 @@ define(['jquery', 'underscore', 'backbone',
         },
 
 		searchClick: function() {
+			$('#search-results').show();
 			var search = $('#txt-search').val();
 			this.searchCollection.url = '/service/products/search/' + urlencode(urlencode(search));
 			this.searchCollection.fetch({
 				success: function(results) {
 					$('#lbl-search').text(search);
-					$('#search-results').show();
 				}
 			});
 			this.searchListingView.render();
