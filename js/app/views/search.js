@@ -95,7 +95,7 @@ define(['jquery', 'underscore', 'backbone',
         keypress: function(e) {
             switch (e.keyCode) {
                 case 13: 
-                searchClick();
+                this.searchClick();
             }
         },
 
