@@ -27,8 +27,7 @@ requirejs.config({
 
 		'views': 'app/views/viewIndex',
 		'view_main': 'app/views/main',
-		'view_search': 'app/views/search',
-		'view_item': 'app/views/item',
+		'view_search': 'app/views/search'
 	}
 });
 
