@@ -9,6 +9,9 @@ requirejs.config({
 		},
 		'underscore': {
 			exports: "_"
+		},
+		'bootstrap': {
+			deps: ["jquery"]
 		}
 	},
 	"paths": {
@@ -18,6 +21,7 @@ requirejs.config({
 		"backbone": "libs/backbone.min",
 		"json": "libs/json2",
 		"text": "libs/text",
+		'bootstrap': 'libs/bootstrap.min',
 
 		'models': 'app/models/modelIndex',
 		'model_want': 'app/models/want',
@@ -33,7 +37,7 @@ requirejs.config({
 	}
 });
 
-requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _, Backbone, Views, Utils) {
+requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], function($, _, Backbone, Views, Utils) {
 
 	var App = _.extend({
 		init: function() {
