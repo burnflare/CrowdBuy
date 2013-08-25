@@ -29,6 +29,12 @@ define(['jquery', 'underscore', 'backbone',
 
 				};
 			})(this));
+            
+            this.searchForm = new Views.SearchForm({
+        		el: $('search-section'),
+        		id: 'search'
+        	});
+            this.searchForm.render();
 		},
 
 		_setUpCollections: function() {
