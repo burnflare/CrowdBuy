@@ -88,8 +88,16 @@ define(['jquery', 'underscore', 'backbone',
 		template: _.template(searchFormTemplate),
 
 		events: {
-			"click a#btn-search": "searchClick"
+			"click a#btn-search": "searchClick",
+            "keypress input[type=text]": "keypress"
 		},
+        
+        keypress: function(e) {
+            switch (e.keyCode) {
+                case 13: 
+                searchClick();
+            }
+        } 
 
 		searchClick: function() {
 			var search = $('#txt-search').val();
