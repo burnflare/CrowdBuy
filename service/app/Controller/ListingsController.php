@@ -13,7 +13,7 @@ class ListingsController extends AppController
 	 *
 	 * @var string
 	 */
-	public $name = 'Me';
+	public $name = 'Listing';
 
 	/**
 	 * This controller does not use a model
@@ -42,5 +42,33 @@ class ListingsController extends AppController
 				debug($this->Recipe->validationErrors);
 			}
 		}
+	}
+
+	/**
+	 * Searches for a listing containing the given product.
+	 * 
+	 * This can be invoked through a call to requestAction, which then will return
+	 * the object that would otherwise be serialised to the client.
+	 */
+	public function search($description, $start = 0)
+	{
+		$pattern = '/^(http|https|spdy):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.([A-Z]+))(:(\d+))?\/?/i';
+		if (preg_match($pattern, $description))
+		{
+			$result = Semantics3::searchByUrl($description, $start);
+		}
+		else
+		{
+			$result = Semantics3::search($description, $start);
+		}
+		
+		$productIds = array_map(function($item) {
+				return $item->sem3_id;
+			}, $result->results);
+
+		$listings = $this->ProductListing->findByProductId($productIds);
+
+		$this->set('listings', $listings);
+		$this->set('_serialize', array('listings'));
 	}
 }

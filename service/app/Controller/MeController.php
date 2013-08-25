@@ -31,7 +31,7 @@ class MeController extends AppController
 		$userId = FB::getUser();
 		if (empty($userId))
 		{
-			throw ForbiddenException();
+			throw new ForbiddenException();
 		}
 
 		$this->Auth->login(array('id' => $userId));

@@ -2,33 +2,27 @@
 App::uses('AppController', 'Controller');
 
 /**
- * Products controller
+ * Search controller
  *
- * Handles requests about products.
+ * Handles site-wide search.
  */
-class ProductsController extends AppController
+class SearchController extends AppController
 {
 	/**
 	 * Controller name
 	 *
 	 * @var string
 	 */
-	public $name = 'Product';
+	public $name = 'Search';
 
 	/**
-	 * This controller does not use a model
+	 * The models this controller uses.
 	 *
 	 * @var array
 	 */
-	public $uses = array();
-	
-	/**
-	 * Searches for a product like the given string.
-	 * 
-	 * This can be invoked through a call to requestAction, which then will return
-	 * the object that would otherwise be serialised to the client.
-	 */
-	public function search($description, $start = 0)
+	public $uses = array('ProductListing');
+
+	public function this($description, $start = 0)
 	{
 		$pattern = '/^(http|https|spdy):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.([A-Z]+))(:(\d+))?\/?/i';
 		if (preg_match($pattern, $description))
@@ -40,7 +34,7 @@ class ProductsController extends AppController
 			$result = Semantics3::search($description, $start);
 		}
 		
-		$display = (object)array(
+		$products = (object)array(
 			'total_results_count' => $result->total_results_count,
 			'results' => array_map(function($item) {
 				$item->id = $item->sem3_id;
@@ -48,8 +42,15 @@ class ProductsController extends AppController
 				return $item;
 			}, $result->results)
 		);
-		
-		$this->set('result', $display);
-		$this->set('_serialize', array('result'));
+		$this->set('products', $products);
+			
+		$productIds = array_map(function($item) {
+				return $item->id;
+			}, $result->results);
+
+		$listings = $this->ProductListing->findByProductId($productIds);
+		$this->set('listings', $listings);
+
+		$this->set('_serialize', array('products', 'listings'));
 	}
 }
