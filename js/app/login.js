@@ -1,3 +1,4 @@
+// NOTE: this file is not used anywhere at the moment.
 define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', 'facebook'], function($, _, Backbone, loginTemplate, FB) {
 	FB.init({
 		appId: '509825915758193',
