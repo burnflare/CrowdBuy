@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 
-	'text!./app/views/templates/search-empty.html', 
+define(['jquery', 'underscore', 'backbone',
+	'text!./app/views/templates/search-empty.html',
 	'text!./app/views/templates/search-listing.html',
 	'text!./app/views/templates/search-listings.html',
 	'models', 'utils'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, Models, Utils) {
