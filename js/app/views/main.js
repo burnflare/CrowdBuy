@@ -32,10 +32,18 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_setUpCollections: function() {
-			yourCollection = new Models.Wants();
-			friendCollection = new Models.Wants();
-			featuredCollection = new Models.Wants();
-			publicCollection = new Models.Wants();
+			yourCollection = new Models.Wants({
+				url: '/service/me/want/'
+			});
+			friendCollection = new Models.Wants({
+				url: '/service/me/friendsWants'
+			});
+			featuredCollection = new Models.Wants({
+				url: '/service/me/recommended'
+			});
+			publicCollection = new Models.Wants({
+				url: '/service/me/want/public' // I don't think this exists, but hey.
+			});
             
 			yourView = new Views.ListingView({
                 collection: yourCollection,
@@ -60,16 +68,6 @@ define(['jquery', 'underscore', 'backbone',
 				el: document.getElementById('public-section'),
 				id: "public"
 			});
-            
-            yourView.url = '/service/me/want/your';
-            friendView.url = '/service/me/want/friend';
-            featuredView.url = '/service/me/want/feature';
-            publicView.url = '/service/me/want/public';
-
-			yourCollection.fetch();
-			friendCollection.fetch();
-			featuredCollection.fetch();
-			publicCollection.fetch();
 		}
 	});
 
