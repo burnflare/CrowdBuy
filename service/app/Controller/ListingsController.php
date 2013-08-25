@@ -42,8 +42,12 @@ class ListingsController extends AppController
 		if ($this->request->is('post'))
 		{
 			//Try creating the product first.
-			$this->Product->id = $this->request->data['product_id'];
-			$this->Product->save(array());
+			if (!$this->Product->find(
+				'count', array('product_id' => $this->request->data['product_id'])))
+			{
+				$this->Product->id = $this->request->data['product_id'];
+				$this->Product->save(array());
+			}
 			
 			//If the form data can be validated and saved...
 			$this->request->data['creator_id'] = $this->Auth->user('id');
