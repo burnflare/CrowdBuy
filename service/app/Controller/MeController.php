@@ -35,6 +35,16 @@ class MeController extends AppController
 		}
 
 		$this->Auth->login(array('id' => $userId));
+		
+		$referer = $this->request->referer();
+		if (empty($referer))
+		{
+			$this->set('_serialize', array());
+		}
+		else
+		{
+			$this->redirect($this->request->referer(), 303);
+		}
 	}
 
 	/**
