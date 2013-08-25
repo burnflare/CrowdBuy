@@ -50,10 +50,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .search-result {
+    color: black;
+    text-decoration: none;
 	width: 49%;
 	min-height: 100px;
 	float: left;
 	margin: 4px;
+}
+
+.search-result:hover {
+    color: black;
+    text-decoration: none;
 }
 
 .search-section {
