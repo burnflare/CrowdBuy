@@ -46,7 +46,7 @@ class ListingsController extends AppController
 			$this->Product->save(array());
 			
 			//If the form data can be validated and saved...
-			$this->request->data['person_id'] = $this->Auth->user('id');
+			$this->request->data['creator_id'] = $this->Auth->user('id');
 			if ($this->ProductListing->save($this->request->data))
 			{
 				//Set a session flash message and redirect.
