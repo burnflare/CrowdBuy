@@ -44,4 +44,15 @@ class ProductsController extends AppController
 		$this->set('result', $result);
 		$this->set('_serialize', array('result'));
 	}
+	
+	/**
+	 * Gets Semantics3's product info given the product ID.
+	 */	
+	public function get($id)
+	{
+		$result = Semantics3::getInfo($id);
+		
+		$this->set('result', $result);
+		$this->set('_serialize', array('result'));
+	}
 }
