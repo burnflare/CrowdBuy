@@ -44,12 +44,20 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 				id: 'search'
 			});
 
-			this.on('goHome', this.loadHome);
+			this.listenTo(this.SearchPane, 'changeView', this.changeView);
+			this.listenTo(this.SearchPane, 'goHome', this.loadHome);
+			this.listenTo(this.view, 'changeView', this.changeView);
 		},
 
 		loadHome: function() {
 			this.view = Views.Main;
 			Utils.loadView(this.view);
+		},
+
+		changeView: function(newView) {
+			this.view = newView;
+			this.listenTo(newView, 'changeView', this.changeView);
+			this.listenTo(newView, 'goHome', this.loadHome);
 		}
 
 	}, Backbone.Events);

@@ -113,6 +113,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		clickClose: function() {
 			this.trigger("goHome");
+			this.remove();
 		}
 	});
     
