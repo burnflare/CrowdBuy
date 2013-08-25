@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 
+define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/main.html',
 	'text!./app/views/templates/item-listing-empty.html',
 	'models', 'facebook'], function($, _, Backbone, mainTemplate, itemListingEmptyTemplate, Models) {
@@ -61,10 +61,10 @@ define(['jquery', 'underscore', 'backbone',
 				id: "public"
 			});
             
-            yourView.url = '/service/me/want/your'
-            friendView.url = '/service/me/want/freind'
-            featuredView.url = '/service/me/want/feature'
-            publicView.url = '/service/me/want/public'
+            yourView.url = '/service/me/want/your';
+            friendView.url = '/service/me/want/friend';
+            featuredView.url = '/service/me/want/feature';
+            publicView.url = '/service/me/want/public';
 
 			yourCollection.fetch();
 			friendCollection.fetch();
