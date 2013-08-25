@@ -1,15 +1,15 @@
 requirejs.config({
 	shim: {
-		'facebook': {
+		'facebook' : {
 			export: 'FB'
 		},
-		'backbone': {
-			deps: ["underscore", "jquery"],
-			exports: "Backbone"
-		},
-		'underscore': {
-			exports: "_"
-		}
+        'backbone': {
+            deps: ["underscore", "jquery"],
+            exports: "Backbone"
+        },
+        'underscore': {
+            exports: "_"
+        }
 	},
 	"paths": {
 		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min",
@@ -35,23 +35,6 @@ requirejs.config({
 
 requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _, Backbone, Views, Utils) {
 
-	// Global Dispatcher from http://www.michikono.com/2012/01/11/adding-a-centralized-event-dispatcher-on-backbone-js/
-	(function() {
-		var dispatcher;
-		if (this.isExtended) {
-			return;
-		}
-		dispatcher = _.extend({}, Backbone.Events, {
-			cid: "dispatcher"
-		});
-		return _.each([Backbone.Collection.prototype, Backbone.Model.prototype, Backbone.View.prototype, Backbone.Router.prototype], function(proto) {
-			return _.extend(proto, {
-				global_dispatcher: dispatcher
-			});
-		});
-	})();
-
-
 	var App = _.extend({
 		init: function() {
 			this.loadHome();
@@ -61,7 +44,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 				id: 'search'
 			});
 
-			this.listenTo(this.global_dispatcher, 'goHome', this.loadHome);
+			this.on('goHome', this.loadHome);
 		},
 
 		loadHome: function() {
@@ -70,7 +53,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 		}
 
 	}, Backbone.Events);
-	App.init();
+    App.init();
 
 
 });

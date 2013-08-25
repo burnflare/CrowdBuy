@@ -112,7 +112,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		clickClose: function() {
-			this.global_dispatcher.trigger('goHome');
+			this.trigger("goHome");
 		}
 	});
     
