@@ -6,6 +6,8 @@ define(['jquery', 'underscore', 'backbone', 'model_want', 'model_wants', 'model_
 	for (var i = 3; i < arguments.length; i++) {
 		_.extend(Models, arguments[i]);
 	}
+    
+    console.log(Models);
 
 	return Models;
 });
