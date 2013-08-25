@@ -24,6 +24,9 @@ class ProductsController extends AppController
 	
 	/**
 	 * Searches for a product like the given string.
+	 * 
+	 * This can be invoked through a call to requestAction, which then will return
+	 * the object that would otherwise be serialised to the client.
 	 */
 	public function search($description, $start = 0)
 	{
@@ -46,7 +49,14 @@ class ProductsController extends AppController
 			}, $result->results)
 		);
 		
-		$this->set(array('result' => &$display));
-		$this->set('_serialize', array('result'));
+		if (!empty($this->request->params['requested']))
+		{
+			return $display;
+		}
+		else
+		{
+			$this->set(array('result' => &$display));
+			$this->set('_serialize', array('result'));
+		}
 	}
 }
