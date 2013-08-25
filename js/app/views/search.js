@@ -1,7 +1,8 @@
 define(['jquery', 'underscore', 'backbone', 
 	'text!./app/views/templates/search-empty.html', 
 	'text!./app/views/templates/search-listing.html',
-	'models', 'utils'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, Models, Utils) {
+	'text!./app/views/templates/search-listings.html',
+	'models', 'utils'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, Models, Utils) {
 	var Views = {};
     
     function urlencode (str) {
@@ -115,6 +116,25 @@ define(['jquery', 'underscore', 'backbone',
 			this.render();
 		}
 	});
+
+	Views.SearchSession = Backbone.View.extend({
+		template : _.template(searchContainerTemplate),
+
+		initialize: function() {
+
+		},
+
+		render: function() {
+			this.$el.html(searchContainerTemplate({ 
+				searchTerm: this.searchTerm
+			}));
+
+			new Views.SearchListing({
+				collection: this.collection,
+				el: '#search-listing'
+			});
+		}
+	});
     
 	Views.SearchForm = Backbone.View.extend({
 		events: {
@@ -130,20 +150,20 @@ define(['jquery', 'underscore', 'backbone',
         },
 
 		searchClick: function() {
-			Utils.loadView(this.searchListingView);
-			$('#search-results').show();
-			$('#lbl-search').text(search);
-			var search = $('#txt-search').val();
+			var searchListingView = new Views.SearchSession({
+				collection: new Models.SearchResults(),
+				searchTerm: $('#txt-search').val()
+			});
+
+			Utils.loadView(searchListingView);
+			// $('#search-results').show();
+			// var search = $('#txt-search').val();
+			// $('#lbl-search').text(search);
 			this.searchCollection.url = '/service/products/search/' + urlencode(urlencode(search));
 			this.searchCollection.fetch();
 		},
 
-		initialize: function() {
-			this.searchCollection = new Models.SearchResults();
-			this.searchListingView = new Views.SearchListing({
-				collection: this.searchCollection
-			});
-		}
+		initialize: function() {}
 	});
 
 	return Views;
