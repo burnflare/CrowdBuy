@@ -22,7 +22,8 @@ define(['jquery', 'underscore', 'backbone',
 						// Handle authentication here.
 
 						FB.api('/me', function(response) {
-							$('#welcome').html('Welcome, ' + response.name + '!');
+							var welcomeString = this._randomWelcome();
+							$('#welcome').html(welcomeString + response.name + '!');
 						});
 						that._setUpCollections();
 					} else {
@@ -70,6 +71,12 @@ define(['jquery', 'underscore', 'backbone',
 				el: document.getElementById('public-section'),
 				id: "public"
 			});
+		},
+
+		_randomWelcome: function() {
+			var welcomeMessages = ["Welcome, ", "Hey ", "Hello ", "Hey there "];
+			var rand = Math.floor(Math.random() * 4);
+			return welcomeMessages[rand];
 		}
 	});
 
