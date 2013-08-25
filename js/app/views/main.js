@@ -38,49 +38,37 @@ define(['jquery', 'underscore', 'backbone',
 			publicCollection = new Models.Wants();
 
 			yourView = new Views.ListingView({
+                url: '/service/me/want/your',
 				collection: yourCollection,
 				el: document.getElementById('you-section'),
 				id: "you"
 			});
 
 			friendView = new Views.ListingView({
+                url: '/service/me/want/freind',
 				collection: friendCollection,
 				el: document.getElementById('friend-section'),
 				id: "friend"
 			});
 
 			featuredView = new Views.ListingView({
+                url: '/service/me/want/feature',
 				collection: featuredCollection,
 				el: document.getElementById('featured-section'),
 				id: "featured"
 			});
 
 			publicView = new Views.ListingView({
+                url: '/service/me/want/public',
 				collection: publicCollection,
 				el: document.getElementById('public-section'),
 				id: "public"
 			});
 
-			yourCollection.fetch({
-				data: $.param({
-					type: 'you'
-				})
-			});
-			friendCollection.fetch({
-				data: $.param({
-					type: 'friend'
-				})
-			});
-			featuredCollection.fetch({
-				data: $.param({
-					type: 'featured'
-				})
-			});
-			publicCollection.fetch({
-				data: $.param({
-					type: 'public'
-				})
-			});
+			yourCollection.fetch();
+			friendCollection.fetch();
+			featuredCollection.fetch();
+			publicCollection.fetch();
 		}
 	});
 
