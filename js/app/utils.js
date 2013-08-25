@@ -1,9 +1,9 @@
 define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 	var Utils = {};
 
-	Utils.logIn = function() {
+	Utils.logIn = function(response) {
 		$.ajax({
-			url: '/service/me/login',
+			url: '/service/me/login?token=',
 			async: false,
 			dataType: 'json'
 		});
