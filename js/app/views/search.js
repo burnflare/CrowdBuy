@@ -124,8 +124,7 @@ define(['jquery', 'underscore', 'backbone',
 				url: '/service/products/search/' + urlencode(urlencode(this.searchTerm))
 			});
 			this.searchResultView = new Views.SearchResultListing({
-				collection: resultCollection,
-				id: '#search-listing'
+				collection: resultCollection
 			});
 			this.render();
 		},
@@ -135,6 +134,7 @@ define(['jquery', 'underscore', 'backbone',
 				searchTerm: this.searchTerm
 			}));
 
+			this.searchResultView.setElement('#search-listing');
 			this.searchResultView.render();
 
 			$('#search-section').fadeIn();
