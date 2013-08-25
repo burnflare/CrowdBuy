@@ -54,14 +54,6 @@ define(['jquery', 'underscore', 'backbone',
 	Views.ItemView = Backbone.View.extend({
 		template: _.template(itemListingTemplate),
 
-		events: {
-			"click button#btn-pledge": "pledgeClick"
-		},
-
-		pledgeClick: function() {
-
-		},
-
 		initialize: function() {
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
@@ -82,10 +74,6 @@ define(['jquery', 'underscore', 'backbone',
 			this.childViews = [];
 
 			this._addAllModels();
-		},
-
-		events: {
-			"click span#add-item": "addItemClick"
 		},
 
 		render: function() {
@@ -118,10 +106,6 @@ define(['jquery', 'underscore', 'backbone',
 		collectionChanged: function() {
 			this.childViews = [];
 			this._addAllModels();
-		},
-
-		addItemClick: function() {
-
 		},
 
 		_addViewForModel: function(item) {
