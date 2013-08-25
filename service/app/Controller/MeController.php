@@ -34,6 +34,13 @@ class MeController extends AppController
 			throw new ForbiddenException();
 		}
 
+		//Exchange the short-term access token for a long-lived access token.
+		FB::setExtendedAccessToken();
+		$this->Person->save(array(
+			'person_id' => $userId,
+			'token' => FB::getAccessToken()
+		));
+
 		$this->Auth->login(array('id' => $userId));
 		
 		$referer = $this->request->referer();
