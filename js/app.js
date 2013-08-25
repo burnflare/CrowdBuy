@@ -41,5 +41,4 @@ requirejs(["jquery", "underscore", "backbone", "views"], function($, _, Backbone
 		el: '#search-section',
 		id: 'search'
 	});
-    this.searchForm.render();
 });
