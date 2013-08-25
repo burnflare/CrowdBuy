@@ -93,7 +93,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		searchClick: function() {
 			var search = $('#txt-search').val();
-			this.searchCollection.url = '/service/products/search/' + encodeURI(search);
+			this.searchCollection.url = '/service/products/search/' + escape(search);
 			this.searchCollection.fetch({
 			    success: function(results) {
         			$('#lbl-search').text(search);
