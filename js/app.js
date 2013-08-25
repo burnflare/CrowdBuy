@@ -27,17 +27,18 @@ requirejs.config({
 
 		'views': 'app/views/viewIndex',
 		'view_main': 'app/views/main',
-		'view_search': 'app/views/search'
+		'view_search': 'app/views/search',
+
+		'utils': 'app/utils'
 	}
 });
 
-requirejs(["jquery", "underscore", "backbone", "views"], function($, _, Backbone, Views) {
-	new Views.Main({
-		el: '#page-content'
-	});
+requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _, Backbone, Views, Utils) {
+
+	Utils.loadView(Views.Main);
     
     new Views.SearchForm({
-		el: '#search-section',
+		el: '#search-bar',
 		id: 'search'
 	});
 });

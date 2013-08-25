@@ -1,8 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 
-	'text!./app/views/templates/search-form.html', 
 	'text!./app/views/templates/search-empty.html', 
 	'text!./app/views/templates/search-listing.html',
-	'models'], function($, _, Backbone, searchFormTemplate, emptySearchTemplate, searchListingTemplate, Models) {
+	'models', 'utils'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, Models, Utils) {
 	var Views = {};
     
     function urlencode (str) {
@@ -82,7 +81,7 @@ define(['jquery', 'underscore', 'backbone',
 				$(emptySearchTemplate).appendTo(fragment);
 			}
 
-			this.$('.item-listing').html(fragment);
+			this.$el.html(fragment);
 			return this;
 		},
 
@@ -118,8 +117,6 @@ define(['jquery', 'underscore', 'backbone',
 	});
     
 	Views.SearchForm = Backbone.View.extend({
-		template: _.template(searchFormTemplate),
-
 		events: {
 			"click a#btn-search": "searchClick",
             "keypress input[type=text]": "keypress"
@@ -127,36 +124,25 @@ define(['jquery', 'underscore', 'backbone',
         
         keypress: function(e) {
             switch (e.keyCode) {
-                case 13: 
+                case 13:
                 this.searchClick();
             }
         },
 
 		searchClick: function() {
+			Utils.loadView(this.searchListingView);
+			$('#search-results').show();
+			$('#lbl-search').text(search);
 			var search = $('#txt-search').val();
 			this.searchCollection.url = '/service/products/search/' + urlencode(urlencode(search));
-			this.searchCollection.fetch({
-			    success: function(results) {
-        			$('#lbl-search').text(search);
-        			$('#search-results').show();
-			    }
-			});
-			this.searchListingView.render();
+			this.searchCollection.fetch();
 		},
 
 		initialize: function() {
-			this.render();
 			this.searchCollection = new Models.SearchResults();
 			this.searchListingView = new Views.SearchListing({
-				collection: this.searchCollection,
-				el: '#search-results',
-				id: 'search-results'
+				collection: this.searchCollection
 			});
-		},
-
-		render: function() {
-			this.$el.html(this.template());
-			return this;
 		}
 	});
 

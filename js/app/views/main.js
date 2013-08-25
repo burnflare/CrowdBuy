@@ -2,8 +2,8 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/main.html',
 	'text!./app/views/templates/item-listing.html',
 	'text!./app/views/templates/item-listing-empty.html',
-	'models', 'facebook'
-], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models) {
+	'models', 'utils', 'facebook'
+], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models, Utils) {
 	var Views = {};
 	Views.Main = Backbone.View.extend({
 		initialize: function() {
@@ -13,6 +13,7 @@ define(['jquery', 'underscore', 'backbone',
 				appId: '509825915758193',
 				channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
 			});
+			FB.login(function() {}, { scope: 'read_friendlists, user_about_me' });
 
 			$('#loginbutton,#feedbutton').removeAttr('disabled');
 
@@ -20,9 +21,11 @@ define(['jquery', 'underscore', 'backbone',
 				return function(response) {
 					if (response.status === 'connected') {
 						// Handle authentication here.
+						Utils.logIn();
 
 						FB.api('/me', function(response) {
-							$('#welcome').html('Welcome, ' + response.name + '!');
+							var welcomeString = that._randomWelcome();
+							$('#welcome').html(welcomeString + response.first_name + '!');
 						});
 						that._setUpCollections();
 					} else {
@@ -35,7 +38,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		_setUpCollections: function() {
 			yourCollection = new Models.Wants([], {
-				url: '/service/me/want'
+				url: '/service/me/wants'
 			});
 			friendCollection = new Models.Wants([], {
 				url: '/service/me/friendsWants'
@@ -44,7 +47,7 @@ define(['jquery', 'underscore', 'backbone',
 				url: '/service/me/recommended'
 			});
 			publicCollection = new Models.Wants([], {
-				url: '/service/me/want/public' // I don't think this exists, but hey.
+				url: '/service/public/wants' // I don't think this exists, but hey.
 			});
 
 			yourView = new Views.ListingView({
@@ -70,6 +73,12 @@ define(['jquery', 'underscore', 'backbone',
 				el: document.getElementById('public-section'),
 				id: "public"
 			});
+		},
+
+		_randomWelcome: function() {
+			var welcomeMessages = ["Welcome, ", "Hey ", "Hello ", "Hi "];
+			var rand = Math.floor(Math.random() * 4);
+			return welcomeMessages[rand];
 		}
 	});
 

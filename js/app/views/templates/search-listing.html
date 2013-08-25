@@ -1,9 +1,21 @@
-<div class="item media">
-	<div class="media-body">
-		<h3 class="media-heading"><%= name %></h3>
-		<div class="item-price"><span class="glyphicon glyphicon-usd"></span><%= price %></div>
+<div class="row">
+	<div id="search-section" class="section col-sm-12">
+		<h3 class="section-header">
+			SEARCH RESULTS FOR &quot;<span id="lbl-search"></span>&quot;
+		</h3>
+		<div id="search-listing" class="item-listing">
+            
+		</div>
 	</div>
-	<div class="pull-right btn-group-vertical">
-		<button type="button" id="btn-pledge" class="btn btn-default pull-right">I'm in!</button>
+</div>
+<div class="item media search-result">
+	<div class="media-body">
+		<h4 class="media-heading"><%= name %></h4>
+		<div class="item-price">
+			<span class="glyphicon glyphicon-usd"></span><%= price %> (USD)
+		</div>
+		<div class="item-dimensions">
+			<span class="glyphicon glyphicon-resize-full"></span><%= length %> L x <%= width %> W x <%= height %> H (in mm)
+		</div>
 	</div>
 </div>

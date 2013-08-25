@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>CrowdBuy - Not That This Will Display</title>
-	<link href='http://fonts.googleapis.com/css?family=Raleway:300,400' rel='stylesheet' type='text/css'>
+	<link href='//fonts.googleapis.com/css?family=Raleway:300,400' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="./css/custom-theme.css" />
 	<script data-main="js/app.js" src="js/libs/require.js"></script>
@@ -20,6 +20,15 @@
 			<h1>CrowdBuy <small>Group ordering made easy.</small></h1>
 		</div>
 
+		<div id="search-bar" class="background-panel">
+			<div class="input-group">
+				<input id="txt-search" type="text" class="form-control" placeholder="What do you want to buy?" />
+				<a id="btn-search" class="input-group-addon btn">Find it!</a>
+			</div>
+			<div id="search-results" style="display: none"></div>
+		</div>
+
 		<div id="page-content"></div>
+	</div>
 </body>
 </html>
