@@ -112,7 +112,8 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		clickClose: function() {
-			this.global_dispatcher.trigger('goHome');
+			this.trigger("goHome");
+			this.remove();
 		}
 	});
     
@@ -134,7 +135,7 @@ define(['jquery', 'underscore', 'backbone',
 				searchTerm: $('#txt-search').val()
 			});
 
-			Utils.loadView(searchListingView);
+			this.trigger('changeView', searchListingView);
 		},
 
 		initialize: function() {}
