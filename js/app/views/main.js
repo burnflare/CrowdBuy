@@ -35,7 +35,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		_setUpCollections: function() {
 			yourCollection = new Models.Wants([], {
-				url: '/service/me/want'
+				url: '/service/me/wants'
 			});
 			friendCollection = new Models.Wants([], {
 				url: '/service/me/friendsWants'
