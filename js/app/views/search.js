@@ -90,7 +90,7 @@ define(['jquery', 'underscore', 'backbone',
 			"click button.close": "clickClose"
 		},
 		initialize: function() {
-			var escapedSearchTerm = Utils.urlencode(Utils.urlencode(this.option.searchTerm));
+			var escapedSearchTerm = Utils.urlencode(Utils.urlencode(this.options.searchTerm));
 			var productSearchUrl = '/service/products/search/' + escapedSearchTerm;
 			var productResultCollection = new Models.ProductSearchResults([], {
 				url: productSearchUrl
