@@ -38,7 +38,7 @@ define(['jquery', 'underscore', 'backbone',
       replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
     }
 
-	Views.SearchView = Backbone.View.extend({
+	Views.SearchResult = Backbone.View.extend({
 		template: _.template(searchListingTemplate),
 
 		events: {
@@ -60,7 +60,7 @@ define(['jquery', 'underscore', 'backbone',
 		}
 	});
     
-	Views.SearchListing = Backbone.View.extend({
+	Views.SearchResultListing = Backbone.View.extend({
 		initialize: function() {
 			this.listenTo(this.collection, 'add', this.collectionAdded);
 			this.listenTo(this.collection, 'change', this.collectionChanged);
@@ -119,18 +119,21 @@ define(['jquery', 'underscore', 'backbone',
 
 	Views.SearchSession = Backbone.View.extend({
 		initialize: function() {
+			this.render();
 
+			var resultCollection = new Models.SearchResults({
+				url: '/service/products/search/' + urlencode(urlencode(this.searchTerm))
+			});
+			var searchResultView = new Views.SearchResultListing({
+				collection: resultCollection,
+				id: '#search-listing'
+			});
 		},
 
 		render: function() {
 			this.$el.html(_.template(searchContainerTemplate, { 
 				searchTerm: this.searchTerm
 			}));
-
-			new Views.SearchListing({
-				collection: this.collection,
-				el: '#search-listing'
-			});
 
 			$('#search-section').fadeIn();
 		}
@@ -151,16 +154,10 @@ define(['jquery', 'underscore', 'backbone',
 
 		searchClick: function() {
 			var searchListingView = new Views.SearchSession({
-				collection: new Models.SearchResults(),
 				searchTerm: $('#txt-search').val()
 			});
 
 			Utils.loadView(searchListingView);
-			// $('#search-results').show();
-			// var search = $('#txt-search').val();
-			// $('#lbl-search').text(search);
-			this.searchCollection.url = '/service/products/search/' + urlencode(urlencode(search));
-			this.searchCollection.fetch();
 		},
 
 		initialize: function() {}
