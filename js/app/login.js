@@ -7,6 +7,8 @@ define(['jquery', 'underscore', 'backbone', 'text!../../templates/login.html', '
 		if (response.status !== 'connected') {
 			FB.login();
 		}
+	}, {
+	    scope: 'read_friendlists'
 	});
 
 	var Login = Backbone.View.extend({
