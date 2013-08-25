@@ -92,12 +92,21 @@ define(['jquery', 'underscore', 'backbone',
 		initialize: function() {
 			var escapedSearchTerm = Utils.urlencode(Utils.urlencode(this.option.searchTerm));
 			var productSearchUrl = '/service/products/search/' + escapedSearchTerm;
-			var productResultCollection = new Models.ProductSearchResults([] {
+			var productResultCollection = new Models.ProductSearchResults([], {
 				url: productSearchUrl
 			});
 			this.productSearchResultView = new Views.SearchResultListing({
-				collection: resultCollection
+				collection: productResultCollection
 			});
+
+			var listingSearchUrl = ' /service/listing/search/' + escapedSearchTerm;
+			var listingResultCollection = new Models.Wants([], {
+				url: listingSearchUrl
+			});
+			this.listingSearchResultView = new Views.SearchResultListing({
+				collection: listingResultCollection
+			});
+
 			this.render();
 		},
 
@@ -108,6 +117,9 @@ define(['jquery', 'underscore', 'backbone',
 
 			this.productSearchResultView.setElement('#product-listing');
 			this.productSearchResultView.render();
+
+			this.listingSearchResultView.setElement('#request-listing');
+			this.listingSearchResultView.render();
 
 			$('#search-section').fadeIn();
 		},
