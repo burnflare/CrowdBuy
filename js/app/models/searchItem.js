@@ -5,7 +5,10 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 			id: '',
 			category: '',
 			name: '',
-			price: ''
+			price: '',
+			length: '',
+			width: '',
+			height: ''
 		},
 		initialize: function() {
 

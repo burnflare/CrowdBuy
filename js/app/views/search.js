@@ -127,7 +127,7 @@ define(['jquery', 'underscore', 'backbone',
         
         keypress: function(e) {
             switch (e.keyCode) {
-                case 13: 
+                case 13:
                 this.searchClick();
             }
         },
@@ -136,10 +136,10 @@ define(['jquery', 'underscore', 'backbone',
 			var search = $('#txt-search').val();
 			this.searchCollection.url = '/service/products/search/' + urlencode(urlencode(search));
 			this.searchCollection.fetch({
-			    success: function(results) {
-        			$('#lbl-search').text(search);
-        			$('#search-results').show();
-			    }
+				success: function(results) {
+					$('#lbl-search').text(search);
+					$('#search-results').show();
+				}
 			});
 			this.searchListingView.render();
 		},
