@@ -21,7 +21,6 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
-App::uses('Semantics3', 'Semantics3');
 
 App::import('Lib', 'Facebook');
 App::uses('FB', 'Facebook.Lib');

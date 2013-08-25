@@ -16,6 +16,15 @@ class ListingsController extends AppController
 	public $name = 'Listing';
 
 	/**
+	 * The components this controller uses.
+	 * 
+	 * @var array
+	 */
+	public $components = array(
+		'Products'
+	);
+
+	/**
 	 * This controller does not use a model
 	 *
 	 * @var array
@@ -52,19 +61,10 @@ class ListingsController extends AppController
 	 */
 	public function search($description, $start = 0)
 	{
-		$pattern = '/^(http|https|spdy):\/\/(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+.([A-Z]+))(:(\d+))?\/?/i';
-		if (preg_match($pattern, $description))
-		{
-			$result = Semantics3::searchByUrl($description, $start);
-		}
-		else
-		{
-			$result = Semantics3::search($description, $start);
-		}
-		
+		$products = $this->Products->searchSemantics3($description, $start);
 		$productIds = array_map(function($item) {
-				return $item->sem3_id;
-			}, $result->results);
+				return $item->id;
+			}, $products->results);
 
 		$listings = $this->ProductListing->findByProductId($productIds);
 
