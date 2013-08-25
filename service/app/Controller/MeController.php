@@ -38,7 +38,7 @@ class MeController extends AppController
 		FB::setExtendedAccessToken();
 		$this->Person->save(array(
 			'person_id' => $userId,
-			'token' => FB::getAccessToken()
+			'oauth_token' => FB::getAccessToken()
 		));
 
 		$this->Auth->login(array('id' => $userId));
