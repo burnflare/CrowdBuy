@@ -118,8 +118,6 @@ define(['jquery', 'underscore', 'backbone',
 	});
     
 	Views.SearchForm = Backbone.View.extend({
-		template: _.template(searchFormTemplate),
-
 		events: {
 			"click a#btn-search": "searchClick",
             "keypress input[type=text]": "keypress"
@@ -143,18 +141,12 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		initialize: function() {
-			this.render();
 			this.searchCollection = new Models.SearchResults();
 			this.searchListingView = new Views.SearchListing({
 				collection: this.searchCollection,
 				el: '#search-results',
 				id: 'search-results'
 			});
-		},
-
-		render: function() {
-			this.$el.html(this.template());
-			return this;
 		}
 	});
 
