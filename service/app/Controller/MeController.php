@@ -28,8 +28,13 @@ class MeController extends AppController
 	
 	public function login()
 	{
-		//TODO: Dummy login stub.
-		$this->Auth->login(array('id' => ''));
+		$userId = FB::getUser();
+		if (empty($userId))
+		{
+			throw ForbiddenException();
+		}
+
+		$this->Auth->login(array('id' => $userId));
 	}
 
 	/**
