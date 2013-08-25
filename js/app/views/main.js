@@ -32,16 +32,16 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_setUpCollections: function() {
-			yourCollection = new Models.Wants({
+			yourCollection = new Models.Wants([], {
 				url: '/service/me/want/'
 			});
-			friendCollection = new Models.Wants({
+			friendCollection = new Models.Wants([], {
 				url: '/service/me/friendsWants'
 			});
-			featuredCollection = new Models.Wants({
+			featuredCollection = new Models.Wants([], {
 				url: '/service/me/recommended'
 			});
-			publicCollection = new Models.Wants({
+			publicCollection = new Models.Wants([], {
 				url: '/service/me/want/public' // I don't think this exists, but hey.
 			});
             
