@@ -32,7 +32,7 @@ define(['jquery', 'underscore', 'backbone',
 			var inputDate = $('#inputExpiryDate').val();
 			var dateEnd = (new Date(inputDate)).getTime() / 1000;
 
-			$.post('/service/listing/create', {
+			$.post('/service/listings/create', {
 				product_id: this.model.attributes.id,
 				date_start: dateStart,
 				date_expire: dateEnd,
@@ -141,7 +141,7 @@ define(['jquery', 'underscore', 'backbone',
 				collection: productResultCollection
 			});
 
-			var listingSearchUrl = ' /service/listing/search/' + escapedSearchTerm;
+			var listingSearchUrl = ' /service/listings/search/' + escapedSearchTerm;
 			var listingResultCollection = new Models.Wants([], {
 				url: listingSearchUrl
 			});
