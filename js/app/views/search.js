@@ -135,7 +135,7 @@ define(['jquery', 'underscore', 'backbone',
 				searchTerm: $('#txt-search').val()
 			});
 
-			Utils.loadView(searchListingView);
+			this.trigger('changeView', searchListingView);
 		},
 
 		initialize: function() {}
