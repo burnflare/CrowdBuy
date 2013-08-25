@@ -3,5 +3,6 @@ define(['jquery', 'underscore', 'backbone', ' model_want'], function($, _, Backb
 	    url: '/service/me/wants',
 		model: Models.Want
 	});
+    console.log(Models);
 	return Models;
 });

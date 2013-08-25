@@ -6,5 +6,6 @@ define(['jquery', 'underscore', 'backbone', 'model_search_item'], function($, _,
 			return response.result.results;
 		}
 	});
+    console.log(Models);
 	return Models;
 });
