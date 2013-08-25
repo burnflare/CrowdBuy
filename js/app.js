@@ -33,10 +33,9 @@ requirejs.config({
 	}
 });
 
-requirejs(["jquery", "underscore", "backbone", "views"], function($, _, Backbone, Views) {
-	new Views.Main({
-		el: '#page-content'
-	});
+requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _, Backbone, Views, Utils) {
+
+	Utils.loadView(Views.Main);
     
     new Views.SearchForm({
 		el: '#search-section',
