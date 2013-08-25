@@ -61,7 +61,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils"], function($, _,
 		},
 
 		changeView: function(newView) {
-			if (typeof newView !== 'undefined') {
+			if (typeof this.view !== 'undefined') {
 				this.view.remove();
 			}
 			this.view = Utils.loadView(newView);
