@@ -22,7 +22,8 @@ define(['jquery', 'underscore', 'backbone',
 						// Handle authentication here.
 						$.ajax({
 							url: '/service/me/login',
-							async: false
+							async: false,
+							dataType: 'json'
 						});
 
 						FB.api('/me', function(response) {
