@@ -64,6 +64,27 @@ class Semantics3
 		return $result;
 	}
 	
+	/**
+	 * Gets information about the given product IDs.
+	 * @param mixed $productIds If this is a string, this will query the given ID
+	 *        only. If this is an array, all will be queried, up to a limit of 10
+	 */
+	public static function getInfo($productIds)
+	{
+		$return_array = is_array($productIds);
+		if (!$return_array)
+		{
+			$productIds = array($productIds);
+		}
+		
+		assert(count($productIds) <= 10);
+		$result = self::get()->query('products', (object)array(
+			'sem3_id' => $productIds
+		));
+		
+		return $return_array ? $result->results : $result->results[0];
+	}
+	
 	public static function search($description, $start, $limit = 20)
 	{
 		return self::get()->query('products', (object)array(
