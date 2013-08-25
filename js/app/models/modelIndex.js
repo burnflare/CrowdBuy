@@ -2,14 +2,10 @@ define(['jquery', 'underscore', 'backbone', 'model_want', 'model_wants', 'model_
 
 	var Models = {};
     
-    console.log(Models);
-
-	// Load all the models we have.
+    // Load all the models we have.
 	for (var i = 3; i < arguments.length; i++) {
 		_.extend(Models, arguments[i]);
 	}
-    
-    console.log(Models);
     
 	return Models;
 });
