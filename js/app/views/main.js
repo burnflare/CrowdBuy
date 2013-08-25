@@ -13,6 +13,7 @@ define(['jquery', 'underscore', 'backbone',
 				appId: '509825915758193',
 				channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
 			});
+			FB.login(function() {}, { scope: 'read_friendlists, user_about_me' });
 
 			$('#loginbutton,#feedbutton').removeAttr('disabled');
 
