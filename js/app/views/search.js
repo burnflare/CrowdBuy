@@ -120,21 +120,22 @@ define(['jquery', 'underscore', 'backbone',
 
 	Views.SearchSession = Backbone.View.extend({
 		initialize: function() {
-			this.render();
-
 			var resultCollection = new Models.SearchResults({
 				url: '/service/products/search/' + urlencode(urlencode(this.searchTerm))
 			});
-			var searchResultView = new Views.SearchResultListing({
+			this.searchResultView = new Views.SearchResultListing({
 				collection: resultCollection,
 				id: '#search-listing'
 			});
+			this.render();
 		},
 
 		render: function() {
 			this.$el.html(_.template(searchContainerTemplate, { 
 				searchTerm: this.searchTerm
 			}));
+
+			this.searchResultView.render();
 
 			$('#search-section').fadeIn();
 		}

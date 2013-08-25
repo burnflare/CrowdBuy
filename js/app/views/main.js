@@ -21,7 +21,7 @@ define(['jquery', 'underscore', 'backbone',
 				return function(response) {
 					if (response.status === 'connected') {
 						// Handle authentication here.
-						Utils.logIn();
+						Utils.logIn(response);
 
 						FB.api('/me', function(response) {
 							var welcomeString = that._randomWelcome();
