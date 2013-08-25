@@ -90,6 +90,7 @@ define(['jquery', 'underscore', 'backbone',
 			var resultCollection = new Models.SearchResults({
 				url: '/service/products/search/' + Utils.urlencode(Utils.urlencode(this.options.searchTerm))
 			});
+			resultCollection.fetch();
 			this.searchResultView = new Views.SearchResultListing({
 				collection: resultCollection
 			});
