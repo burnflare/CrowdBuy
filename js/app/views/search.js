@@ -86,6 +86,9 @@ define(['jquery', 'underscore', 'backbone',
 	});
 
 	Views.SearchSession = Backbone.View.extend({
+		events: {
+			"click button.close": "clickClose"
+		},
 		initialize: function() {
 			var searchUrl = '/service/products/search/' + Utils.urlencode(Utils.urlencode(this.options.searchTerm));
 			var resultCollection = new Models.SearchResults();
@@ -106,6 +109,10 @@ define(['jquery', 'underscore', 'backbone',
 			this.searchResultView.render();
 
 			$('#search-section').fadeIn();
+		},
+
+		clickClose: function() {
+			this.global_dispatcher.trigger('goHome');
 		}
 	});
     
