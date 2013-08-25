@@ -8,7 +8,9 @@ define(['jquery', 'underscore', 'backbone', 'model_want', 'utils'], function($, 
 					console.log(response);
 				},
 				error: function(model, response, options) {
-					console.log(response);
+					if (response.status === 403) {
+						Utils.logIn();
+					}
 				}
 			});
 		}
