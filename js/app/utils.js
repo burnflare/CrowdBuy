@@ -36,10 +36,7 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 
 	Utils.logIn = function(response) {
 		$.ajax({
-			url: '/service/me/login?' +
-				'auth[accessToken]=' + Utils.urlencode(response.authResponse.accessToken) +
-				'&auth[expiresIn]=' + parseInt(response.authResponse.expiresIn) +
-				'&auth[userID]=' + Utils.urlencode(response.authResponse.userID),
+			url: '/service/me/login',
 			async: false,
 			dataType: 'json'
 		});
