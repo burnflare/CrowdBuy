@@ -82,7 +82,7 @@ define(['jquery', 'underscore', 'backbone',
 				$(emptySearchTemplate).appendTo(fragment);
 			}
 
-			this.$('.item-listing').html(fragment);
+			this.$el.html(fragment);
 			return this;
 		},
 
