@@ -68,6 +68,7 @@ class Semantics3
 	 * Gets information about the given product IDs.
 	 * @param mixed $productIds If this is a string, this will query the given ID
 	 *        only. If this is an array, all will be queried, up to a limit of 10
+	 * @todo implement automatic segmentation to less than 10; also remove dupes
 	 */
 	public static function getInfo($productIds)
 	{
