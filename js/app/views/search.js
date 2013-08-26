@@ -69,7 +69,7 @@ define(['jquery', 'underscore', 'backbone',
 				model: this.model,
 				el: '#modal-container'
 			});
-			this.listenTo(modal, 'viewClosed', this.disposeModal);
+			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
 			$('#add-listing-modal').modal('show');
 		},
 
