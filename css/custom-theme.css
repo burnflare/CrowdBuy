@@ -67,11 +67,6 @@ h1, h2, h3, h4, h5, h6 {
 	display: none;
 }
 
-.item-image {
-	width: 64px;
-	height: 64px;
-}
-
 .basic-info {
 	min-height: 85px;
 }
