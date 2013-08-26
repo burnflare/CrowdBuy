@@ -1,13 +1,4 @@
 <?php
-	/**
-	 * GIT DEPLOYMENT SCRIPT
-	 *
-	 * Used for automatically deploying websites via github or bitbucket, more deets here:
-	 *
-	 *		https://gist.github.com/1809044
-	 */
- 
-	// The commands
 	$commands = array(
 		'echo $PWD',
 		'whoami',
@@ -18,7 +9,6 @@
 		'git submodule status',
 	);
  
-	// Run the commands for output
 	$output = '';
 	foreach($commands AS $command){
 		// Run it
@@ -28,7 +18,8 @@
 		$output .= htmlentities(trim($tmp)) . "\n";
 	}
  
-	// Make it pretty for manual user access (and why not?)
+	$file = 'deploy.log';
+	file_put_contents($file, $output, FILE_APPEND);
 ?>
 <!DOCTYPE HTML>
 <html lang="en-US">
@@ -38,8 +29,6 @@
 </head>
 <body style="background-color: #000000; color: #FFFFFF; font-weight: bold; padding: 0 10px;">
 <pre>
-| Git Deployment Script v0.1 |
- 
 <?php echo $output; ?>
 </pre>
 </body>
