@@ -20,6 +20,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 			var product = listing.product;
 			var attributes = {
 				id: listing.id,
+				name: product.name,
 				owner: listing.creator_id,
 				dateStart: listing.date_start,
 				dateExpire: listing.date_expire,
