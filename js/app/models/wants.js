@@ -13,6 +13,9 @@ define(['jquery', 'underscore', 'backbone', 'model_want', 'utils'], function($, 
 					}
 				}
 			});
+		},
+		parse: function(response) {
+			return response.listings;
 		}
 	});
 	return Models;
