@@ -23,8 +23,8 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		submitRequest: function() {
-			var city = $('select.form-control').val();
-			var country = $('#inputPickupCity').val();
+			var country = $('select.form-control').val();
+			var city = $('#inputPickupCity').val();
 			var locationCombined = city + ", " + country;
 
 			// JS uses milliseconds, we need seconds.
