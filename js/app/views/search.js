@@ -37,6 +37,7 @@ define(['jquery', 'underscore', 'backbone',
 			$.ajax({
 				url: '/service/listing/create',
 				dataType: 'json',
+				type: 'POST',
 				data: {
 					product_id: this.model.attributes.id,
 					date_start: dateStart,
