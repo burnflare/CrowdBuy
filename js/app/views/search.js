@@ -32,14 +32,23 @@ define(['jquery', 'underscore', 'backbone',
 			var inputDate = $('#inputExpiryDate').val();
 			var dateEnd = (new Date(inputDate)).getTime() / 1000;
 
-			$.post('/service/listings/create', {
-				product_id: this.model.attributes.id,
-				date_start: dateStart,
-				date_expire: dateEnd,
-				location: locationCombined
+			$.ajax({
+				url: '/service/listing/create',
+				dataType: 'json',
+				data: {
+					product_id: this.model.attributes.id,
+					date_start: dateStart,
+					date_expire: dateEnd,
+					location: locationCombined
+				},
+				success: function() {
+					$('#add-listing-modal').modal('hide');
+					this.stopListening();
+				},
+				error: function() {
+					alert("Oops, something went wrong. Try sending your request again!");
+				}
 			});
-
-			$('#add-listing-modal').modal('hide');
 		}
 	});
 
