@@ -18,28 +18,44 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		events: {
-			"click button.btn-success": "submitRequest"
+			"click button.btn-success": "submitRequest",
+			"click button.btn-danger": "closeModal"
 		},
 
 		submitRequest: function() {
-			var city = $('select.form-control').val();
-			var country = $('#inputPickupCity').val();
+			var country = $('select.form-control').val();
+			var city = $('#inputPickupCity').val();
 			var locationCombined = city + ", " + country;
 
 			// JS uses milliseconds, we need seconds.
-			var dateStart = Date.now() / 1000;
+			var dateStart = Math.floor(Date.now() / 1000);
 
 			var inputDate = $('#inputExpiryDate').val();
 			var dateEnd = (new Date(inputDate)).getTime() / 1000;
 
-			$.post('/service/listing/create', {
-				product_id: this.model.attributes.id,
-				date_start: dateStart,
-				date_expire: dateEnd,
-				location: locationCombined
+			var that = this;
+			$.ajax({
+				url: '/service/listings/create',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_id: this.model.attributes.id,
+					date_start: dateStart,
+					date_expire: dateEnd,
+					location: locationCombined
+				},
+				success: function() {
+					$('#add-listing-modal').modal('hide');
+					that.trigger("viewClosed");
+				},
+				error: function() {
+					alert("Oops, something went wrong. Try sending your request again!");
+				}
 			});
+		},
 
-			$('#add-listing-modal').modal('hide');
+		closeModal: function() {
+			this.trigger("viewClosed");
 		}
 	});
 
@@ -51,10 +67,15 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		clickResult: function() {
-			var modal = new Views.AddItemModal({
+			if (this.modal) {
+				this.disposeModal();
+			}
+
+			this.modal = new Views.AddItemModal({
 				model: this.model,
 				el: '#modal-container'
 			});
+			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
 			$('#add-listing-modal').modal('show');
 		},
 
@@ -66,6 +87,10 @@ define(['jquery', 'underscore', 'backbone',
 		render: function() {
 			this.$el.html(this.template(this.model.attributes));
 			return this;
+		},
+
+		disposeModal: function() {
+			this.modal.undelegateEvents();
 		}
 	});
     
@@ -141,7 +166,7 @@ define(['jquery', 'underscore', 'backbone',
 				collection: productResultCollection
 			});
 
-			var listingSearchUrl = ' /service/listing/search/' + escapedSearchTerm;
+			var listingSearchUrl = ' /service/listings/search/' + escapedSearchTerm;
 			var listingResultCollection = new Models.Wants([], {
 				url: listingSearchUrl
 			});

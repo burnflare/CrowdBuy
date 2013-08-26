@@ -44,6 +44,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 			FB.init({
 				appId: '509825915758193',
 				channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
+				oauth: true
 			});
 			FB.login(function() {}, {
 				scope: 'read_friendlists, user_about_me'

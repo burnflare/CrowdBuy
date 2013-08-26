@@ -52,6 +52,12 @@ class AppController extends Controller
 		'RequestHandler'
 	);
 	
+	public function beforeFilter()
+	{
+		//This is necessary for Safari to send Facebook's fbsr cookie to us.
+		$this->response->header('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
+	}
+
 	public function isAuthorized($user)
 	{
 		//Currently, logged-in users can do everything.

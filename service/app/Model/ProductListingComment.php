@@ -9,7 +9,7 @@ class ProductListingComment extends AppModel
 	public $belongsTo = array(
 		'ProductListing' => array(
 			'className' => 'ProductListing',
-			'foreignKey' => 'product_id',
+			'foreignKey' => 'product_listing_id',
 			'dependent' => true
 		)
 	);

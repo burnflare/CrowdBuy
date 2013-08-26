@@ -29,7 +29,10 @@ class ListingsController extends AppController
 	 *
 	 * @var array
 	 */
-	public $uses = array('ProductListing');
+	public $uses = array(
+		'Product',
+		'ProductListing'
+	);
 	
 	/**
 	 * Creates a new listing.
@@ -38,8 +41,18 @@ class ListingsController extends AppController
 	{
 		if ($this->request->is('post'))
 		{
+			//Try creating the product first.
+			if (!$this->Product->find('count', array(
+				'conditions' => array(
+					'Product.id' => $this->request->data['product_id'])
+				)))
+			{
+				$this->Product->id = $this->request->data['product_id'];
+				$this->Product->save(array());
+			}
+			
 			//If the form data can be validated and saved...
-			$this->request->data['person_id'] = $this->Auth->user('id');
+			$this->request->data['creator_id'] = $this->Auth->user('id');
 			if ($this->ProductListing->save($this->request->data))
 			{
 				//Set a session flash message and redirect.

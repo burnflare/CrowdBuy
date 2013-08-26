@@ -18,7 +18,7 @@ class ProductListing extends AppModel
 	public $hasMany = array(
 		'Comment' => array(
 			'className' => 'ProductListingComment',
-			'foreignKey' => 'product_id',
+			'foreignKey' => 'product_listing_id',
 			'dependent' => true
 		)
 	);
