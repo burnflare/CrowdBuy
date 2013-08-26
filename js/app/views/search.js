@@ -44,7 +44,7 @@ define(['jquery', 'underscore', 'backbone',
 				},
 				success: function() {
 					$('#add-listing-modal').modal('hide');
-					that.stopListening();
+					that.trigger("viewClosed");
 				},
 				error: function() {
 					alert("Oops, something went wrong. Try sending your request again!");
@@ -61,10 +61,15 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		clickResult: function() {
-			var modal = new Views.AddItemModal({
+			if (this.modal) {
+				this.disposeModal();
+			}
+
+			this.modal = new Views.AddItemModal({
 				model: this.model,
 				el: '#modal-container'
 			});
+			this.listenTo(modal, 'viewClosed', this.disposeModal);
 			$('#add-listing-modal').modal('show');
 		},
 
@@ -76,6 +81,11 @@ define(['jquery', 'underscore', 'backbone',
 		render: function() {
 			this.$el.html(this.template(this.model.attributes));
 			return this;
+		},
+
+		disposeModal: function() {
+			console.log("Disposed");
+			this.modal.stopListening();
 		}
 	});
     
