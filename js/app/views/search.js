@@ -35,7 +35,7 @@ define(['jquery', 'underscore', 'backbone',
 
 			var that = this;
 			$.ajax({
-				url: '/service/listing/create',
+				url: '/service/listings/create',
 				dataType: 'json',
 				type: 'POST',
 				data: {
