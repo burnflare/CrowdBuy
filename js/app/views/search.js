@@ -18,7 +18,8 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		events: {
-			"click button.btn-success": "submitRequest"
+			"click button.btn-success": "submitRequest",
+			"click button.btn-danger": "closeModal"
 		},
 
 		submitRequest: function() {
@@ -50,6 +51,10 @@ define(['jquery', 'underscore', 'backbone',
 					alert("Oops, something went wrong. Try sending your request again!");
 				}
 			});
+		},
+
+		closeModal: function() {
+			this.trigger("viewClosed");
 		}
 	});
 
