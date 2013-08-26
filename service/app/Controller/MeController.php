@@ -39,10 +39,20 @@ class MeController extends AppController
 		$this->Person->id = $userId;
 		if (strpos(FB::getAccessToken(), '|') !== false)
 		{
-			//We have our secret key inside. Don't store in database.
-			$this->Person->save(array(
-				'oauth_token' => null
-			));
+			//We have our secret key inside. Don't store in database, but we need
+			//the person's FBID in our persons table.
+			if ($this->Person->find('count', array(
+				'conditions' => array(
+					'Person.facebook_id' => $userId
+				)
+			)) === 0)
+			{
+				//In this situation, we won't set his key to null, in the event we
+				//have an existing long-lived OAuth token.
+				$this->Person->save(array(
+					'oauth_token' => null
+				));
+			}
 		}
 		else
 		{
