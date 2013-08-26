@@ -19,7 +19,7 @@
 	}
  
 	$file = 'deploy.log';
-	file_put_contents($file, $output, FILE_APPEND | LOCK_EX);
+	file_put_contents($file, $output, FILE_APPEND);
 ?>
 <!DOCTYPE HTML>
 <html lang="en-US">
