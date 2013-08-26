@@ -89,7 +89,6 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		disposeModal: function() {
-			console.log("Disposed");
 			this.modal.undelegateEvents();
 		}
 	});
