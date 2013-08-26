@@ -42,8 +42,10 @@ class ListingsController extends AppController
 		if ($this->request->is('post'))
 		{
 			//Try creating the product first.
-			if (!$this->Product->find(
-				'count', array('product_id' => $this->request->data['product_id'])))
+			if (!$this->Product->find('count', array(
+				'conditions' => array(
+					'Product.id' => $this->request->data['product_id'])
+				)))
 			{
 				$this->Product->id = $this->request->data['product_id'];
 				$this->Product->save(array());
