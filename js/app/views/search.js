@@ -32,6 +32,7 @@ define(['jquery', 'underscore', 'backbone',
 			var inputDate = $('#inputExpiryDate').val();
 			var dateEnd = (new Date(inputDate)).getTime() / 1000;
 
+			var that = this;
 			$.ajax({
 				url: '/service/listing/create',
 				dataType: 'json',
@@ -43,7 +44,7 @@ define(['jquery', 'underscore', 'backbone',
 				},
 				success: function() {
 					$('#add-listing-modal').modal('hide');
-					this.stopListening();
+					that.stopListening();
 				},
 				error: function() {
 					alert("Oops, something went wrong. Try sending your request again!");
