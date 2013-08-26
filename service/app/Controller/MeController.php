@@ -16,6 +16,15 @@ class MeController extends AppController
 	public $name = 'Me';
 
 	/**
+	 * The components this controller uses.
+	 * 
+	 * @var array
+	 */
+	public $components = array(
+		'Listings'
+	);
+
+	/**
 	 * The models this controller uses
 	 *
 	 * @var array
@@ -70,8 +79,9 @@ class MeController extends AppController
 	 */
 	public function wants()
 	{
-		$this->set('listings',
-			$this->Person->listings($this->Auth->user('id')));
+		$listings = $this->Person->listings($this->Auth->user('id'));
+		$this->Listings->augmentProductInfo($listings);
+		$this->set('listings', $listings);
 		$this->set('_serialize', array('listings'));
 	}
 	
@@ -104,8 +114,10 @@ class MeController extends AppController
 	 */
 	public function friendsWants()
 	{
-		$this->set('listings',
-			$this->Person->friendListings($this->Auth->user('id')));
+		$listings = $this->Person->friendListings($this->Auth->user('id'));
+		$this->Listings->augmentProductInfo($listings);
+		$this->set('listings', $listings);
+		
 		$this->set('_serialize', array('listings'));
 	}
 	
