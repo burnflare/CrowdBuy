@@ -1,3 +1,4 @@
+/deploy.log
 /private/*.bak
 /service/app/tmp
 /service/app/nbproject/private/
