@@ -5,7 +5,7 @@ define(['jquery', 'underscore', 'backbone', 'model_want', 'utils'], function($, 
 			this.fetch({
 				dataType: 'json',
 				success: function(model, response, options) {
-					console.log(response);
+					
 				},
 				error: function(model, response, options) {
 					if (response.status === 403) {
