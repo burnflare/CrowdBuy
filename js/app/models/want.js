@@ -19,6 +19,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 			var listing = response.ProductListing;
 			var product = listing.product;
 			var buyerArray = response.Buyer;
+			var commentArray = response.Comment;
 			var attributes = {
 				id: listing.id,
 				name: product.name,
@@ -29,7 +30,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 				productId: listing.product_id,
 				price: product.price,
 				imageUrl: product.images[0],
-				buyers: buyerArray
+				buyers: buyerArray,
+				comments: commentArray
 			};
 			return attributes;
 		}
