@@ -135,9 +135,11 @@ define(['jquery', 'underscore', 'backbone',
 			this.render();
 		},
 
-		collectionChanged: function() {
-			this.childViews = [];
-			this._addAllModels();
+		collectionChanged: function(item) {
+			if (!item.changed.userId) {
+				this.childViews = [];
+				this._addAllModels();
+			}
 		},
 
 		_addViewForModel: function(item) {
