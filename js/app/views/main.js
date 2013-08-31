@@ -59,6 +59,11 @@ define(['jquery', 'underscore', 'backbone',
 	Views.ItemView = Backbone.View.extend({
 		template: _.template(itemListingTemplate),
 
+		events: {
+			"click button#btn-pledge" : pledgeClicked,
+			"click button#btn-unpledge" : unpledgeClicked
+		},
+
 		initialize: function() {
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
@@ -67,6 +72,28 @@ define(['jquery', 'underscore', 'backbone',
 		render: function() {
 			this.$el.html(this.template(this.model.attributes));
 			return this;
+		},
+
+		pledgeClicked: function() {
+			$.ajax({
+				url: '/service/me/want',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_listing_id: this.model.attributes.id
+				}
+			});
+		},
+
+		unpledgeClicked: function() {
+			$.ajax({
+				url: '/service/me/dontWant',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_listing_id: this.model.attributes.id
+				}
+			});
 		}
 	});
 
