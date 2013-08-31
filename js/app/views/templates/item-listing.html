@@ -9,8 +9,8 @@
 		<% if(buyers.length == 0) { %> buyer <% } else { %> buyers <% } %></div>
 	</div>
 	<div class="pull-right btn-group-vertical">
-		<%= if (owner !== userId) { %>
+		<% if (owner !== userId) { %>
 			<button type="button" id="btn-pledge" class="btn btn-default pull-right">I&#39;m in!</button>
-		<%= } %>
+		<% } %>
 	</div>
 </div>
