@@ -67,23 +67,14 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 								that.view.userId = response.id;
 							}
 						});
+
+						that._continueInit();
 					} else {
 						alert("Whoa, something went wrong! Try refreshing this page.");
 					}
 
 				};
 			})(this));
-
-			this.loadHome();
-
-			this.SearchPane = new Views.SearchForm({
-				el: '#search-bar',
-				id: 'search'
-			});
-
-			this.listenTo(this.SearchPane, 'changeView', this.changeView);
-			this.listenTo(this.SearchPane, 'goHome', this.loadHome);
-			this.listenTo(this.view, 'changeView', this.changeView);
 		},
 
 		loadHome: function() {
@@ -104,6 +95,19 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 			var welcomeMessages = ["Welcome, ", "Hey ", "Hello ", "Hi "];
 			var rand = Math.floor(Math.random() * 4);
 			return welcomeMessages[rand];
+		},
+
+		_continueInit: function() {
+			this.loadHome();
+
+			this.SearchPane = new Views.SearchForm({
+				el: '#search-bar',
+				id: 'search'
+			});
+
+			this.listenTo(this.SearchPane, 'changeView', this.changeView);
+			this.listenTo(this.SearchPane, 'goHome', this.loadHome);
+			this.listenTo(this.view, 'changeView', this.changeView);
 		}
 
 	}, Backbone.Events);
