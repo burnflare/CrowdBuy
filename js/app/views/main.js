@@ -122,7 +122,7 @@ define(['jquery', 'underscore', 'backbone',
 		_addAllModels: function() {
 			var that = this;
 			this.collection.each(function(item) {
-				item.userId = that;
+				item.set({userId: that.userId});
 				_addViewForModel(item);
 			});
 			this.render();
