@@ -66,9 +66,10 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 							if (that.view) {
 								that.view.userId = response.id;
 							}
+							
+							that._continueInit();
 						});
 
-						that._continueInit();
 					} else {
 						alert("Whoa, something went wrong! Try refreshing this page.");
 					}
