@@ -60,8 +60,8 @@ define(['jquery', 'underscore', 'backbone',
 		template: _.template(itemListingTemplate),
 
 		events: {
-			"click button#btn-pledge" : pledgeClicked,
-			"click button#btn-unpledge" : unpledgeClicked
+			"click button#btn-pledge" : 'pledgeClicked',
+			"click button#btn-unpledge" : 'unpledgeClicked'
 		},
 
 		initialize: function() {
