@@ -97,6 +97,8 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		collectionAdded: function(item) {
+			var that = this;
+			item.set({userId: that.options.userId});
 			this._addViewForModel(item);
 			this.render();
 		},
