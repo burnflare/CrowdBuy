@@ -85,8 +85,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 			if (typeof this.view !== 'undefined') {
 				this.stopListening(this.view);
 			}
-			this.view = Utils.loadView(newView);
-			this.view.userId = this.userId;
+			this.view = Utils.loadView(newView, this.userId);
 			this.listenTo(this.view, 'changeView', this.changeView);
 			this.listenTo(this.view, 'goHome', this.loadHome);
 		},
