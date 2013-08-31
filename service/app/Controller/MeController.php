@@ -110,6 +110,32 @@ class MeController extends AppController
 	}
 	
 	/**
+	 * Tells the server the user does not want something any more.
+	 * 
+	 * @param string $productListing The product listing ID the user no longer wants.
+	 */
+	public function dontWant()
+	{
+		if ($this->request->is('post'))
+		{
+			if ($this->ProductListingBuyers->deleteAll(array(
+				'ProductListingBuyers.product_listing_id' =>
+					$this->request->data('product_listing_id'),
+				'ProductListingBuyers.person_id' =>
+					$this->Auth->user('id'))))
+			{
+				//Set a session flash message and redirect.
+				$this->Session->setFlash('Wants saved.');
+				$this->set('_serialize', array());
+			}
+			else
+			{
+				debug($this->Recipe->validationErrors);
+			}
+		}
+	}
+	
+	/**
 	 * Get a list of items my friends want to buy.
 	 */
 	public function friendsWants()
