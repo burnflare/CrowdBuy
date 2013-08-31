@@ -12,6 +12,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_setUpCollections: function() {
+			var userId = this.options.userId;
 			yourCollection = new Models.Wants([], {
 				url: '/service/me/wants'
 			});
@@ -28,25 +29,29 @@ define(['jquery', 'underscore', 'backbone',
 			yourView = new Views.ListingView({
 				collection: yourCollection,
 				el: document.getElementById('you-section'),
-				id: "you"
+				id: "you",
+				'userId': userId
 			});
 
 			friendView = new Views.ListingView({
 				collection: friendCollection,
 				el: document.getElementById('friend-section'),
-				id: "friend"
+				id: "friend",
+				'userId': userId
 			});
 
 			featuredView = new Views.ListingView({
 				collection: featuredCollection,
 				el: document.getElementById('featured-section'),
-				id: "featured"
+				id: "featured",
+				'userId': userId
 			});
 
 			publicView = new Views.ListingView({
 				collection: publicCollection,
 				el: document.getElementById('public-section'),
-				id: "public"
+				id: "public",
+				'userId': userId
 			});
 		}
 	});
@@ -115,7 +120,9 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_addAllModels: function() {
+			var that = this;
 			this.collection.each(function(item) {
+				item.userId = that;
 				_addViewForModel(item);
 			});
 			this.render();
