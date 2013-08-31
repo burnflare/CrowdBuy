@@ -62,6 +62,10 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 							var welcomeString = that._randomWelcome();
 							that.userId = response.id;
 							$('#welcome').html(welcomeString + response.first_name + '!');
+
+							if (that.view) {
+								that.view.userId = response.id;
+							}
 						});
 					} else {
 						alert("Whoa, something went wrong! Try refreshing this page.");
