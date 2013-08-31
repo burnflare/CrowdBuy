@@ -104,8 +104,6 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.collection, 'remove', this.collectionRemoved);
 
 			this.childViews = [];
-
-			this._addAllModels();
 		},
 
 		render: function() {
