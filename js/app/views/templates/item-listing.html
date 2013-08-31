@@ -9,9 +9,9 @@
 		<% if(buyers.length == 0) { %> buyer <% } else { %> buyers <% } %></div>
 	</div>
 	<div class="pull-right btn-group-vertical">
-		<% if (owner !== userId && !buyers.indexOf(userId)) { %>
+		<% if (owner !== userId && (buyers.indexOf(userId) === -1)) { %>
 			<button type="button" id="btn-pledge" class="btn btn-success pull-right">I&#39;m in!</button>
-		<% } else if (buyers.indexOf(userId)) { %>
+		<% } else if (buyers.indexOf(userId) !== -1) { %>
 			<button type="button" id="btn-unpledge" class="btn btn-warning pull-right">I want out.</button>
 		<% } else { %>
 			<span class="pull-right">You're buying this!</span>
