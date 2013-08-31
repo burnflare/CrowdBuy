@@ -60,6 +60,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 
 						FB.api('/me', function(response) {
 							var welcomeString = that._randomWelcome();
+							that.userId = response.id;
 							$('#welcome').html(welcomeString + response.first_name + '!');
 						});
 					} else {
@@ -90,6 +91,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 				this.stopListening(this.view);
 			}
 			this.view = Utils.loadView(newView);
+			this.view.userId = this.userId;
 			this.listenTo(this.view, 'changeView', this.changeView);
 			this.listenTo(this.view, 'goHome', this.loadHome);
 		},
