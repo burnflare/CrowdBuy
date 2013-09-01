@@ -166,7 +166,7 @@ define(['jquery', 'underscore', 'backbone',
 				collection: productResultCollection
 			});
 
-			var listingSearchUrl = ' /service/listings/search/' + escapedSearchTerm;
+			var listingSearchUrl = '/service/listings/search/' + escapedSearchTerm;
 			var listingResultCollection = new Models.Wants([], {
 				url: listingSearchUrl
 			});
