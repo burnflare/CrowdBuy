@@ -122,7 +122,7 @@ class ListingsController extends AppController
 			
 			//If the form data can be validated and saved...
 			$this->request->data['author_id'] = $this->Auth->user('id');
-			if ($this->ProductListing->save($this->request->data))
+			if ($this->ProductListingComment->save($this->request->data))
 			{
 				//Set a session flash message and redirect.
 				$this->Session->setFlash('Listing saved.');
@@ -130,8 +130,7 @@ class ListingsController extends AppController
 			}
 			else
 			{
-				debug($this->request->data);
-				debug($this->ProductListing->validationErrors);
+				debug($this->ProductListingComment->validationErrors);
 			}
 		}
 	}
