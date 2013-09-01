@@ -95,19 +95,25 @@ class MeController extends AppController
 		if ($this->request->is('post'))
 		{
 			unset($this->request->data['id']);
-
-			//If the form data can be validated and saved...
 			$this->request->data['person_id'] = $this->Auth->user('id');
-			if ($this->ProductListingBuyers->save($this->request->data))
+			
+			//Ensure idempotence
+			if (!$this->ProductListingBuyers->find('count', array(
+				'conditions' => array(
+					'ProductListingBuyers.id' => $this->request->data['product_listing_id'],
+					'ProductListingBuyers.person_id' => $this->request->data['person_id'])
+				)))
 			{
-				//Set a session flash message and redirect.
-				$this->Session->setFlash('Want saved.');
-				$this->set('_serialize', array());
+				//If the form data cannot be validated and saved...
+				if (!$this->ProductListingBuyers->save($this->request->data))
+				{
+					debug($this->Recipe->validationErrors);
+				}
 			}
-			else
-			{
-				debug($this->Recipe->validationErrors);
-			}
+
+			//Set a session flash message and redirect.
+			$this->Session->setFlash('Want saved.');
+			$this->set('_serialize', array());
 		}
 	}
 	
