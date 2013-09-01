@@ -111,6 +111,17 @@ class ListingsController extends AppController
 		$this->set('_serialize', array('listings'));
 	}
 	
+	/**
+	 * Gets a listing.
+	 * @param integer $id The ID of the listing to retriveve
+	 */
+	public function get($id)
+	{
+		$listing = $this->ProductListing->findById($id);
+		$this->set('listing', $listing);
+		$this->set('_serialize', array('listing'));
+	}
+	
 	public function comment()
 	{
 		if ($this->request->is('post'))
