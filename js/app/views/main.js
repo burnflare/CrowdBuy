@@ -101,6 +101,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		buyersClicked: function() {
 			var buyerIds = this.model.attributes.buyers;
+			buyerIds.push(this.model.attributes.owner);
 			var buyerObjects = new Backbone.Collection([], {
 
 			});
