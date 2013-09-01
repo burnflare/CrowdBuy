@@ -36,7 +36,7 @@ class ListingsComponent extends Component
 		{
 			foreach ($listing->Buyer as &$buyer)
 			{
-				unset($buyer->oauth_token);
+				unset($buyer['oauth_token']);
 			}
 		}
 	}
