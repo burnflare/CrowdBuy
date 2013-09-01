@@ -17,7 +17,12 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
 		},
 		parse: function(response) {
-			var listing = response.ProductListing;
+			var listing;
+			if (response.ProductListing) {
+				listing = response.ProductListing;
+			} else {
+				listing = response.listing.ProductListing;
+			}
 			var product = listing.product;
 			var buyerArray = _.map(response.Buyer, function(buyer) {
 				return buyer.facebook_id;
