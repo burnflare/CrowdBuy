@@ -1,6 +1,7 @@
 define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 	var Models = {};
 	Models.Want = Backbone.Model.extend({
+		urlRoot: '/service/listings/get',
 		defaults: {
 			id: '',
 			name: '',

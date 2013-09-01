@@ -84,6 +84,7 @@ define(['jquery', 'underscore', 'backbone',
 					product_listing_id: this.model.attributes.id
 				}
 			});
+			this.model.fetch();
 		},
 
 		unpledgeClicked: function() {
@@ -95,12 +96,13 @@ define(['jquery', 'underscore', 'backbone',
 					product_listing_id: this.model.attributes.id
 				}
 			});
+			this.model.fetch();
 		},
 
 		buyersClicked: function() {
 			var buyerIds = this.model.attributes.buyers;
 			var buyerObjects = new Backbone.Collection([], {
-				
+
 			});
 			_.each(buyerIds, function(currentId) {
 				var requestUrl = '//graph.facebook.com/' + currentId;
