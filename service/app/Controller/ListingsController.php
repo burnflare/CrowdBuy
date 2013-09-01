@@ -106,7 +106,7 @@ class ListingsController extends AppController
 				return $item->id;
 			}, $products->results);
 
-		$listings = $this->ProductListing->findByProductId($productIds);
+		$listings = $this->ProductListing->findAllByProductId($productIds);
 		$this->Listings->augmentProductInfo($listings);
 		$this->Listings->sanitise($listings);
 
