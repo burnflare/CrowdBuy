@@ -21,7 +21,8 @@ class SearchController extends AppController
 	 * @var array
 	 */
 	public $components = array(
-		'Products'
+		'Products',
+		'Listings'
 	);
 
 	/**
