@@ -42,14 +42,16 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 		});
 	};
 
-	Utils.loadView = function(viewToLoad) {
+	Utils.loadView = function(viewToLoad, userId) {
 		$('#page-content').html("");
 		if (typeof viewToLoad === 'function') {
 			displayedView = new viewToLoad({
-				el: '#page-content'
+				el: '#page-content',
+                        'userId': userId
 			});
 		} else {
 			viewToLoad.setElement('#page-content');
+                  viewToLoad.userId = userId;
 			viewToLoad.render();
                   displayedView = viewToLoad;
 		}

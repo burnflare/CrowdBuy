@@ -1,4 +1,4 @@
-<div class="thumbnail media">
+<div class="thumbnail media listing">
 	<img class="pull-left" height="64px" width="64px" src="<%= imageUrl %>" />
 	<div class="media-body">
 		<h4 class="media-heading"><%= name %></h4>
@@ -9,6 +9,12 @@
 		<% if(buyers.length == 0) { %> buyer <% } else { %> buyers <% } %></div>
 	</div>
 	<div class="pull-right btn-group-vertical">
-		<button type="button" id="btn-pledge" class="btn btn-default pull-right">I&#39;m in!</button>
+		<% if (owner !== userId && (buyers.indexOf(userId) === -1)) { %>
+			<button type="button" id="btn-pledge" class="btn btn-success pull-right">I&#39;m in!</button>
+		<% } else if (buyers.indexOf(userId) !== -1) { %>
+			<button type="button" id="btn-unpledge" class="btn btn-warning pull-right">I want out.</button>
+		<% } else { %>
+			<span class="pull-right">You're buying this!</span>
+		<% } %>
 	</div>
 </div>

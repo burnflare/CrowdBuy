@@ -12,6 +12,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_setUpCollections: function() {
+			var userId = this.options.userId;
 			yourCollection = new Models.Wants([], {
 				url: '/service/me/wants'
 			});
@@ -28,31 +29,40 @@ define(['jquery', 'underscore', 'backbone',
 			yourView = new Views.ListingView({
 				collection: yourCollection,
 				el: document.getElementById('you-section'),
-				id: "you"
+				id: "you",
+				'userId': userId
 			});
 
 			friendView = new Views.ListingView({
 				collection: friendCollection,
 				el: document.getElementById('friend-section'),
-				id: "friend"
+				id: "friend",
+				'userId': userId
 			});
 
 			featuredView = new Views.ListingView({
 				collection: featuredCollection,
 				el: document.getElementById('featured-section'),
-				id: "featured"
+				id: "featured",
+				'userId': userId
 			});
 
 			publicView = new Views.ListingView({
 				collection: publicCollection,
 				el: document.getElementById('public-section'),
-				id: "public"
+				id: "public",
+				'userId': userId
 			});
 		}
 	});
 
 	Views.ItemView = Backbone.View.extend({
 		template: _.template(itemListingTemplate),
+
+		events: {
+			"click button#btn-pledge" : 'pledgeClicked',
+			"click button#btn-unpledge" : 'unpledgeClicked'
+		},
 
 		initialize: function() {
 			this.listenTo(this.model, "change", this.render);
@@ -62,6 +72,28 @@ define(['jquery', 'underscore', 'backbone',
 		render: function() {
 			this.$el.html(this.template(this.model.attributes));
 			return this;
+		},
+
+		pledgeClicked: function() {
+			$.ajax({
+				url: '/service/me/want',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_listing_id: this.model.attributes.id
+				}
+			});
+		},
+
+		unpledgeClicked: function() {
+			$.ajax({
+				url: '/service/me/dontWant',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_listing_id: this.model.attributes.id
+				}
+			});
 		}
 	});
 
@@ -72,8 +104,6 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.collection, 'remove', this.collectionRemoved);
 
 			this.childViews = [];
-
-			this._addAllModels();
 		},
 
 		render: function() {
@@ -92,6 +122,8 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		collectionAdded: function(item) {
+			var that = this;
+			item.set({userId: that.options.userId});
 			this._addViewForModel(item);
 			this.render();
 		},
@@ -103,9 +135,11 @@ define(['jquery', 'underscore', 'backbone',
 			this.render();
 		},
 
-		collectionChanged: function() {
-			this.childViews = [];
-			this._addAllModels();
+		collectionChanged: function(item) {
+			if (!item.changed.userId) {
+				this.childViews = [];
+				this._addAllModels();
+			}
 		},
 
 		_addViewForModel: function(item) {
@@ -115,8 +149,10 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_addAllModels: function() {
+			var that = this;
 			this.collection.each(function(item) {
-				_addViewForModel(item);
+				item.set({userId: that.options.userId});
+				that._addViewForModel(item);
 			});
 			this.render();
 		}
