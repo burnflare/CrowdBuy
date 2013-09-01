@@ -12,7 +12,7 @@ define(['jquery', 'underscore', 'backbone', 'utils'], function($, _, Backbone, U
 			imageUrl: '',
 			dateStart: '',
 			dateExpire: '',
-			ownerName: 'Loading...'
+			ownerName: 'Unknown'
 		},
 		initialize: function() {
 
@@ -62,17 +62,19 @@ define(['jquery', 'underscore', 'backbone', 'utils'], function($, _, Backbone, U
 				buyers: buyerArray,
 				comments: commentArray
 			};
-			var that = this;
-			$.ajax({
-				url: Utils.getFacebookApiLink(attributes.owner),
-				type: 'GET',
-				dataType: 'json',
-				success: function(response) {
-					that.set({
-						ownerName: response.name
-					});
-				}
-			});
+			if (this.get('ownerName') === 'Unknown') {
+				var that = this;
+				$.ajax({
+					url: Utils.getFacebookApiLink(attributes.owner),
+					type: 'GET',
+					dataType: 'json',
+					success: function(response) {
+						that.set({
+							ownerName: response.name
+						});
+					}
+				});
+			}
 			return attributes;
 		}
 	});
