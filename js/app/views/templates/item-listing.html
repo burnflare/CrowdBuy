@@ -13,7 +13,12 @@
 			<% } %>
 
 			<% if (buyers.length > 0) { %>
-				and <%= buyers.length %> others
+				and <%= buyers.length %> 
+				<% if (buyers.length === 1) { %>
+					other
+				<% } else { %>
+					others
+				<% } %>
 			<% } %>
 		</div>
 	</div>
