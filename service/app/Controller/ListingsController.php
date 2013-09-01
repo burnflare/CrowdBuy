@@ -31,7 +31,8 @@ class ListingsController extends AppController
 	 */
 	public $uses = array(
 		'Product',
-		'ProductListing'
+		'ProductListing',
+		'ProductListingComment'
 	);
 	
 	public function isAuthorized($user)
