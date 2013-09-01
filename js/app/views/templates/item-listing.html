@@ -5,16 +5,25 @@
 		<div class="item-expiry"><span class="glyphicon glyphicon-calendar"></span><%= dateExpire %></div>
 		<div class="item-location"><span class="glyphicon glyphicon-globe"></span><%= location %></div>
 		<div class="item-price"><span class="glyphicon glyphicon-usd"></span><%= price %></div>
-		<div class="item-buyers"><span class="glyphicon glyphicon-user"></span><%= buyers.length + 1 %>
-		<% if(buyers.length == 0) { %> buyer <% } else { %> buyers <% } %></div>
+		<div class="item-buyers"><span class="glyphicon glyphicon-user"></span><% if (owner === userId) { %>You
+			<% } else { %><%= ownerName %>
+			<% } %>
+
+			<% if (buyers.length > 0) { %>
+				and <%= buyers.length %> 
+				<% if (buyers.length === 1) { %>
+					other
+				<% } else { %>
+					others
+				<% } %>
+			<% } %>
+		</div>
 	</div>
 	<div class="pull-right btn-group-vertical">
 		<% if (owner !== userId && (buyers.indexOf(userId) === -1)) { %>
 			<button type="button" id="btn-pledge" class="btn btn-success pull-right">I&#39;m in!</button>
 		<% } else if (buyers.indexOf(userId) !== -1) { %>
 			<button type="button" id="btn-unpledge" class="btn btn-warning pull-right">I want out.</button>
-		<% } else { %>
-			<span class="pull-right">You're buying this!</span>
 		<% } %>
 	</div>
 </div>

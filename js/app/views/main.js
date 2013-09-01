@@ -106,7 +106,7 @@ define(['jquery', 'underscore', 'backbone',
 
 			});
 			_.each(buyerIds, function(currentId) {
-				var requestUrl = '//graph.facebook.com/' + currentId;
+				var requestUrl = Utils.getFacebookApiLink(currentId);
 				var pictureUrl = requestUrl + '/picture';
 				$.ajax({
 					url: requestUrl,
@@ -131,6 +131,7 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.collection, 'remove', this.collectionRemoved);
 
 			this.childViews = [];
+			this.render();
 		},
 
 		render: function() {

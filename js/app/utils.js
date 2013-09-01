@@ -58,5 +58,9 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
             return displayedView;
 	};
 
+      Utils.getFacebookApiLink = function(userId) {
+            return '//graph.facebook.com/' + userId;
+      };
+
 	return Utils;
 });
