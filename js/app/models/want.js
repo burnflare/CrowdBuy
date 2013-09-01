@@ -11,7 +11,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 			owner: '',
 			imageUrl: '',
 			dateStart: '',
-			dateExpire: ''
+			dateExpire: '',
+			ownerName: 'Loading...'
 		},
 		initialize: function() {
 
