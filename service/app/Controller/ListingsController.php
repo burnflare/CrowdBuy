@@ -130,6 +130,7 @@ class ListingsController extends AppController
 			}
 			else
 			{
+				debug($this->request->data);
 				debug($this->ProductListing->validationErrors);
 			}
 		}
