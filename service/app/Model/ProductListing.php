@@ -22,4 +22,10 @@ class ProductListing extends AppModel
 			'dependent' => true
 		)
 	);
+	
+	public function isOwnedBy($listingId, $personId)
+	{
+		$listing = $this->findById($listingId);
+		return (string)$listing['ProductListing']['creator_id'] === (string)$personId;
+	}
 }

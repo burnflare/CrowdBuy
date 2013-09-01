@@ -42,17 +42,18 @@ class ListingsController extends AppController
 		//TODO: check for friends-only listings.
 		if ($this->action === 'comment' || $this->action === 'deleteComment')
 		{
-			return parent::isAuthorized($user);
+			//return parent::isAuthorized($user);
 		}
 
 		//The owner of a listing can edit and delete it
-		else if (in_array($this->action, array('edit', 'delete')))
+		if ($this->action === 'deleteComment')
 		{
-			$postId = $this->request->params['pass'][0];
-			if ($this->Post->isOwnedBy($postId, $user['id']))
-			{
-				return true;
-			}
+			$commentId = $this->request->params['pass'][0];
+			$listingComment = $this->ProductListingComment->findById($commentId);
+			$listingId = $listingComment['ProductListing']['id'];
+			
+			return $this->ProductListing->isOwnedBy($listingId, $user['id']) ||
+				$this->ProductListingComment->isOwnedBy($commentId, $user['id']);
 		}
 
 		return parent::isAuthorized($user);
@@ -159,5 +160,10 @@ class ListingsController extends AppController
 				debug($this->ProductListingComment->validationErrors);
 			}
 		}
+	}
+	
+	public function deleteComment($id)
+	{
+		$this->ProductListingComment->delete($id);
 	}
 }

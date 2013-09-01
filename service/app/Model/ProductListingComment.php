@@ -19,4 +19,10 @@ class ProductListingComment extends AppModel
 			'dependent' => true
 		)
 	);
+	
+	public function isOwnedBy($commentId, $personId)
+	{
+		$comment = $this->findById($commentId);
+		return (string)$comment['ProductListingComment']['author_id'] === (string)$personId;
+	}
 }
