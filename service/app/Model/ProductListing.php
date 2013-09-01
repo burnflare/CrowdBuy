@@ -24,6 +24,28 @@ class ProductListing extends AppModel
 	);
 	
 	/**
+	 * Custom find methods.
+	 * @var array
+	 */
+	public $findMethods = array(
+		'visible' => true
+	);
+	
+	protected function _findVisible($state, $query, $results = array())
+	{
+		if ($state === 'before')
+		{
+			$query['conditions'][] = array('OR' => array(
+				'ProductListing.friends_only' => 0,
+				'ProductListing.creator_id' =>
+					self::getFacebookFriends(AuthComponent::user('id'))
+			));
+			return $query;
+		}
+		return $results;
+	}
+	
+	/**
 	 * Checks if the given listing is owned by the person specified.
 	 * 
 	 * @param int $listingId
@@ -58,11 +80,24 @@ class ProductListing extends AppModel
 	{
 		$listing = $this->findById($listingId);
 		$creator_id = $listing['ProductListing']['creator_id'];
-		$friends = FB::api('/' . $creator_id . '/friends');
+		$friend_ids = self::getFacebookFriends($creator_id);
+		
+		return in_array($personId, $friend_ids);
+	}
+	
+	/**
+	 * Gets an array of Facebook friends for the given person's ID.
+	 * 
+	 * @param string $personId
+	 * @return array
+	 */
+	private static function getFacebookFriends($personId)
+	{
+		$friends = FB::api('/' . $personId . '/friends');
 		$friend_ids = array_map(function($friend) {
 				return $friend['id'];
 			}, $friends['data']);
-		
-		return in_array($personId, $friend_ids);
+			
+		return $friend_ids;
 	}
 }
