@@ -61,7 +61,8 @@ define(['jquery', 'underscore', 'backbone',
 
 		events: {
 			"click button#btn-pledge" : 'pledgeClicked',
-			"click button#btn-unpledge" : 'unpledgeClicked'
+			"click button#btn-unpledge" : 'unpledgeClicked',
+			"click div.item-buyers" : "buyersClicked"
 		},
 
 		initialize: function() {
@@ -83,6 +84,7 @@ define(['jquery', 'underscore', 'backbone',
 					product_listing_id: this.model.attributes.id
 				}
 			});
+			this.model.fetch();
 		},
 
 		unpledgeClicked: function() {
@@ -93,6 +95,31 @@ define(['jquery', 'underscore', 'backbone',
 				data: {
 					product_listing_id: this.model.attributes.id
 				}
+			});
+			this.model.fetch();
+		},
+
+		buyersClicked: function() {
+			var buyerIds = this.model.attributes.buyers;
+			buyerIds.push(this.model.attributes.owner);
+			var buyerObjects = new Backbone.Collection([], {
+
+			});
+			_.each(buyerIds, function(currentId) {
+				var requestUrl = '//graph.facebook.com/' + currentId;
+				var pictureUrl = requestUrl + '/picture';
+				$.ajax({
+					url: requestUrl,
+					dataType: 'json',
+					type: 'GET',
+					success: function(response) {
+						buyerObjects.add({
+							name: response.name,
+							link: response.link,
+							picture: pictureUrl
+						});
+					}
+				});
 			});
 		}
 	});

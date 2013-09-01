@@ -1,6 +1,7 @@
 define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 	var Models = {};
 	Models.Want = Backbone.Model.extend({
+		urlRoot: '/service/listings/get',
 		defaults: {
 			id: '',
 			name: '',
@@ -16,9 +17,34 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
 		},
 		parse: function(response) {
-			var listing = response.ProductListing;
+			/* If we're parsing a response retrieved from the 
+			collection, it comes in a form similar to:
+			{
+				ProductListing: {},
+				Buyer: [],
+				Comment: []
+			}
+
+			However, if it's from /service/listings/get, it looks like:
+			{
+				listing: {
+					ProductListing: {},
+					Buyer: [],
+					Comment: []
+				}
+			}
+
+			Hence the use of responseRoot below. */
+
+			var responseRoot;
+			if (response.ProductListing) {
+				responseRoot = response;
+			} else {
+				responseRoot = response.listing;
+			}
+			var listing = responseRoot.ProductListing;
 			var product = listing.product;
-			var buyerArray = _.map(response.Buyer, function(buyer) {
+			var buyerArray = _.map(responseRoot.Buyer, function(buyer) {
 				return buyer.facebook_id;
 			});
 			var commentArray = response.Comment;
