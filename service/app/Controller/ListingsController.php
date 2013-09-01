@@ -34,6 +34,28 @@ class ListingsController extends AppController
 		'ProductListing'
 	);
 	
+	public function isAuthorized($user)
+	{
+		//All registered users can add comments
+		//TODO: check for friends-only listings.
+		if ($this->action === 'comment' || $this->action === 'deleteComment')
+		{
+			return parent::isAuthorized($user);
+		}
+
+		//The owner of a listing can edit and delete it
+		else if (in_array($this->action, array('edit', 'delete')))
+		{
+			$postId = $this->request->params['pass'][0];
+			if ($this->Post->isOwnedBy($postId, $user['id']))
+			{
+				return true;
+			}
+		}
+
+		return parent::isAuthorized($user);
+	}
+
 	/**
 	 * Creates a new listing.
 	 */
@@ -83,5 +105,33 @@ class ListingsController extends AppController
 
 		$this->set('listings', $listings);
 		$this->set('_serialize', array('listings'));
+	}
+	
+	public function comment()
+	{
+		if ($this->request->is('post'))
+		{
+			//Reject invalid listings.
+			if (!$this->ProductListing->find('count', array(
+				'conditions' => array(
+					'ProductListing.id' => $this->request->data['product_listing_id'])
+				)))
+			{
+				throw new FileNotFoundException();
+			}
+			
+			//If the form data can be validated and saved...
+			$this->request->data['author_id'] = $this->Auth->user('id');
+			if ($this->ProductListing->save($this->request->data))
+			{
+				//Set a session flash message and redirect.
+				$this->Session->setFlash('Listing saved.');
+				$this->set('_serialize', array());
+			}
+			else
+			{
+				debug($this->Recipe->validationErrors);
+			}
+		}
 	}
 }
