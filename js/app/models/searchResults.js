@@ -3,7 +3,11 @@ define(['jquery', 'underscore', 'backbone', 'model_search_item'], function($, _,
 		model: Models.SearchItem,
 		url: '/service/products/search/',
 		parse: function(response, options) {
-			return response.result.results;
+			if (response.result) {
+				return response.result.results;
+			} else {
+				return response.listings;
+			}
 		},
 		initialize: function() {
 			this.fetch();
