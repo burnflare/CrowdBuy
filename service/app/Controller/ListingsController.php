@@ -121,6 +121,9 @@ class ListingsController extends AppController
 				throw new FileNotFoundException();
 			}
 			
+			//Reject attempts to create comments with an ID
+			unset($this->request->data['id']);
+			
 			//If the form data can be validated and saved...
 			$this->request->data['author_id'] = $this->Auth->user('id');
 			if ($this->ProductListingComment->save($this->request->data))
