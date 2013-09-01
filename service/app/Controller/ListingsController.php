@@ -107,6 +107,8 @@ class ListingsController extends AppController
 			}, $products->results);
 
 		$listings = $this->ProductListing->findByProductId($productIds);
+		$this->Listings->augmentProductInfo($listings);
+		$this->Listings->sanitise($listings);
 
 		$this->set('listings', $listings);
 		$this->set('_serialize', array('listings'));
@@ -121,6 +123,7 @@ class ListingsController extends AppController
 		//We make an array of listings, so we can use augmentProductInfo with it.
 		$listings = array($this->ProductListing->findById($id));
 		$this->Listings->augmentProductInfo($listings);
+		$this->Listings->sanitise($listings);
 		
 		//Then we just take the first one.
 		$this->set('listing', $listings[0]);

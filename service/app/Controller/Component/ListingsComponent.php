@@ -23,4 +23,21 @@ class ListingsComponent extends Component
 		
 		return $products;
 	}
+	
+	/**
+	 * Removes the OAuth token which we use to authenticate against Facebook from
+	 * all product listings.
+	 * 
+	 * @param array $listings
+	 */
+	public function sanitise(&$listings)
+	{
+		foreach ($listings as &$listing)
+		{
+			foreach ($listing->Buyer as &$buyer)
+			{
+				unset($buyer->oauth_token);
+			}
+		}
+	}
 }

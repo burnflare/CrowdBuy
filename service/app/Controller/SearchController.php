@@ -40,7 +40,9 @@ class SearchController extends AppController
 				return $item->id;
 			}, $products->results);
 
-		$listings = $this->ProductListing->findByProductId($productIds);
+		$listings = $this->ProductListing->findAllByProductId($productIds);
+		$this->Listings->augmentProductInfo($listings);
+		$this->Listings->sanitise($listings);
 		$this->set('listings', $listings);
 
 		$this->set('_serialize', array('products', 'listings'));
