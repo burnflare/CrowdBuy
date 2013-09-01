@@ -41,7 +41,9 @@ class SearchController extends AppController
 				return $item->id;
 			}, $products->results);
 
-		$listings = $this->ProductListing->findAllByProductId($productIds);
+		$listings = $this->ProductListing->find('visible', array(
+			'conditions' => array(
+				'ProductListing.product_id' => $productIds)));
 		$this->Listings->augmentProductInfo($listings);
 		$this->Listings->sanitise($listings);
 		$this->set('listings', $listings);
