@@ -17,6 +17,25 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 
 		},
 		parse: function(response) {
+			/* If we're parsing a response retrieved from the 
+			collection, it comes in a form similar to:
+			{
+				ProductListing: {},
+				Buyer: [],
+				Comment: []
+			}
+
+			However, if it's from /service/listings/get, it looks like:
+			{
+				listing: {
+					ProductListing: {},
+					Buyer: [],
+					Comment: []
+				}
+			}
+
+			Hence the use of responseRoot below. */
+
 			var responseRoot;
 			if (response.ProductListing) {
 				responseRoot = response;
