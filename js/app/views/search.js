@@ -210,7 +210,8 @@ define(['jquery', 'underscore', 'backbone',
 
 		searchClick: function() {
 			var searchListingView = new Views.SearchSession({
-				searchTerm: $('#txt-search').val()
+				searchTerm: $('#txt-search').val(),
+				userId: this.options.userId
 			});
 
 			this.trigger('changeView', searchListingView);

@@ -103,7 +103,8 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 
 			this.SearchPane = new Views.SearchForm({
 				el: '#search-bar',
-				id: 'search'
+				id: 'search',
+				userId: this.userId
 			});
 
 			this.listenTo(this.SearchPane, 'changeView', this.changeView);
