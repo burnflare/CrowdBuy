@@ -100,7 +100,7 @@ class MeController extends AppController
 			//Ensure idempotence
 			if (!$this->ProductListingBuyers->find('count', array(
 				'conditions' => array(
-					'ProductListingBuyers.id' => $this->request->data['product_listing_id'],
+					'ProductListingBuyers.product_listing_id' => $this->request->data['product_listing_id'],
 					'ProductListingBuyers.person_id' => $this->request->data['person_id'])
 				)))
 			{
