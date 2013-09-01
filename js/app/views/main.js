@@ -131,6 +131,7 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.collection, 'remove', this.collectionRemoved);
 
 			this.childViews = [];
+			this.render();
 		},
 
 		render: function() {
