@@ -38,6 +38,12 @@ class ListingsController extends AppController
 	
 	public function isAuthorized($user)
 	{
+		//Fulfil base requirements
+		if (!parent::isAuthorized($user))
+		{
+			return false;
+		}
+
 		//All registered users can add comments
 		//TODO: check for friends-only listings.
 		if ($this->action === 'comment' || $this->action === 'deleteComment')
@@ -45,7 +51,7 @@ class ListingsController extends AppController
 			//return parent::isAuthorized($user);
 		}
 
-		//The owner of a listing can edit and delete it
+		//The owner of a listing can edit and delete comments of the listing
 		if ($this->action === 'deleteComment')
 		{
 			$commentId = $this->request->params['pass'][0];
@@ -55,8 +61,16 @@ class ListingsController extends AppController
 			return $this->ProductListing->isOwnedBy($listingId, $user['id']) ||
 				$this->ProductListingComment->isOwnedBy($commentId, $user['id']);
 		}
+		
+		//The owner of a listing can delete it.
+		else if ($this->action === 'delete')
+		{
+			$listingId = $this->request->params['pass'][0];
+			return $this->ProductListing->isOwnedBy($listingId, $user['id']);
+		}
 
-		return parent::isAuthorized($user);
+		//Conservative default.
+		return false;
 	}
 
 	/**
@@ -165,5 +179,10 @@ class ListingsController extends AppController
 	public function deleteComment($id)
 	{
 		$this->ProductListingComment->delete($id);
+	}
+	
+	public function delete($id)
+	{
+		$this->ProductListing->delete($id);
 	}
 }
