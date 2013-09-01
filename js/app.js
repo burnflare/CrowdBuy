@@ -12,6 +12,9 @@ requirejs.config({
 		},
 		'bootstrap': {
 			deps: ["jquery"]
+		},
+		'view_search': {
+			deps: ["view_main"]
 		}
 	},
 	"paths": {

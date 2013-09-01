@@ -170,7 +170,7 @@ define(['jquery', 'underscore', 'backbone',
 			var listingResultCollection = new Models.Wants([], {
 				url: listingSearchUrl
 			});
-			this.listingSearchResultView = new Views.SearchResultListing({
+			this.listingSearchResultView = new Views.ListingView({
 				collection: listingResultCollection
 			});
 
