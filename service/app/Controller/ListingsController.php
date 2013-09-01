@@ -38,14 +38,24 @@ class ListingsController extends AppController
 	
 	public function isAuthorized($user)
 	{
-		//All registered users can add comments
-		//TODO: check for friends-only listings.
-		if ($this->action === 'comment' || $this->action === 'deleteComment')
+		//Fulfil base requirements
+		if (!parent::isAuthorized($user))
 		{
-			//return parent::isAuthorized($user);
+			return false;
 		}
 
-		//The owner of a listing can edit and delete it
+		//Check for friends-only listings.
+		if (in_array($this->action, array('comment', 'get')))
+		{
+			$listingId = $this->request->params['pass'][0];
+			if ($this->ProductListing->isFriendsOnly($listingId) &&
+				!$this->ProductListing->isVisible($listingId, $auth['id']))
+			{
+				return false;
+			}
+		}
+
+		//The owner of a listing can edit and delete comments of the listing
 		if ($this->action === 'deleteComment')
 		{
 			$commentId = $this->request->params['pass'][0];
@@ -55,8 +65,16 @@ class ListingsController extends AppController
 			return $this->ProductListing->isOwnedBy($listingId, $user['id']) ||
 				$this->ProductListingComment->isOwnedBy($commentId, $user['id']);
 		}
+		
+		//The owner of a listing can delete it.
+		else if ($this->action === 'delete')
+		{
+			$listingId = $this->request->params['pass'][0];
+			return $this->ProductListing->isOwnedBy($listingId, $user['id']);
+		}
 
-		return parent::isAuthorized($user);
+		//Conservative default.
+		return true;
 	}
 
 	/**
@@ -107,7 +125,9 @@ class ListingsController extends AppController
 				return $item->id;
 			}, $products->results);
 
-		$listings = $this->ProductListing->findAllByProductId($productIds);
+		$listings = $this->ProductListing->find('visible', array(
+			'conditions' => array(
+				'ProductListing.product_id' => $productIds)));
 		$this->Listings->augmentProductInfo($listings);
 		$this->Listings->sanitise($listings);
 
@@ -165,5 +185,10 @@ class ListingsController extends AppController
 	public function deleteComment($id)
 	{
 		$this->ProductListingComment->delete($id);
+	}
+	
+	public function delete($id)
+	{
+		$this->ProductListing->delete($id);
 	}
 }
