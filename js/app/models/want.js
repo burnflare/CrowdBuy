@@ -62,7 +62,7 @@ define(['jquery', 'underscore', 'backbone', 'utils'], function($, _, Backbone, U
 				buyers: buyerArray,
 				comments: commentArray
 			};
-			if (this.get('ownerName') === 'Unknown') {
+			if (typeof this.attributes.ownerName === 'undefined') {
 				var that = this;
 				$.ajax({
 					url: Utils.getFacebookApiLink(attributes.owner),
