@@ -128,6 +128,8 @@ define(['jquery', 'underscore', 'backbone',
 		_appendFragmentToDocument: function() {
 			this.$('.item-listing').html(fragment);
 		}
+	}, {
+		subView: Views.ItemView
 	});
 
 	Views.GenericView = Backbone.View.extend({
@@ -177,7 +179,8 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		_addViewForModel: function(item) {
-			this.childViews.push(new Views.ItemView({
+			var subView = this.options.subView;
+			this.childViews.push(new subView({
 				model: item
 			}));
 		},
