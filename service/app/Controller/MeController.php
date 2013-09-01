@@ -94,6 +94,8 @@ class MeController extends AppController
 	{
 		if ($this->request->is('post'))
 		{
+			unset($this->request->data['id']);
+
 			//If the form data can be validated and saved...
 			$this->request->data['person_id'] = $this->Auth->user('id');
 			if ($this->ProductListingBuyers->save($this->request->data))

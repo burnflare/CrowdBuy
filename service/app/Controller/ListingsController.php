@@ -74,6 +74,9 @@ class ListingsController extends AppController
 				$this->Product->save(array());
 			}
 			
+			//Make sure we don't clobber someone else's entry
+			unset($this->request->data['id']);
+			
 			//If the form data can be validated and saved...
 			$this->request->data['creator_id'] = $this->Auth->user('id');
 			if ($this->ProductListing->save($this->request->data))
