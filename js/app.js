@@ -12,9 +12,6 @@ requirejs.config({
 		},
 		'bootstrap': {
 			deps: ["jquery"]
-		},
-		'view_common': {
-			exports: 'Views'
 		}
 	},
 	"paths": {

@@ -2,8 +2,8 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/main.html',
 	'text!./app/views/templates/item-listing.html',
 	'text!./app/views/templates/item-listing-empty.html',
-	'models', 'utils', 'facebook', 'view_common'
-], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models, Utils) {
+	'models', 'utils', 'view_common', 'facebook'
+], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models, Utils, Views) {
 	Views.Main = Backbone.View.extend({
 		initialize: function() {
 			this.$el.html(_.template(mainTemplate, {}));

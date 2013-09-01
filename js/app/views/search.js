@@ -3,7 +3,7 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/search-listing.html',
 	'text!./app/views/templates/search-listings.html',
 	'text!./app/views/templates/add-listing.html',
-	'models', 'utils', 'view_main'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, addListingTemplate, Models, Utils, Views) {
+	'models', 'utils', 'view_common'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, addListingTemplate, Models, Utils, Views) {
 	Views.AddItemModal = Backbone.View.extend({
 		template: _.template(addListingTemplate),
 
