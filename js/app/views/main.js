@@ -124,7 +124,13 @@ define(['jquery', 'underscore', 'backbone',
 		}
 	});
 
-	Views.ListingView = Backbone.View.extend({
+	Views.ListingView = Views.GenericView.extend({
+		_appendFragmentToDocument: function() {
+			this.$('.item-listing').html(fragment);
+		}
+	});
+
+	Views.GenericView = Backbone.View.extend({
 		initialize: function() {
 			this.listenTo(this.collection, 'add', this.collectionAdded);
 			this.listenTo(this.collection, 'change', this.collectionChanged);
@@ -145,7 +151,7 @@ define(['jquery', 'underscore', 'backbone',
 				$(itemListingEmptyTemplate).appendTo(fragment);
 			}
 
-			this.$('.item-listing').html(fragment);
+			this._appendFragmentToDocument(fragment);
 			return this;
 		},
 
