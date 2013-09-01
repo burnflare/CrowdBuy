@@ -130,7 +130,7 @@ class MeController extends AppController
 				'ProductListingBuyers.product_listing_id' =>
 					$this->request->data('product_listing_id'),
 				'ProductListingBuyers.person_id' =>
-					$this->Auth->user('id'))))
+					$this->Auth->user('id')), false))
 			{
 				//Set a session flash message and redirect.
 				$this->Session->setFlash('Wants saved.');
