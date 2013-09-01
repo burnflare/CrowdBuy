@@ -137,6 +137,10 @@ define(['jquery', 'underscore', 'backbone',
 					}
 				});
 			});
+
+			$('#buyer-modal-container').popover({
+				selector: this.id
+			});
 		}
 	});
 
