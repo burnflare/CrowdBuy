@@ -5,6 +5,70 @@ define(['jquery', 'underscore', 'backbone',
 	'models', 'utils', 'facebook'
 ], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models, Utils) {
 	var Views = {};
+
+	Views.GenericCollectionView = Backbone.View.extend({
+		initialize: function() {
+			this.listenTo(this.collection, 'add', this.collectionAdded);
+			this.listenTo(this.collection, 'change', this.collectionChanged);
+			this.listenTo(this.collection, 'remove', this.collectionRemoved);
+
+			this.childViews = [];
+			this.render();
+		},
+
+		render: function() {
+			var fragment = document.createDocumentFragment();
+
+			if (this.childViews.length > 0) {
+				_(this.childViews).each(function(currentView) {
+					fragment.appendChild(currentView.render().el);
+				});
+			} else {
+				$(itemListingEmptyTemplate).appendTo(fragment);
+			}
+
+			this._appendFragmentToDocument(fragment);
+			return this;
+		},
+
+		collectionAdded: function(item) {
+			var that = this;
+			item.set({userId: that.options.userId});
+			this._addViewForModel(item);
+			this.render();
+		},
+
+		collectionRemoved: function(item) {
+			this.childViews = this.childViews.filter(function(view) {
+				return view.model.id !== item.id;
+			});
+			this.render();
+		},
+
+		collectionChanged: function(item) {
+			if (!item.changed.userId) {
+				this.childViews = [];
+				this._addAllModels();
+			}
+		},
+
+		_addViewForModel: function(item) {
+			var subView = this.options.subView;
+			this.childViews.push(new subView({
+				model: item
+			}));
+		},
+
+		_addAllModels: function() {
+			var that = this;
+			this.collection.each(function(item) {
+				item.set({userId: that.options.userId});
+				that._addViewForModel(item);
+			});
+			this.render();
+		}
+	});
+
 	Views.Main = Backbone.View.extend({
 		initialize: function() {
 			this.$el.html(_.template(mainTemplate, {}));
@@ -124,75 +188,12 @@ define(['jquery', 'underscore', 'backbone',
 		}
 	});
 
-	Views.ListingView = Views.GenericView.extend({
+	Views.ListingView = Views.GenericCollectionView.extend({
 		_appendFragmentToDocument: function() {
 			this.$('.item-listing').html(fragment);
 		}
 	}, {
 		subView: Views.ItemView
-	});
-
-	Views.GenericView = Backbone.View.extend({
-		initialize: function() {
-			this.listenTo(this.collection, 'add', this.collectionAdded);
-			this.listenTo(this.collection, 'change', this.collectionChanged);
-			this.listenTo(this.collection, 'remove', this.collectionRemoved);
-
-			this.childViews = [];
-			this.render();
-		},
-
-		render: function() {
-			var fragment = document.createDocumentFragment();
-
-			if (this.childViews.length > 0) {
-				_(this.childViews).each(function(currentView) {
-					fragment.appendChild(currentView.render().el);
-				});
-			} else {
-				$(itemListingEmptyTemplate).appendTo(fragment);
-			}
-
-			this._appendFragmentToDocument(fragment);
-			return this;
-		},
-
-		collectionAdded: function(item) {
-			var that = this;
-			item.set({userId: that.options.userId});
-			this._addViewForModel(item);
-			this.render();
-		},
-
-		collectionRemoved: function(item) {
-			this.childViews = this.childViews.filter(function(view) {
-				return view.model.id !== item.id;
-			});
-			this.render();
-		},
-
-		collectionChanged: function(item) {
-			if (!item.changed.userId) {
-				this.childViews = [];
-				this._addAllModels();
-			}
-		},
-
-		_addViewForModel: function(item) {
-			var subView = this.options.subView;
-			this.childViews.push(new subView({
-				model: item
-			}));
-		},
-
-		_addAllModels: function() {
-			var that = this;
-			this.collection.each(function(item) {
-				item.set({userId: that.options.userId});
-				that._addViewForModel(item);
-			});
-			this.render();
-		}
 	});
 
 	return Views;
