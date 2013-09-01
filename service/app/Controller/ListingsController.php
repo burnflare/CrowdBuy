@@ -44,11 +44,15 @@ class ListingsController extends AppController
 			return false;
 		}
 
-		//All registered users can add comments
-		//TODO: check for friends-only listings.
-		if ($this->action === 'comment' || $this->action === 'deleteComment')
+		//Check for friends-only listings.
+		if (in_array($this->action, array('comment', 'get')))
 		{
-			//return parent::isAuthorized($user);
+			$listingId = $this->request->params['pass'][0];
+			if ($this->ProductListing->isFriendsOnly($listingId) &&
+				!$this->ProductListing->isVisible($listingId, $auth['id']))
+			{
+				return false;
+			}
 		}
 
 		//The owner of a listing can edit and delete comments of the listing

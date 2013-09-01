@@ -47,4 +47,22 @@ class ProductListing extends AppModel
 		$listing = $this->findById($listingId);
 		return intval($listing['ProductListing']['friends_only']) !== 0;
 	}
+	
+	/**
+	 * Checks if the given listing is visible to the given person.
+	 * @param int $listingId
+	 * @param string $personId
+	 * @return boolean
+	 */
+	public function isVisible($listingId, $personId)
+	{
+		$listing = $this->findById($listingId);
+		$creator_id = $listing['ProductListing']['creator_id'];
+		$friends = FB::api('/' . $creator_id . '/friends');
+		$friend_ids = array_map(function($friend) {
+				return $friend['id'];
+			}, $friends['data']);
+		
+		return in_array($personId, $friend_ids);
+	}
 }
