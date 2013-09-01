@@ -189,7 +189,7 @@ define(['jquery', 'underscore', 'backbone',
 	});
 
 	Views.ListingView = Views.GenericCollectionView.extend({
-		_appendFragmentToDocument: function() {
+		_appendFragmentToDocument: function(fragment) {
 			this.$('.item-listing').html(fragment);
 		}
 	}, {
