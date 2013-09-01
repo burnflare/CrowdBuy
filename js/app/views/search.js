@@ -169,7 +169,8 @@ define(['jquery', 'underscore', 'backbone',
 				url: listingSearchUrl
 			});
 			this.listingSearchResultView = new Views.ListingView({
-				collection: listingResultCollection
+				collection: listingResultCollection,
+				'userId': this.options.userId
 			});
 
 			this.render();
