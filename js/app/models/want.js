@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
+define(['jquery', 'underscore', 'backbone', 'utils'], function($, _, Backbone, Utils) {
 	var Models = {};
 	Models.Want = Backbone.Model.extend({
 		urlRoot: '/service/listings/get',
@@ -62,6 +62,17 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 				buyers: buyerArray,
 				comments: commentArray
 			};
+			var that = this;
+			$.ajax({
+				url: Utils.getFacebookApiLink(attributes.owner),
+				type: 'GET',
+				dataType: 'json',
+				success: function(response) {
+					that.set({
+						ownerName: response.name
+					});
+				}
+			});
 			return attributes;
 		}
 	});
