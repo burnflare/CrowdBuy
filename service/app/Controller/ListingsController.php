@@ -21,7 +21,8 @@ class ListingsController extends AppController
 	 * @var array
 	 */
 	public $components = array(
-		'Products'
+		'Products',
+		'Listings'
 	);
 
 	/**
@@ -117,8 +118,12 @@ class ListingsController extends AppController
 	 */
 	public function get($id)
 	{
-		$listing = $this->ProductListing->findById($id);
-		$this->set('listing', $listing);
+		//We make an array of listings, so we can use augmentProductInfo with it.
+		$listings = array($this->ProductListing->findById($id));
+		$this->Listings->augmentProductInfo($listings);
+		
+		//Then we just take the first one.
+		$this->set('listing', $listings[0]);
 		$this->set('_serialize', array('listing'));
 	}
 	
