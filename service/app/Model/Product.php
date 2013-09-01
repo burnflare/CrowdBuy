@@ -36,6 +36,6 @@ class Product extends AppModel
 	 */
 	public function listings($id)
 	{
-		return $this->ProductListing->findByProductId($for);
+		return $this->ProductListing->findAllByProductId($id);
 	}
 }
