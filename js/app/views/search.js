@@ -58,6 +58,8 @@ define(['jquery-ui', 'underscore', 'backbone',
 
 			var inputDate = $('#inputExpiryDate').val();
 			var dateEnd = new Date(inputDate).toISOString();
+			
+			var friendsOnly = $('#inputVisibilityFriends').is(':checked') ? 1 : 0;
 
 			var that = this;
 			$.ajax({
@@ -68,11 +70,19 @@ define(['jquery-ui', 'underscore', 'backbone',
 					product_id: this.model.attributes.id,
 					date_start: dateStart,
 					date_expire: dateEnd,
-					location: locationCombined
+					location: locationCombined,
+					friends_only: friendsOnly
 				},
 				success: function() {
 					$('#add-listing-modal').modal('hide');
 					that.trigger("viewClosed");
+					
+					var successMessage = $('<div class="alert alert-success fade in out"><a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>Listing created successfully.</div>');
+					successMessage.appendTo($('#message-container'));
+					$().alert();
+					setTimeout(function() {
+						successMessage.alert('close');
+					}, 5000);
 				},
 				error: function() {
 					alert("Oops, something went wrong. Try sending your request again!");
