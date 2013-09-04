@@ -49,12 +49,16 @@ define(['jquery', 'underscore', 'backbone', 'utils'], function($, _, Backbone, U
 				return buyer.facebook_id;
 			});
 			var commentArray = response.Comment;
+
+			var startParsed = Utils.dropTimeFromIsoDate(listing.date_start);
+			var endParsed = Utils.dropTimeFromIsoDate(listing.date_expire);
+
 			var attributes = {
 				id: listing.id,
 				name: product.name,
 				owner: listing.creator_id,
-				dateStart: listing.date_start,
-				dateExpire: listing.date_expire,
+				dateStart: startParsed,
+				dateExpire: endParsed,
 				location: listing.location,
 				productId: listing.product_id,
 				price: product.price,
