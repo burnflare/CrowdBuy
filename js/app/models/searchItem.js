@@ -10,7 +10,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 			user_currency: '',
 			length: '',
 			width: '',
-			height: ''
+			height: '',
+			images: null
 		},
 		initialize: function() {
 
