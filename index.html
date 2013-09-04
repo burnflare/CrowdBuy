@@ -20,6 +20,12 @@
 	<div id="fb-root"></div>
 	<script>
 		window.fbAsyncInit = function() {
+	function doLogin() {
+		FB.login(function(response) {}, {
+			scope: 'read_friendlists'
+		});
+	}
+
 	// init the FB JS SDK
 	FB.init({
 		appId: '509825915758193', // App ID from the app dashboard
@@ -37,12 +43,13 @@
 			location.href = "./app.html"
 		} else if (response.status === 'not_authorized') {
 			// Logged in to Facebook, but not the app.
-			FB.login();
+			doLogin();
 		} else {
 			// Not logged in to Facebook at all.
-			FB.login();
+			doLogin();
 		}
 	});
+	doLogin();
 };
 
 // Load the SDK asynchronously
@@ -58,6 +65,10 @@
 }(document, 'script', 'facebook-jssdk'));
 		</script>
 
-	<fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+	<div class="jumbotron">
+		<h1>Welcome to CrowdBuy.</h1>
+		<p>Log in with Facebook, if you have not done so already.</p>
+		<fb:login-button show-faces="true" width="200" max-rows="1" scope="read_friendlists" size="xlarge"></fb:login-button>
+	</div>
 </body>
 </html>
