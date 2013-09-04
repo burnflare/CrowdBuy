@@ -2,8 +2,9 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/main.html',
 	'text!./app/views/templates/item-listing.html',
 	'text!./app/views/templates/item-listing-empty.html',
+	'text!./app/views/templates/loading.html',
 	'models', 'utils', 'facebook', 'view_common'
-], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, Models, Utils) {
+], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, loadingTemplate, Models, Utils) {
 	var Views = {};
 
 	Views.GenericCollectionView = Backbone.View.extend({
@@ -12,6 +13,12 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.collection, 'change', this.collectionChanged);
 			this.listenTo(this.collection, 'remove', this.collectionRemoved);
 
+			var that = this;
+			this.listenTo(this.collection, 'fetched', function() {
+				that._loaded = true;
+				that.render();
+			});
+
 			this.childViews = [];
 			this.render();
 		},
@@ -19,7 +26,9 @@ define(['jquery', 'underscore', 'backbone',
 		render: function() {
 			var fragment = document.createDocumentFragment();
 
-			if (this.childViews.length > 0) {
+			if (!this._loaded) {
+				$(loadingTemplate).appendTo(fragment);
+			} else if (this.childViews.length > 0) {
 				_(this.childViews).each(function(currentView) {
 					fragment.appendChild(currentView.render().el);
 				});
