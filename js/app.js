@@ -40,6 +40,29 @@ requirejs.config({
 
 requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], function($, _, Backbone, Views, Utils) {
 
+	// Create a loading indicator. Inspired by
+	// http://tbranyen.com/post/how-to-indicate-backbone-fetch-progress
+	_.each(["Model", "Collection"], function(name) {
+		// Cache Backbone constructor.
+		var ctor = Backbone[name];
+		// Cache original fetch and set.
+		var fetch = ctor.prototype.fetch;
+
+		// Override the fetch method to emit a fetch event.
+		ctor.prototype.fetch = function() {
+			// Trigger the fetch event on the instance.
+			this.trigger("fetch", this);
+
+			// Pass through to original fetch.
+			var result = fetch.apply(this, arguments);
+			var that = this;
+			result.success(function() {
+				that.trigger("fetched", that);
+			});
+			return result;
+		};
+	});
+
 	var App = _.extend({
 		init: function() {
 			FB.init({

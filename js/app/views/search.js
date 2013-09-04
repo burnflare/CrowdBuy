@@ -3,7 +3,8 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/search-listing.html',
 	'text!./app/views/templates/search-listings.html',
 	'text!./app/views/templates/add-listing.html',
-	'models', 'utils', 'view_common'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, addListingTemplate, Models, Utils, Views) {
+	'text!./app/views/templates/loading.html',
+	'models', 'utils', 'view_common'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, addListingTemplate, loadingTemplate, Models, Utils, Views) {
 	Views.AddItemModal = Backbone.View.extend({
 		template: _.template(addListingTemplate),
 
@@ -100,12 +101,17 @@ define(['jquery', 'underscore', 'backbone',
 			this.modal.undelegateEvents();
 		}
 	});
-    
+
 	Views.SearchResultListing = Backbone.View.extend({
 		initialize: function() {
 			this.listenTo(this.collection, 'add', this.collectionAdded);
 			this.listenTo(this.collection, 'change', this.collectionChanged);
 			this.listenTo(this.collection, 'remove', this.collectionRemoved);
+			var that = this;
+			this.listenTo(this.collection, 'fetched', function() {
+				that._loaded = true;
+				that.render();
+			});
 
 			this.childViews = [];
 
@@ -115,7 +121,9 @@ define(['jquery', 'underscore', 'backbone',
 		render: function() {
 			var fragment = document.createDocumentFragment();
 
-			if (this.childViews.length > 0) {
+			if (!this._loaded) {
+				$(loadingTemplate).appendTo(fragment);
+			} else if (this.childViews.length > 0) {
 				_(this.childViews).each(function(currentView) {
 					fragment.appendChild(currentView.render().el);
 				});
