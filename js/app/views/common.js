@@ -95,6 +95,8 @@ define(['jquery', 'underscore', 'backbone',
 		initialize: function() {
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
+
+			this._initBuyerDetails();
 		},
 
 		render: function() {
@@ -127,12 +129,15 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		buyersClicked: function() {
+		},
+
+		_initBuyerDetails: function() {
 			var buyerIds = this.model.attributes.buyers;
 			buyerIds.push(this.model.attributes.owner);
-			var buyerQueries = [];
-			var buyerObjects = new Backbone.Collection([], {
 
-			});
+			// var buyerQueries = [];
+			var buyerObjects = new Backbone.Collection([], {});
+			
 			_.each(buyerIds, function(currentId) {
 				var requestUrl = Utils.getFacebookApiLink(currentId);
 				var pictureUrl = requestUrl + '/picture';
@@ -150,16 +155,38 @@ define(['jquery', 'underscore', 'backbone',
 				}));
 			});
 			
-			var that = this;
-			$.when(buyerQueries).done(function() {
-				var buyerFragment = document.createDocumentFragment();
-				$('div.item-buyers', that.$el).popover({
-					selector: '#' + this.id,
-					title: 'Hoorah',
-					content: 'Yay'
-				});
-				$('div.item-buyers', that.$el).popover('show');
+			// var that = this;
+			// $.when(buyerQueries).done(function() {
+			// 	var buyerFragment = document.createDocumentFragment();
+			// 	$('div.item-buyers', that.$el).popover({
+			// 		selector: '#' + this.id,
+			// 		title: 'Hoorah',
+			// 		content: 'Yay'
+			// 	});
+			// 	$('div.item-buyers', that.$el).popover('show');
+			// });
+
+			this.buyersView = new Views.BuyersListing({
+				collection: buyerObjects,
+				el: this.$('.buyer-popover')
 			});
+		}
+	});
+
+	Views.BuyersListing = View.GenericCollectionView.extend({
+		subView: Views.BuyerView,
+		_appendFragmentToDocument: function(fragment) {
+			this.$el.html(fragment);
+		}
+	});
+
+	Views.BuyerView = Backbone.View.extend({
+		template: _.template('<a href="<%= link %>"><%= name %></a>'),
+
+		render: function() {
+			var formatted = this.template(this.model.attributes);
+			this.$el.html(formatted);
+			return this;
 		}
 	});
 
