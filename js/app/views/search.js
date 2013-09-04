@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone',
+define(['jquery-ui', 'underscore', 'backbone',
 	'text!./app/views/templates/search-empty.html',
 	'text!./app/views/templates/search-listing.html',
 	'text!./app/views/templates/search-listings.html',
@@ -17,6 +17,13 @@ define(['jquery', 'underscore', 'backbone',
 					}
 				}
 			});
+
+			$('#inputExpiryDate').datepicker({
+				constrainInput: true,
+				dateFormat: "yy-mm-dd",
+				minDate: 0
+			});
+
 			this.render();
 		},
 
