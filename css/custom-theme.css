@@ -50,7 +50,6 @@ h1, h2, h3, h4, h5, h6, p, body {
     color: black;
     text-decoration: none;
 	min-height: 100px;
-	margin: 4px;
 }
 
 .search-result:hover {
