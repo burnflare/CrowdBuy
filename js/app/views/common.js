@@ -129,13 +129,14 @@ define(['jquery', 'underscore', 'backbone',
 		buyersClicked: function() {
 			var buyerIds = this.model.attributes.buyers;
 			buyerIds.push(this.model.attributes.owner);
+			var buyerQueries = [];
 			var buyerObjects = new Backbone.Collection([], {
 
 			});
 			_.each(buyerIds, function(currentId) {
 				var requestUrl = Utils.getFacebookApiLink(currentId);
 				var pictureUrl = requestUrl + '/picture';
-				$.ajax({
+				buyerQueries.push($.ajax({
 					url: requestUrl,
 					dataType: 'json',
 					type: 'GET',
@@ -146,13 +147,19 @@ define(['jquery', 'underscore', 'backbone',
 							picture: pictureUrl
 						});
 					}
+				}));
+			});
+			
+			var that = this;
+			$.when(buyerQueries).done(function() {
+				var buyerFragment = document.createDocumentFragment();
+				$('div.item-buyers', that.$el).popover({
+					selector: '#' + this.id,
+					title: 'Hoorah',
+					content: 'Yay'
 				});
+				$('div.item-buyers', that.$el).popover('show');
 			});
-
-			$('#buyer-modal-container').popover({
-				selector: '#' + this.id
-			});
-			$('#buyer-modal-container').popover('show');
 		}
 	});
 
