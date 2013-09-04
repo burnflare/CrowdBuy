@@ -17,11 +17,11 @@ requirejs.config({
 	"paths": {
 		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min",
 		"facebook": "//connect.facebook.net/en_US/all",
-		"underscore": "libs/underscore.min",
-		"backbone": "libs/backbone.min",
-		"json": "libs/json2",
-		"text": "libs/text",
-		'bootstrap': 'libs/bootstrap.min',
+		"underscore": "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min",
+		"backbone": "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min",
+		"json": "//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.min",
+		"text": "//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.10/text.min",
+		'bootstrap': '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min',
 
 		'models': 'app/models/modelIndex',
 		'model_want': 'app/models/want',
