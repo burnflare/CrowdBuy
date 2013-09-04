@@ -102,50 +102,11 @@ define(['jquery', 'underscore', 'backbone',
 	});
 
 	Views.SearchResultListing = Views.ListingView.extend({
-		initialize: function() {
-			this.listenTo(this.collection, 'add', this.collectionAdded);
-			this.listenTo(this.collection, 'change', this.collectionChanged);
-			this.listenTo(this.collection, 'remove', this.collectionRemoved);
-
-			this.childViews = [];
-
-			this._addAllModels();
-		},
-
-		collectionAdded: function(item) {
-			this._addViewForModel(item);
-			this.render();
-		},
-
-		collectionRemoved: function(item) {
-			this.childViews = this.childViews.filter(function(view) {
-				return view.model.id !== item.id;
-			});
-			this.render();
-		},
-
-		collectionChanged: function() {
-			this.childViews = [];
-			this._addAllModels();
-		},
-
-		_addViewForModel: function(item) {
-			this.childViews.push(new Views.SearchResult({
-				model: item
-			}));
-		},
-
-		_addAllModels: function() {
-			var that = this;
-			this.collection.each(function(item) {
-				that._addViewForModel(item);
-			});
-			this.render();
-		},
-		
 		_appendFragmentToDocument: function(fragment) {
 			this.$el.html(fragment);
 		},
+		
+		subView: Views.SearchResult
 	});
 
 	Views.SearchSession = Backbone.View.extend({
