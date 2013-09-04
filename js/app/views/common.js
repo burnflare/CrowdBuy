@@ -175,13 +175,6 @@ define(['jquery', 'underscore', 'backbone',
 		}
 	});
 
-	Views.BuyersListing = Views.GenericCollectionView.extend({
-		subView: Views.BuyerView,
-		_appendFragmentToDocument: function(fragment) {
-			this.$el.html(fragment);
-		}
-	});
-
 	Views.BuyerView = Backbone.View.extend({
 		template: _.template('<a href="<%= link %>"><%= name %></a>'),
 
@@ -189,6 +182,13 @@ define(['jquery', 'underscore', 'backbone',
 			var formatted = this.template(this.model.attributes);
 			this.$el.html(formatted);
 			return this;
+		}
+	});
+	
+	Views.BuyersListing = Views.GenericCollectionView.extend({
+		subView: Views.BuyerView,
+		_appendFragmentToDocument: function(fragment) {
+			this.$el.html(fragment);
 		}
 	});
 
