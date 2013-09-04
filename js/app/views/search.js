@@ -3,25 +3,41 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/search-listing.html',
 	'text!./app/views/templates/search-listings.html',
 	'text!./app/views/templates/add-listing.html',
-	'models', 'utils', 'view_common'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, addListingTemplate, Models, Utils, Views) {
+	'text!./app/views/templates/loading-modal.html',
+	'models', 'utils', 'view_common'], function($, _, Backbone, emptySearchTemplate, searchListingTemplate, searchContainerTemplate, addListingTemplate, loadingModalTemplate, Models, Utils, Views) {
 	Views.AddItemModal = Backbone.View.extend({
 		template: _.template(addListingTemplate),
 
 		initialize: function() {
+			var that = this;
 			FB.api('/me', function(resp) {
-				var locationParts = resp.location.name.split(', ');
-				for (var i = locationParts.length - 1; i >= 0; --i) {
-					$('#country').val(locationParts[i]);
-					if ($('#country').val()) {
-						break;
+				$('#loading-modal').modal('hide');
+				$('#loading-modal').removeClass('fade');
+				$('#loading-modal').on('hidden.bs.modal', function() {
+					that.render();
+
+					var locationParts = resp.location.name.split(', ');
+					for (var i = locationParts.length - 1; i >= 0; --i) {
+						$('#inputPickupCountry').val(locationParts[i]);
+						if ($('#inputPickupCountry').val()) {
+							break;
+						}
 					}
-				}
+
+					var cityParts = locationParts.slice(0, i).join(', ');
+					$('#inputPickupCity').val(cityParts);
+				});
 			});
-			this.render();
+			
+			this.$el.html(loadingModalTemplate);
+			$('#loading-modal').modal('show');
 		},
 
 		render: function() {
 			this.$el.html(this.template(this.model.attributes));
+			$('#add-listing-modal').modal({
+				replace: true
+			});
 		},
 
 		events: {
@@ -83,7 +99,6 @@ define(['jquery', 'underscore', 'backbone',
 				el: '#modal-container'
 			});
 			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
-			$('#add-listing-modal').modal('show');
 		},
 
 		initialize: function() {
