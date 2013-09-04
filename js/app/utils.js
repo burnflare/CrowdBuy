@@ -66,7 +66,7 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
             var dropIndex = isoDateString.indexOf(" ");
             var dateParsed = isoDateString.slice(0, dropIndex);
             return dateParsed;
-      }
+      };
 
 	return Utils;
 });
