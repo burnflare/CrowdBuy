@@ -54,11 +54,10 @@ define(['jquery-ui', 'underscore', 'backbone',
 			var city = $('#inputPickupCity').val();
 			var locationCombined = city + ", " + country;
 
-			// JS uses milliseconds, we need seconds.
-			var dateStart = Math.floor(Date.now() / 1000);
+			var dateStart = new Date(Date.now()).toISOString();
 
 			var inputDate = $('#inputExpiryDate').val();
-			var dateEnd = (new Date(inputDate)).getTime() / 1000;
+			var dateEnd = new Date(inputDate).toISOString();
 
 			var that = this;
 			$.ajax({
