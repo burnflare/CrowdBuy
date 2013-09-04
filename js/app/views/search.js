@@ -76,6 +76,13 @@ define(['jquery-ui', 'underscore', 'backbone',
 				success: function() {
 					$('#add-listing-modal').modal('hide');
 					that.trigger("viewClosed");
+					
+					var successMessage = $('<div class="alert alert-success fade in out"><a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>Listing created successfully.</div>');
+					successMessage.appendTo($('#message-container'));
+					$().alert();
+					setTimeout(function() {
+						successMessage.alert('close');
+					}, 5000);
 				},
 				error: function() {
 					alert("Oops, something went wrong. Try sending your request again!");
