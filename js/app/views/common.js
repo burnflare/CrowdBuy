@@ -175,7 +175,7 @@ define(['jquery', 'underscore', 'backbone',
 		}
 	});
 
-	Views.BuyersListing = View.GenericCollectionView.extend({
+	Views.BuyersListing = Views.GenericCollectionView.extend({
 		subView: Views.BuyerView,
 		_appendFragmentToDocument: function(fragment) {
 			this.$el.html(fragment);
