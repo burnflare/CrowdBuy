@@ -17,11 +17,11 @@ requirejs.config({
 	"paths": {
 		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min",
 		"facebook": "//connect.facebook.net/en_US/all",
-		"underscore": "libs/underscore.min",
-		"backbone": "libs/backbone.min",
-		"json": "libs/json2",
-		"text": "libs/text",
-		'bootstrap': 'libs/bootstrap.min',
+		"underscore": "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min",
+		"backbone": "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min",
+		"json": "//cdnjs.cloudflare.com/ajax/libs/json2/20121008/json2.min",
+		"text": "//cdnjs.cloudflare.com/ajax/libs/require-text/2.0.10/text.min",
+		'bootstrap': '//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.0/js/bootstrap.min',
 
 		'models': 'app/models/modelIndex',
 		'model_want': 'app/models/want',
@@ -39,6 +39,29 @@ requirejs.config({
 });
 
 requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], function($, _, Backbone, Views, Utils) {
+
+	// Create a loading indicator. Inspired by
+	// http://tbranyen.com/post/how-to-indicate-backbone-fetch-progress
+	_.each(["Model", "Collection"], function(name) {
+		// Cache Backbone constructor.
+		var ctor = Backbone[name];
+		// Cache original fetch and set.
+		var fetch = ctor.prototype.fetch;
+
+		// Override the fetch method to emit a fetch event.
+		ctor.prototype.fetch = function() {
+			// Trigger the fetch event on the instance.
+			this.trigger("fetch", this);
+
+			// Pass through to original fetch.
+			var result = fetch.apply(this, arguments);
+			var that = this;
+			result.success(function() {
+				that.trigger("fetched", that);
+			});
+			return result;
+		};
+	});
 
 	var App = _.extend({
 		init: function() {
