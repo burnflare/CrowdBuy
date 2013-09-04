@@ -58,6 +58,8 @@ define(['jquery-ui', 'underscore', 'backbone',
 
 			var inputDate = $('#inputExpiryDate').val();
 			var dateEnd = new Date(inputDate).toISOString();
+			
+			var friendsOnly = $('#inputVisibilityFriends').is(':checked') ? 1 : 0;
 
 			var that = this;
 			$.ajax({
@@ -68,7 +70,8 @@ define(['jquery-ui', 'underscore', 'backbone',
 					product_id: this.model.attributes.id,
 					date_start: dateStart,
 					date_expire: dateEnd,
-					location: locationCombined
+					location: locationCombined,
+					friends_only: friendsOnly
 				},
 				success: function() {
 					$('#add-listing-modal').modal('hide');
