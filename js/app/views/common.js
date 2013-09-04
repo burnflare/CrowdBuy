@@ -141,7 +141,8 @@ define(['jquery', 'underscore', 'backbone',
 			_.each(buyerIds, function(currentId) {
 				var requestUrl = Utils.getFacebookApiLink(currentId);
 				var pictureUrl = requestUrl + '/picture';
-				buyerQueries.push($.ajax({
+				// buyerQueries.push($.ajax({
+				$.ajax({
 					url: requestUrl,
 					dataType: 'json',
 					type: 'GET',
@@ -152,12 +153,13 @@ define(['jquery', 'underscore', 'backbone',
 							picture: pictureUrl
 						});
 					}
-				}));
+				});
+				// }));
 			});
 			
 			// var that = this;
 			// $.when(buyerQueries).done(function() {
-			// 	var buyerFragment = document.createDocumentFragment();
+				// var buyerFragment = document.createDocumentFragment();
 			// 	$('div.item-buyers', that.$el).popover({
 			// 		selector: '#' + this.id,
 			// 		title: 'Hoorah',
