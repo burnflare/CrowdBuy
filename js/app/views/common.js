@@ -4,10 +4,12 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/item-listing-empty.html',
 	'text!./app/views/templates/loading.html',
 	'models', 'utils', 'facebook', 'view_common'
-], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, loadingTemplate, Models, Utils) {
+], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, defaultLoadingTemplate, Models, Utils) {
 	var Views = {};
 
 	Views.GenericCollectionView = Backbone.View.extend({
+		loadingTemplate: defaultLoadingTemplate,
+
 		initialize: function() {
 			this.listenTo(this.collection, 'add', this.collectionAdded);
 			this.listenTo(this.collection, 'change', this.collectionChanged);
@@ -27,7 +29,7 @@ define(['jquery', 'underscore', 'backbone',
 			var fragment = document.createDocumentFragment();
 
 			if (!this._loaded) {
-				$(loadingTemplate).appendTo(fragment);
+				$(this.loadingTemplate).appendTo(fragment);
 			} else if (this.childViews.length > 0) {
 				_(this.childViews).each(function(currentView) {
 					fragment.appendChild(currentView.render().el);
