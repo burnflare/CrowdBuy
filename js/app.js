@@ -12,10 +12,15 @@ requirejs.config({
 		},
 		'bootstrap': {
 			deps: ["jquery"]
+		},
+		'jquery-ui': {
+			deps: ["jquery"],
+			exports: '$'
 		}
 	},
 	"paths": {
 		"jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min",
+		"jquery-ui": "//code.jquery.com/ui/1.10.3/jquery-ui",
 		"facebook": "//connect.facebook.net/en_US/all",
 		"underscore": "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min",
 		"backbone": "//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min",

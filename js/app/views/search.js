@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone',
+define(['jquery-ui', 'underscore', 'backbone',
 	'text!./app/views/templates/search-empty.html',
 	'text!./app/views/templates/search-listing.html',
 	'text!./app/views/templates/search-listings.html',
@@ -35,9 +35,13 @@ define(['jquery', 'underscore', 'backbone',
 
 		render: function() {
 			this.$el.html(this.template(this.model.attributes));
-			$('#add-listing-modal').modal({
-				replace: true
+			$('#inputExpiryDate').datepicker({
+				constrainInput: true,
+				dateFormat: "yy-mm-dd",
+				minDate: 0
 			});
+
+			$('#add-listing-modal').modal('show');
 		},
 
 		events: {
