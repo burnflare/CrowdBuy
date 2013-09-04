@@ -8,6 +8,15 @@ define(['jquery', 'underscore', 'backbone',
 		template: _.template(addListingTemplate),
 
 		initialize: function() {
+			FB.api('/me', function(resp) {
+				var locationParts = resp.location.name.split(', ');
+				for (var i = locationParts.length - 1; i >= 0; --i) {
+					$('#country').val(locationParts[i]);
+					if ($('#country').val()) {
+						break;
+					}
+				}
+			});
 			this.render();
 		},
 
