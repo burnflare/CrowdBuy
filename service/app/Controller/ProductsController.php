@@ -73,12 +73,15 @@ class ProductsController extends AppController
 	 */
 	public function og($id)
 	{
+		$result = Semantics3::getInfo($id);
+		
 		$meta = array(
 			'fb:app_id' => '509825915758193',
 			'og:type'   => 'crowdbuyfb:item',
-			'og:url'    => 'Put your own URL to the object here',
-			'og:title'  => 'Sample Item',
-			'og:image'  => 'https://fbstatic-a.akamaihd.net/images/devsite/attachment_blank.png'
+			//TODO: Make this clickable.
+			'og:url'    => 'http://' . $_SERVER['SERVER_NAME'] . '/service/products/og/' . $id,
+			'og:title'  => $result->name,
+			'og:image'  => empty($result->images) ? '' : $result->images[0]
 		);
 		$this->set('og', $meta);
 		$this->render('og', 'og');
