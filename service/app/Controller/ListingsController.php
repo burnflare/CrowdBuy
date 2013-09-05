@@ -240,7 +240,7 @@ class ListingsController extends AppController
 			}, $listings);
 		foreach ($buyers as $buyer)
 		{
-			FB::api(sprintf('/%s/notifications?template=%s&href=listings/%d',
+			FB::api(sprintf('/%s/notifications?template=%s&href=app.html#listings/%d',
 				$buyer, urlencode(sprintf(
 					'The organiser for %s has withdrew his interest in purchasing it.',
 					$productInfo->name)), $id),
