@@ -6,6 +6,25 @@
 			</div>
 			<div class="modal-body">
 				<p>We can't get it back if you do!</p>
+				<div>
+					<h4 class="media-heading"><%= name %></h4>
+					<div class="item-expiry"><span class="glyphicon glyphicon-calendar"></span><%= dateExpire %></div>
+					<div class="item-location"><span class="glyphicon glyphicon-globe"></span><%= location %></div>
+					<div class="item-price"><span class="glyphicon glyphicon-usd"></span><%= price %></div>
+					<div class="item-buyers"><span class="glyphicon glyphicon-user"></span><span class="item-buyers-list"><% if (owner === userId) { %>You
+						<% } else { %><%= ownerName %>
+						<% } %>
+
+						<% if (buyers.length > 0) { %>
+							and <%= buyers.length %> 
+							<% if (buyers.length === 1) { %>
+								other
+							<% } else { %>
+								others
+							<% } %>
+						<% } %></span>
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger col-xs-5">I'm sure. Delete it!</button>
