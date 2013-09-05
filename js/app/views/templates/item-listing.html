@@ -5,11 +5,11 @@
 		<div class="item-expiry"><span class="glyphicon glyphicon-calendar"></span><%= dateExpire %></div>
 		<div class="item-location"><span class="glyphicon glyphicon-globe"></span><%= location %></div>
 		<div class="item-price"><span class="glyphicon glyphicon-usd"></span><%= price %></div>
-		<div class="item-buyers"><span class="glyphicon glyphicon-user"></span><% if (owner === userId) { %>You
+		<div class="item-buyers"><span class="glyphicon glyphicon-user"></span><span class="item-buyers-list"><% if (owner === userId) { %>You
 			<% } else { %><%= ownerName %>
 			<% } %>
 
-			<span class="item-buyers-list"><% if (buyers.length > 0) { %>
+			<% if (buyers.length > 0) { %>
 				and <%= buyers.length %> 
 				<% if (buyers.length === 1) { %>
 					other
