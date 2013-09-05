@@ -45,13 +45,23 @@ define(['jquery-ui', 'underscore', 'backbone',
 		},
 
 		events: {
-			"click button.btn-success": "submitRequest",
+			"click button.btn-success": "validateRequest",
 			"click button.btn-danger": "closeModal"
+		},
+
+		validateRequest: function() {
+			var inputDate = $('#inputExpiryDate').val();
+			var city = $('#inputPickupCity').val();
+			if (!inputDate || !city) {
+				alert("Hmm. It looks like you're missing some information.");
+			} else {
+				this.submitRequest();
+			}
 		},
 
 		submitRequest: function() {
 			var country = $('select.form-control').val();
-			var city = $('#inputPickupCity').val();
+			var city = $('#inputPickupCity').val().trim();
 			var locationCombined = city + ", " + country;
 
 			var dateStart = new Date(Date.now()).toISOString();
