@@ -78,12 +78,16 @@ class Semantics3
 			$productIds = array($productIds);
 		}
 		
-		assert(count($productIds) <= 10);
-		$result = self::get()->query('products', (object)array(
-			'sem3_id' => $productIds
-		));
+		$count = count($productIds);
+		$result = array();
+		for ($i = 0; $i < $count; $i += 10)
+		{
+			$result += self::get()->query('products', (object)array(
+				'sem3_id' => array_slice($productIds, $i, 10)
+			))->results;
+		}
 		
-		return $return_array ? $result->results : $result->results[0];
+		return $return_array ? $result : $result[0];
 	}
 	
 	public static function search($description, $start, $limit = 20)
