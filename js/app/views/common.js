@@ -17,6 +17,7 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.collection, 'add', this.collectionAdded);
 			this.listenTo(this.collection, 'change', this.collectionChanged);
 			this.listenTo(this.collection, 'remove', this.collectionRemoved);
+			this.listenTo(this.collection, 'delete', this.itemDeleted);
 
 			var that = this;
 			this.listenTo(this.collection, 'fetched', function() {
@@ -66,6 +67,10 @@ define(['jquery', 'underscore', 'backbone',
 				this.childViews = [];
 				this._addAllModels();
 			}
+		},
+
+		itemDeleted: function(item) {
+			this.remove(item);
 		},
 
 		_addViewForModel: function(item) {
@@ -219,8 +224,12 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
 		},
 
-		disposeModal: function() {
+		disposeModal: function(isDeleted) {
 			this.modal.undelegateEvents();
+
+			if (isDeleted) {
+				this.model.trigger("delete", this.model);
+			}
 		}
 	});
 
@@ -250,7 +259,7 @@ define(['jquery', 'underscore', 'backbone',
 				dataType: 'json',
 				type: 'GET',
 				success: function() {
-					that.dismissModal();
+					that.dismissModal(true);
 				},
 				error: function() {
 					alert("Oops. We couldn't delete the listing - try again later!");
@@ -259,11 +268,12 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		keepClicked: function() {
-			this.dismissModal();
+			this.dismissModal(false);
 		},
 
-		dismissModal: function() {
-			this.trigger("viewClosed");
+		dismissModal: function(isDeleted) {
+			$('#delete-warning-modal').modal('hide');
+			this.trigger("viewClosed", isDeleted);
 		}
 	});
 
