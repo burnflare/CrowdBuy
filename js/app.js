@@ -39,11 +39,13 @@ requirejs.config({
 		'view_main': 'app/views/main',
 		'view_search': 'app/views/search',
 
-		'utils': 'app/utils'
+		'utils': 'app/utils',
+        
+        'routes': 'app/routes'
 	}
 });
 
-requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], function($, _, Backbone, Views, Utils) {
+requirejs(["jquery", "underscore", "backbone", "views", "utils", 'routes', 'bootstrap'], function($, _, Backbone, Views, Utils, Routes) {
 
 	// Create a loading indicator. Inspired by
 	// http://tbranyen.com/post/how-to-indicate-backbone-fetch-progress
@@ -70,6 +72,8 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 
 	var App = _.extend({
 		appId: '509825915758193',
+        
+        routes: new Routes(),
 
 		init: function() {
 			FB.init({
@@ -112,6 +116,8 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 			var that = this;
 			$('#recommend-to-friends').click(function() { that.recommendToFriends(); })
 			$('#add-to-timeline').click(function() { that.addToTimeline(); });
+            
+            Backbone.history.start();
 		},
 
 		recommendToFriends: function() {
