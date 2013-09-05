@@ -124,7 +124,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 		},
 
 		addToTimeline: function() {
-			var permissionsUrlPromise = Utils.getFacebookCustomSectionsLink(that.appId);
+			var permissionsUrlPromise = Utils.getFacebookCustomSectionsLink(this.appId);
 			permissionsUrlPromise.done(function(response) {
 				window.open(response.profile_section_url, '_blank');
 			});
