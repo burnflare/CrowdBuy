@@ -127,6 +127,11 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		buyersClicked: function() {
+			if (this._buyerListPopover) {
+				this._buyerListPopover.popover('toggle');
+				return;
+			}
+
 			var buyerIds = this.model.attributes.buyers;
 			buyerIds.push(this.model.attributes.owner);
 			var buyerQueries = [];
@@ -153,12 +158,20 @@ define(['jquery', 'underscore', 'backbone',
 			var that = this;
 			$.when(buyerQueries).done(function() {
 				var buyerFragment = document.createDocumentFragment();
-				$('div.item-buyers', that.$el).popover({
+				that._buyerListPopover = $('div.item-buyers span.item-buyers-list', that.$el);
+				that._buyerListPopover.parents('div.item-listing').on('scroll', function() {
+					if (that._buyerListPopover) {
+						that._buyerListPopover.popover('hide');
+					}
+				});
+				that._buyerListPopover.popover({
 					selector: '#' + this.id,
 					title: 'Hoorah',
-					content: 'Yay'
+					content: 'Yay',
+					container: that._buyerListPopover,
+					toggle: 'trigger'
 				});
-				$('div.item-buyers', that.$el).popover('show');
+				that._buyerListPopover.popover('show');
 			});
 		}
 	});

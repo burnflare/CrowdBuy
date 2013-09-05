@@ -9,14 +9,14 @@
 			<% } else { %><%= ownerName %>
 			<% } %>
 
-			<% if (buyers.length > 0) { %>
+			<span class="item-buyers-list"><% if (buyers.length > 0) { %>
 				and <%= buyers.length %> 
 				<% if (buyers.length === 1) { %>
 					other
 				<% } else { %>
 					others
 				<% } %>
-			<% } %>
+			<% } %></span>
 		</div>
 	</div>
 	<div class="pull-right btn-group-vertical">
