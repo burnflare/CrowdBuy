@@ -226,8 +226,12 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
 		},
 
-		disposeModal: function() {
+		disposeModal: function(isDeleted) {
 			this.modal.undelegateEvents();
+
+			if (isDeleted) {
+				this.model.trigger("destroy");
+			}
 		}
 	});
 
@@ -257,7 +261,7 @@ define(['jquery', 'underscore', 'backbone',
 				dataType: 'json',
 				type: 'GET',
 				success: function() {
-					that.dismissModal();
+					that.dismissModal(true);
 				},
 				error: function() {
 					alert("Oops. We couldn't delete the listing - try again later!");
@@ -266,12 +270,12 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		keepClicked: function() {
-			this.dismissModal();
+			this.dismissModal(false);
 		},
 
-		dismissModal: function() {
+		dismissModal: function(isDeleted) {
 			$('#delete-warning-modal').modal('hide');
-			this.trigger("viewClosed");
+			this.trigger("viewClosed", isDeleted);
 		}
 	});
 
