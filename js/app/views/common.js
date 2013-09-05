@@ -245,7 +245,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		events: {
 			"click button.btn-danger": "deleteClicked",
-			"click button.btn-warning": "keepClicked"
+			"click button.btn-success": "keepClicked"
 		},
 
 		deleteClicked: function() {
