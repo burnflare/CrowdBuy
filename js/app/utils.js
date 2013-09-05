@@ -105,14 +105,18 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 	 * @returns a Promise object.
 	 */
 	Utils.postUserTimeline = function(listingId) {
-		var body = 'Testing';
-		FB.api('/me/feed', 'post', { message: body }, function(response) {
-		  if (!response || response.error) {
-		    alert('Error occured');
-		  } else {
-		    alert('Post ID: ' + response.id);
-		  }
-		});
+		var promise = $.Deferred();
+		FB.api('me/crowdbuyfb:want_to_purchase', 'post',
+			{
+				item: 'http://fb.sapuan.org/service/listings/og/' +
+					listingId
+			},
+			function(response) {
+				promise.resolve(response);
+			}
+		);
+  
+		return promise;
 	};
 
 	Utils.dropTimeFromIsoDate = function(isoDateString) {
