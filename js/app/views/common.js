@@ -4,8 +4,10 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/item-listing-empty.html',
 	'text!./app/views/templates/person-info.html',
 	'text!./app/views/templates/loading.html',
+	'text!./app/views/templates/delete-modal.html',
 	'models', 'utils', 'facebook', 'view_common'
-], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, personInfoTemplate, defaultLoadingTemplate, Models, Utils) {
+], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, personInfoTemplate, defaultLoadingTemplate,
+	deleteModalTemplate, Models, Utils) {
 	var Views = {};
 
 	Views.GenericCollectionView = Backbone.View.extend({
@@ -99,11 +101,13 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
 
-			this.deleteListingModal = new Views.DeleteListingView({
-				el: this.$('#delete-warning-modal')
-			});
-			this.listenTo(this.deleteListingModal, "delete", this.deleteListing);
-			this.listenTo(this.deleteListingModal, "dismiss", this.dismissModal);
+			if (this.model.attributes.owner === this.userId) {
+				this.deleteListingModal = new Views.DeleteListingView();
+				this.listenTo(this.deleteListingModal, "delete", this.deleteListing);
+				this.listenTo(this.deleteListingModal, "dismiss", this.dismissModal);
+
+				this.el.appendChild(this.deleteListingModal.el);
+			}
 		},
 
 		render: function() {
@@ -163,48 +167,49 @@ define(['jquery', 'underscore', 'backbone',
 					}
 				}));
 			});
-			
+
 			var that = this;
 			$.when.apply($, buyerQueries)
-			.done(function() {
-				function handlePopoverClick(e) {
-					if (!that._buyerListPopover) {
-						return;
+				.done(function() {
+					function handlePopoverClick(e) {
+						if (!that._buyerListPopover) {
+							return;
+						}
+
+						var target = e.target || e.toElement;
+						if (target === that._buyerListPopover[0]) {
+							//We are going to ourself.
+							that._buyerListPopover.popover('toggle');
+						} else {
+							dismissPopover();
+						}
 					}
-					
-					var target = e.target || e.toElement;
-					if (target === that._buyerListPopover[0]) {
-						//We are going to ourself.
-						that._buyerListPopover.popover('toggle');
-					} else {
-						dismissPopover();
+
+					function dismissPopover() {
+						if (that._buyerListPopover) {
+							that._buyerListPopover.popover('hide');
+						}
 					}
-				}
-				function dismissPopover() {
-					if (that._buyerListPopover) {
-						that._buyerListPopover.popover('hide');
-					}
-				}
-				
-				var buyerFragment = document.createElement('div');
-				for (var i = 0; i < buyerObjects.length; ++i) {
-					$(that.personInfoTemplate(buyerObjects.models[i].attributes)).
+
+					var buyerFragment = document.createElement('div');
+					for (var i = 0; i < buyerObjects.length; ++i) {
+						$(that.personInfoTemplate(buyerObjects.models[i].attributes)).
 						appendTo(buyerFragment);
-				}
-				
-				$('a', buyerFragment).tooltip();
-				that._buyerListPopover = $('div.item-buyers span.item-buyers-list', that.$el);
-				that._buyerListPopover.parents('div.item-listing').on('scroll', dismissPopover);
-				$(document).on('click', handlePopoverClick);
-				that._buyerListPopover.popover({
-					selector: '#' + this.id,
-					html: true,
-					content: buyerFragment,
-					container: that._buyerListPopover,
-					toggle: 'trigger'
+					}
+
+					$('a', buyerFragment).tooltip();
+					that._buyerListPopover = $('div.item-buyers span.item-buyers-list', that.$el);
+					that._buyerListPopover.parents('div.item-listing').on('scroll', dismissPopover);
+					$(document).on('click', handlePopoverClick);
+					that._buyerListPopover.popover({
+						selector: '#' + this.id,
+						html: true,
+						content: buyerFragment,
+						container: that._buyerListPopover,
+						toggle: 'trigger'
+					});
+					that._buyerListPopover.popover('show');
 				});
-				that._buyerListPopover.popover('show');
-			});
 		},
 
 		deleteClicked: function() {
@@ -235,6 +240,9 @@ define(['jquery', 'underscore', 'backbone',
 	});
 
 	Views.DeleteListingView = Backbone.View.extend({
+		initialize: function() {
+			this.$el.html(deleteModalTemplate);
+		},
 		events: {
 			"click button.btn-danger": "deleteClicked",
 			"click button.btn-warning": "keepClicked"
