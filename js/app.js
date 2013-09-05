@@ -109,14 +109,17 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 				};
 			})(this));
 
-			$('#add-to-timeline').click(this.addToTimeline);
+			$('#add-to-timeline').click(this.addToTimeline());
 		},
 
 		addToTimeline: function() {
-			var permissionsUrlPromise = Utils.getFacebookCustomSectionsLink(this.appId);
-			permissionsUrlPromise.done(function(response) {
-				console.log(response);
-			});
+			var that = this;
+			return function() {
+				var permissionsUrlPromise = Utils.getFacebookCustomSectionsLink(that.appId);
+				permissionsUrlPromise.done(function(response) {
+					console.log(response);
+				});
+			};
 		},
 
 		loadHome: function() {
