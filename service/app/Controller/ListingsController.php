@@ -185,10 +185,12 @@ class ListingsController extends AppController
 	public function deleteComment($id)
 	{
 		$this->ProductListingComment->delete($id);
+		$this->set('_serialize', array());
 	}
 	
 	public function delete($id)
 	{
 		$this->ProductListing->delete($id);
+		$this->set('_serialize', array());
 	}
 }
