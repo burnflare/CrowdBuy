@@ -31,24 +31,6 @@ class ProductsController extends AppController
 	 */
 	public $uses = array();
 	
-	public function beforeFilter()
-	{
-		// Allows the og action to be accessed without user login.
-		$this->Auth->allow('og');
-		parent::beforeFilter();
-	}
-
-	public function isAuthorized($user)
-	{
-		//If this is an Open Graph ping, we have to allow public access.
-		if (in_array($this->action, array('og')))
-		{
-			return true;
-		}
-		
-		return parent::isAuthorized($user);
-	}
-	
 	/**
 	 * Searches for a product like the given string.
 	 * 
@@ -72,25 +54,5 @@ class ProductsController extends AppController
 		
 		$this->set('result', $result);
 		$this->set('_serialize', array('result'));
-	}
-	
-	/**
-	 * Gets Open Graph metadata about a listing.
-	 * @throws FileNotFoundException
-	 */
-	public function og($id)
-	{
-		$result = Semantics3::getInfo($id);
-		
-		$meta = array(
-			'fb:app_id' => '509825915758193',
-			'og:type'   => 'crowdbuyfb:item',
-			//TODO: Make this clickable.
-			'og:url'    => 'http://' . $_SERVER['SERVER_NAME'] . '/service/products/og/' . $id,
-			'og:title'  => $result->name,
-			'og:image'  => empty($result->images) ? '' : $result->images[0]
-		);
-		$this->set('og', $meta);
-		$this->render('og', 'og');
 	}
 }

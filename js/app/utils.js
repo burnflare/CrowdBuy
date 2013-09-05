@@ -34,7 +34,7 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 				replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
 	};
 
-	Utils.logIn = function(response) {
+	Utils.logIn = function() {
 		$.ajax({
 			url: '/service/me/login',
 			async: false,
@@ -60,6 +60,47 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 
 	Utils.getFacebookApiLink = function(userId) {
 		return '//graph.facebook.com/' + userId;
+	};
+	
+	/**
+	 * Requests the user's permission to have the following app permissions.
+	 * @param Array or string perms
+	 * @return A Promise object.
+	 */
+	Utils.requestFbPermission = function(perms) {
+		if (!(perms instanceof Array)) {
+			perms = [perms];
+		}
+		
+		var promise = $.Deferred();
+		FB.login(function(response) {
+			promise.resolve(response);
+		}, {
+			scope: perms.join(', ')
+		});
+		
+		return promise;
+	};
+	
+	/**
+	 * Posts a "want" to the user's Graph.
+	 * 
+	 * @param Number listingId The ID of the listing the user wanted.
+	 * @returns a Promise object.
+	 */
+	Utils.postUserTimeline = function(listingId) {
+		var promise = $.Deferred();
+		FB.api('me/crowdbuyfb:want_to_purchase', 'post',
+			{
+				item: 'http://fb.sapuan.org/service/listings/og/' +
+					listingId
+			},
+			function(response) {
+				promise.resolve(response);
+			}
+		);
+  
+		return promise;
 	};
 
 	Utils.dropTimeFromIsoDate = function(isoDateString) {
