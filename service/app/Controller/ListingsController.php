@@ -117,8 +117,8 @@ class ListingsController extends AppController
 				//Set a session flash message and redirect.
 				$this->Session->setFlash('Listing saved.');
 				
-				$this->set('productId', $this->ProductListing->getInsertID());
-				$this->set('_serialize', array('productId'));
+				$this->set('listingId', $this->ProductListing->getInsertID());
+				$this->set('_serialize', array('listingId'));
 			}
 			else
 			{
