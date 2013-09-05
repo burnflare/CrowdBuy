@@ -116,6 +116,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		pledgeClicked: function() {
+			var that = this;
 			$.ajax({
 				url: '/service/me/want',
 				dataType: 'json',
@@ -123,6 +124,15 @@ define(['jquery', 'underscore', 'backbone',
 				data: {
 					product_listing_id: this.model.attributes.id
 				}
+			}).success(function() {
+				FB.api('me/crowdbuyfb:want_to_purchase', 'post',
+					{
+					  item: 'http://fb.sapuan.org/service/products/og/' + that.model.attributes.productId
+					},
+					function(response) {
+					  // handle the response
+					}
+				  );
 			});
 			this.model.fetch();
 		},
