@@ -5,7 +5,7 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/person-info.html',
 	'text!./app/views/templates/loading.html',
 	'text!./app/views/templates/delete-modal.html',
-    'text!./app/views/templates/view-modal.html'
+    'text!./app/views/templates/view-modal.html',
 	'models', 'utils', 'facebook', 'view_common'
 ], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, personInfoTemplate, defaultLoadingTemplate,
 	deleteModalTemplate, viewModalTemplate, Models, Utils) {
