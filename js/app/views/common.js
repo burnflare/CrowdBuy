@@ -299,7 +299,7 @@ define(['jquery', 'underscore', 'backbone',
 	});
     
 	Views.ViewItemModal = Backbone.View.extend({
-		template: _.template(viewListingTemplate),
+		template: _.template(viewModalTemplate),
 
 		initialize: function() {
 			
