@@ -17,6 +17,7 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.collection, 'add', this.collectionAdded);
 			this.listenTo(this.collection, 'change', this.collectionChanged);
 			this.listenTo(this.collection, 'remove', this.collectionRemoved);
+			this.listenTo(this.collection, 'delete', this.itemDeleted);
 
 			var that = this;
 			this.listenTo(this.collection, 'fetched', function() {
@@ -66,6 +67,10 @@ define(['jquery', 'underscore', 'backbone',
 				this.childViews = [];
 				this._addAllModels();
 			}
+		},
+
+		itemDeleted: function(item) {
+			this.remove(item);
 		},
 
 		_addViewForModel: function(item) {
@@ -230,7 +235,7 @@ define(['jquery', 'underscore', 'backbone',
 			this.modal.undelegateEvents();
 
 			if (isDeleted) {
-				this.model.trigger("remove", this.model);
+				this.model.trigger("delete", this.model);
 			}
 		}
 	});
