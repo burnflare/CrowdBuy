@@ -13,7 +13,11 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
                 url: '/service/listings/get/' + id
             });
             
-            this.item.fetch();
+            this.item.fetch({
+                success: function(results) {
+                    console.log(results);
+                }
+            });
             
 			this.modal = new Views.ViewItemModal({
 				model: this.item,
