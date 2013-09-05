@@ -68,9 +68,9 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 	 * 
 	 * @returns a Promise object.
 	 */
-	Utils.getFacebookCustomSectionsLink = function() {
+	Utils.getFacebookCustomSectionsLink = function(appId) {
 		var promise = $.Deferred();
-		FB.api(App.appId + '?fields=profile_section_url,mobile_profile_section_url',
+		FB.api(appId + '?fields=profile_section_url,mobile_profile_section_url',
 			function(response) {
 				promise.resolve(response);
 			});
