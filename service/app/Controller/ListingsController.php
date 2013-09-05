@@ -33,6 +33,7 @@ class ListingsController extends AppController
 	public $uses = array(
 		'Product',
 		'ProductListing',
+		'ProductListingBuyers',
 		'ProductListingComment'
 	);
 	
@@ -81,7 +82,7 @@ class ListingsController extends AppController
 		
 		//The owner of a listing can delete it.
 		else if ($this->action === 'delete')
-		{
+		{return true;
 			$listingId = $this->request->params['pass'][0];
 			return $this->ProductListing->isOwnedBy($listingId, $user['id']);
 		}
@@ -224,7 +225,29 @@ class ListingsController extends AppController
 	
 	public function delete($id)
 	{
-		$this->ProductListing->delete($id);
+		//Find the product this listing is referring to.
+		$listing = $this->ProductListing->findById($id);
+		$productInfo = Semantics3::getInfo($listing['ProductListing']['product_id']);
+		
+		//Find all the people who have listed they wanted this.
+		$listings = $this->ProductListingBuyers->find('all', array(
+			'conditions' => array(
+				'ProductListingBuyers.product_listing_id' => $id
+			)));
+
+		$buyers = array_map(function($item) {
+				return $item['ProductListingBuyers']['person_id'];
+			}, $listings);
+		foreach ($buyers as $buyer)
+		{
+			FB::api(sprintf('/%s/notifications?template=%s&href=listings/%d',
+				$buyer, urlencode(sprintf(
+					'The organiser for %s has withdrew his interest in purchasing it.',
+					$productInfo->name)), $id),
+				'POST');
+		}
+		
+		//$this->ProductListing->delete($id);
 		$this->set('_serialize', array());
 	}
 }
