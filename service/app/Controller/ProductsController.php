@@ -31,9 +31,16 @@ class ProductsController extends AppController
 	 */
 	public $uses = array();
 	
+	public function beforeFilter()
+	{
+		// Allows the og action to be accessed without user login.
+		$this->Auth->allow('og');
+		parent::beforeFilter();
+	}
+
 	public function isAuthorized($user)
 	{
-		//If this is an Open Graph ping, we have to allow public access/
+		//If this is an Open Graph ping, we have to allow public access.
 		if (in_array($this->action, array('og')))
 		{
 			return true;
