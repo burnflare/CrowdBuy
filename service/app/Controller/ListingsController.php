@@ -177,8 +177,7 @@ class ListingsController extends AppController
 		$meta = array(
 			'fb:app_id' => '509825915758193',
 			'og:type'   => 'crowdbuyfb:item',
-			//TODO: Make this clickable.
-			'og:url'    => 'http://' . $_SERVER['SERVER_NAME'] . '/service/listings/get/' . $id,
+			'og:url'    => 'http://' . $_SERVER['SERVER_NAME'] . '/app.html#listing/' . $id,
 			'og:title'  => $result->name,
 			'og:image'  => empty($result->images) ? '' : $result->images[0]
 		);
