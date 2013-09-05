@@ -310,7 +310,7 @@ define(['jquery', 'underscore', 'backbone',
 		template: _.template(viewModalTemplate),
 
 		initialize: function() {
-            this.model.on('change', this.render);
+            this.listenTo(this.model, 'change', this.render);
             this.model.fetch();
 		},
 
