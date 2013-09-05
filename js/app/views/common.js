@@ -91,6 +91,7 @@ define(['jquery', 'underscore', 'backbone',
 		events: {
 			"click button#btn-pledge": 'pledgeClicked',
 			"click button#btn-unpledge": 'unpledgeClicked',
+			"click button#btn-delete": 'deleteClicked',
 			"click div.item-buyers": "buyersClicked"
 		},
 
@@ -198,6 +199,22 @@ define(['jquery', 'underscore', 'backbone',
 				});
 				that._buyerListPopover.popover('show');
 			});
+		},
+
+		deleteClicked: function() {
+			// Show the warning message.
+			
+		}
+	});
+
+	Views.DeleteListingView = Backbone.View.extend({
+		events: {
+			"click button.btn-danger": "deleteClicked",
+			"click button.btn-warning": "keepClicked"
+		},
+
+		deleteClicked: function() {
+			
 		}
 	});
 

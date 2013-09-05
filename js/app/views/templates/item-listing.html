@@ -24,6 +24,26 @@
 			<button type="button" id="btn-pledge" class="btn btn-success pull-right">I&#39;m in!</button>
 		<% } else if (buyers.indexOf(userId) !== -1) { %>
 			<button type="button" id="btn-unpledge" class="btn btn-warning pull-right">I want out.</button>
+		<% } else { %>
+			<button type="button" id="btn-delete" class="btn btn-danger pull-right">Delete</button>
 		<% } %>
 	</div>
+	<% if (owner === userId) { %>
+	<div id="warning-modal" class="modal fade" data-backdrop="static">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title">DELETE THIS LISTING?</h3>
+				</div>
+				<div class="modal-body">
+					<p>Once deleted, we can't get it back!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger col-xs-5">I'm sure. Delete it!</button>
+					<button type="button" class="btn btn-success col-xs-5 pull-right" data-dismiss="modal">Actually, I'll keep it.</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<% } %>
 </div>
