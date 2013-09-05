@@ -12,7 +12,7 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
             console.log(id);
             
             this.item = new Models.Want({
-                url: '/service/listings/get/' + id
+                id: id
             });
             
             this.item.fetch({
