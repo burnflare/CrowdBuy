@@ -78,13 +78,19 @@ class Semantics3
 			$productIds = array($productIds);
 		}
 		
+		//Do not retrieve IDs twice.
+		$productIds = array_unique($productIds);
+		
+		//Find IDs in batches of 10.
 		$count = count($productIds);
 		$result = array();
 		for ($i = 0; $i < $count; $i += 10)
 		{
-			$result += self::get()->query('products', (object)array(
-				'sem3_id' => array_slice($productIds, $i, 10)
-			))->results;
+			$result = array_merge($result,
+				self::get()->query('products', (object)array(
+					'sem3_id' => array_slice($productIds, $i, 10)
+				))->results
+			);
 		}
 		
 		return $return_array ? $result : $result[0];
