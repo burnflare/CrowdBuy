@@ -19,6 +19,7 @@
 
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 ?>
+<!DOCTYPE html>
 <html>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# crowdbuyfb: http://ogp.me/ns/fb/crowdbuyfb#">
 	<title>
