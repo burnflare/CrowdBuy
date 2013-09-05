@@ -34,9 +34,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		echo $this->fetch('script');
 
 		foreach ($og as $name => $value) {
-			echo $this->Html->meta(array('property' => $name, 'value' => $value));
+			echo $this->Html->meta(array('property' => $name, 'content' => $value));
 		}
 	?>
+	<?php echo $this->Html->charset(); ?>
 </head>
 
 <body>
