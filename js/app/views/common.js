@@ -160,6 +160,17 @@ define(['jquery', 'underscore', 'backbone',
 			var that = this;
 			$.when.apply($, buyerQueries)
 			.done(function() {
+				function dismissPopover(e) {
+					var target = e.target || e.toElement;
+					if (that._buyerListPopover) {
+						if (target === that._buyerListPopover[0]) {
+							//We are going to ourself.
+							return;
+						}
+						that._buyerListPopover.popover('hide');
+					}
+				}
+				
 				var buyerFragment = document.createElement('div');
 				for (var i = 0; i < buyerObjects.length; ++i) {
 					$(that.personInfoTemplate(buyerObjects.models[i].attributes)).
@@ -168,11 +179,8 @@ define(['jquery', 'underscore', 'backbone',
 				
 				$('a', buyerFragment).tooltip();
 				that._buyerListPopover = $('div.item-buyers span.item-buyers-list', that.$el);
-				that._buyerListPopover.parents('div.item-listing').on('scroll', function() {
-					if (that._buyerListPopover) {
-						that._buyerListPopover.popover('hide');
-					}
-				});
+				that._buyerListPopover.parents('div.item-listing').on('scroll', dismissPopover);
+				$(document).on('click', dismissPopover);
 				that._buyerListPopover.popover({
 					selector: '#' + this.id,
 					html: true,
