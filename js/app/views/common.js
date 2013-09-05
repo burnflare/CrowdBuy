@@ -101,7 +101,7 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
 
-			if (this.model.attributes.owner === this.userId) {
+			if (this.model.attributes.owner === this.model.attributes.userId) {
 				this.deleteListingModal = new Views.DeleteListingView();
 				this.listenTo(this.deleteListingModal, "delete", this.deleteListing);
 				this.listenTo(this.deleteListingModal, "dismiss", this.dismissModal);
