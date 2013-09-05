@@ -9,16 +9,8 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
         },
         
         showListing: function(id) {
-            that = this;
-            
             this.item = new Models.Want({
                 id: id
-            });
-            
-            this.item.fetch({
-                success: function(results) {
-                    
-                }
             });
             
             this.modal = new Views.ViewItemModal({
