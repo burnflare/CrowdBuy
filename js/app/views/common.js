@@ -150,7 +150,7 @@ define(['jquery', 'underscore', 'backbone',
 					success: function(response) {
 						buyerObjects.add({
 							name: response.name,
-							link: response.link,
+							link: response.link || '//www.facebook.com/' + response.id,
 							picture: pictureUrl
 						});
 					}
@@ -175,7 +175,6 @@ define(['jquery', 'underscore', 'backbone',
 				});
 				that._buyerListPopover.popover({
 					selector: '#' + this.id,
-					title: 'Hoorah',
 					html: true,
 					content: buyerFragment,
 					container: that._buyerListPopover,
