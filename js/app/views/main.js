@@ -11,7 +11,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		events: {
-			"click a#add-to-timeline": "addToTimeline"
+			"click button#add-to-timeline": "addToTimeline"
 		},
 
 		addToTimeline: function() {
