@@ -302,7 +302,7 @@ define(['jquery', 'underscore', 'backbone',
 		template: _.template(viewModalTemplate),
 
 		initialize: function() {
-			
+			this.render();
 		},
 
 		render: function() {
