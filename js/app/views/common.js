@@ -91,12 +91,21 @@ define(['jquery', 'underscore', 'backbone',
 		events: {
 			"click button#btn-pledge": 'pledgeClicked',
 			"click button#btn-unpledge": 'unpledgeClicked',
+			"click button#btn-delete": 'deleteClicked',
 			"click div.item-buyers": "buyersClicked"
 		},
 
 		initialize: function() {
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
+
+			gloablTestTemp = this.$;
+
+			this.deleteListingModal = new Views.DeleteListingView({
+				el: this.$('#delete-warning-modal')
+			});
+			this.listenTo(this.deleteListingModal, "delete", this.deleteListing);
+			this.listenTo(this.deleteListingModal, "dismiss", this.dismissModal);
 		},
 
 		render: function() {
@@ -198,6 +207,47 @@ define(['jquery', 'underscore', 'backbone',
 				});
 				that._buyerListPopover.popover('show');
 			});
+		},
+
+		deleteClicked: function() {
+			// Show the warning message.
+			this.deleteListingModal.$el.modal('show');
+		},
+
+		deleteListing: function() {
+			var serviceUrl = '/service/listings/delete/' + this.model.attributes.id;
+
+			var that = this;
+			$.ajax({
+				url: serviceUrl,
+				dataType: 'json',
+				type: 'GET',
+				success: function() {
+					that.dismissModal();
+				},
+				error: function() {
+					alert("Oops. We couldn't delete the listing - try again later!");
+				}
+			});
+		},
+
+		dismissModal: function() {
+			this.deleteListingModal.$el.modal('hide');
+		}
+	});
+
+	Views.DeleteListingView = Backbone.View.extend({
+		events: {
+			"click button.btn-danger": "deleteClicked",
+			"click button.btn-warning": "keepClicked"
+		},
+
+		deleteClicked: function() {
+			this.trigger("delete");
+		},
+
+		keepClicked: function() {
+			this.trigger("dismiss");
 		}
 	});
 
