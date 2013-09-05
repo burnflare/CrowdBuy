@@ -73,16 +73,21 @@ define(['jquery-ui', 'underscore', 'backbone',
 					location: locationCombined,
 					friends_only: friendsOnly
 				},
-				success: function() {
+				success: function(response) {
+					//Hide the Modal dialog
 					$('#add-listing-modal').modal('hide');
 					that.trigger("viewClosed");
 					
+					//Show the status message
 					var successMessage = $('<div class="alert alert-success fade in out"><a class="close" data-dismiss="alert" href="#" aria-hidden="true">&times;</a>Listing created successfully.</div>');
 					successMessage.appendTo($('#message-container'));
 					$().alert();
 					setTimeout(function() {
 						successMessage.alert('close');
 					}, 5000);
+					
+					//And post to the User's graph.
+					Utils.postUserTimeline(response.listingId);
 				},
 				error: function() {
 					alert("Oops, something went wrong. Try sending your request again!");

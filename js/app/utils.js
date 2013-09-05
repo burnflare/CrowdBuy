@@ -85,14 +85,15 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 	/**
 	 * Posts a "want" to the user's Graph.
 	 * 
+	 * @param Number listingId The ID of the listing the user wanted.
 	 * @returns a Promise object.
 	 */
-	Utils.postUserTimeline = function(productId) {
+	Utils.postUserTimeline = function(listingId) {
 		var promise = $.Deferred();
 		FB.api('me/crowdbuyfb:want_to_purchase', 'post',
 			{
-				item: 'http://fb.sapuan.org/service/products/og/' +
-					productId
+				item: 'http://fb.sapuan.org/service/listings/og/' +
+					listingId
 			},
 			function(response) {
 				promise.resolve(response);

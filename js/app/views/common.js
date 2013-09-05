@@ -117,7 +117,7 @@ define(['jquery', 'underscore', 'backbone',
 					product_listing_id: this.model.attributes.id
 				}
 			}).success(function() {
-				Utils.postUserTimeline(that.model.attributes.productId);
+				Utils.postUserTimeline(that.model.attributes.id);
 			});
 			this.model.fetch();
 		},
