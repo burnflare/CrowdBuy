@@ -100,14 +100,6 @@ define(['jquery', 'underscore', 'backbone',
 		initialize: function() {
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
-
-			if (this.model.attributes.owner === this.model.attributes.userId) {
-				this.deleteListingModal = new Views.DeleteListingView();
-				this.listenTo(this.deleteListingModal, "delete", this.deleteListing);
-				this.listenTo(this.deleteListingModal, "dismiss", this.dismissModal);
-
-				this.el.appendChild(this.deleteListingModal.el);
-			}
 		},
 
 		render: function() {
@@ -213,11 +205,40 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		deleteClicked: function() {
-			// Show the warning message.
-			this.deleteListingModal.$el.modal('show');
+			if (this.modal) {
+				this.disposeModal();
+			}
+
+			this.modal = new Views.DeleteListingView({
+				model: this.model,
+				el: '#modal-container'
+			});
+			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
 		},
 
-		deleteListing: function() {
+		disposeModal: function() {
+			this.modal.undelegateEvents();
+		}
+	});
+
+	Views.DeleteListingView = Backbone.View.extend({
+		template: _.template(deleteModalTemplate),
+
+		initialize: function() {
+			this.render();
+		},
+
+		render: function() {
+			this.$el.html(this.template(this.model.attributes));
+			$('#delete-warning-modal').modal('show');
+		},
+
+		events: {
+			"click button.btn-danger": "deleteClicked",
+			"click button.btn-warning": "keepClicked"
+		},
+
+		deleteClicked: function() {
 			var serviceUrl = '/service/listings/delete/' + this.model.attributes.id;
 
 			var that = this;
@@ -234,26 +255,12 @@ define(['jquery', 'underscore', 'backbone',
 			});
 		},
 
-		dismissModal: function() {
-			this.deleteListingModal.$el.modal('hide');
-		}
-	});
-
-	Views.DeleteListingView = Backbone.View.extend({
-		initialize: function() {
-			this.$el.html(deleteModalTemplate);
-		},
-		events: {
-			"click button.btn-danger": "deleteClicked",
-			"click button.btn-warning": "keepClicked"
-		},
-
-		deleteClicked: function() {
-			this.trigger("delete");
-		},
-
 		keepClicked: function() {
-			this.trigger("dismiss");
+			this.dismissModal();
+		},
+
+		dismissModal: function() {
+			this.trigger("viewClosed");
 		}
 	});
 
