@@ -9,7 +9,16 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
         },
         
         showListing: function(id) {
+            this.item = new Models.Want({
+                url: '/service/listings/get/' + id
+            });
             
+            this.item.fetch();
+            
+			this.modal = new Views.ViewItemModal({
+				model: this.item,
+				el: '#modal-container'
+			});
         }
     });
 });
