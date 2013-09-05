@@ -17,12 +17,14 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
             
             this.item.fetch({
                 success: function(results) {
-                    that.modal = new Views.ViewItemModal({
-        				model: that.item,
-        				el: '#route-modal-container'
-        			});
+                    
                 }
             });
+            
+            this.modal = new Views.ViewItemModal({
+				model: this.item,
+				el: '#route-modal-container'
+			});
         }
     });
 });
