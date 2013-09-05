@@ -99,6 +99,8 @@ define(['jquery', 'underscore', 'backbone',
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
 
+			gloablTestTemp = this.$;
+
 			this.deleteListingModal = new Views.DeleteListingView({
 				el: this.$('#delete-warning-modal')
 			});
