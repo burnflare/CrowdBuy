@@ -109,17 +109,42 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 				};
 			})(this));
 
-			$('#add-to-timeline').click(this.addToTimeline());
+			var that = this;
+			$('#recommend-to-friends').click(function() { that.recommendToFriends(); })
+			$('#add-to-timeline').click(function() { that.addToTimeline(); });
+		},
+
+		recommendToFriends: function() {
+			var that = this;
+			FB.ui({method: 'apprequests',
+				message: 'Come join me in using CrowdBuy, and make group ordering easy.'
+			}, function(response) {
+				
+			});/*
+			FB.api('/' + this.appId, function(response) {
+				FB.ui({
+					method: 'feed',
+					name: 'CrowdBuy',
+					link: 'http://apps.facebook.com/' + that.appId,
+					picture: response.icon_url,
+					caption: 'Group ordering made easy.',
+					description: 'I\'m using CrowdBuy. You should too!',
+					message: 'Feed message'
+				}, function(response) {
+					if (response && response.post_id) {
+						// Post published
+					} else {
+						// Post not published
+					}
+				});
+			});*/
 		},
 
 		addToTimeline: function() {
-			var that = this;
-			return function() {
-				var permissionsUrlPromise = Utils.getFacebookCustomSectionsLink(that.appId);
-				permissionsUrlPromise.done(function(response) {
-					window.open(response.profile_section_url, '_blank');
-				});
-			};
+			var permissionsUrlPromise = Utils.getFacebookCustomSectionsLink(that.appId);
+			permissionsUrlPromise.done(function(response) {
+				window.open(response.profile_section_url, '_blank');
+			});
 		},
 
 		loadHome: function() {
