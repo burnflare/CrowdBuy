@@ -130,7 +130,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		buyersClicked: function() {
 			if (this._buyerListPopover) {
-				this._buyerListPopover.popover('toggle');
+				//We only handle this once.
 				return;
 			}
 
@@ -160,13 +160,21 @@ define(['jquery', 'underscore', 'backbone',
 			var that = this;
 			$.when.apply($, buyerQueries)
 			.done(function() {
-				function dismissPopover(e) {
+				function handlePopoverClick(e) {
+					if (!that._buyerListPopover) {
+						return;
+					}
+					
 					var target = e.target || e.toElement;
+					if (target === that._buyerListPopover[0]) {
+						//We are going to ourself.
+						that._buyerListPopover.popover('toggle');
+					} else {
+						dismissPopover();
+					}
+				}
+				function dismissPopover() {
 					if (that._buyerListPopover) {
-						if (target === that._buyerListPopover[0]) {
-							//We are going to ourself.
-							return;
-						}
 						that._buyerListPopover.popover('hide');
 					}
 				}
@@ -180,7 +188,7 @@ define(['jquery', 'underscore', 'backbone',
 				$('a', buyerFragment).tooltip();
 				that._buyerListPopover = $('div.item-buyers span.item-buyers-list', that.$el);
 				that._buyerListPopover.parents('div.item-listing').on('scroll', dismissPopover);
-				$(document).on('click', dismissPopover);
+				$(document).on('click', handlePopoverClick);
 				that._buyerListPopover.popover({
 					selector: '#' + this.id,
 					html: true,
