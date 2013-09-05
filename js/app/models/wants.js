@@ -19,8 +19,8 @@ define(['jquery', 'underscore', 'backbone', 'model_want', 'utils'], function($, 
 		},
 
 		comparator: function(first, second) {
-			var dateValue1 = first.get("date_start");
-			var dateValue2 = second.get("date_start");
+			var dateValue1 = first.get("dateStart");
+			var dateValue2 = second.get("dateStart");
 
 			var firstDate = Date.parse(dateValue1);
 			var secondDate = Date.parse(dateValue2);
