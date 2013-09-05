@@ -113,7 +113,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 		},
 
 		addToTimeline: function() {
-			var permissionsUrl = Utils.getCustomSectionsLink();
+			var permissionsUrl = Utils.getFacebookCustomSectionsLink();
 			location.href = permissionsUrl;
 		},
 
