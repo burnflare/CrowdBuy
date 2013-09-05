@@ -2,9 +2,10 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/main.html',
 	'text!./app/views/templates/item-listing.html',
 	'text!./app/views/templates/item-listing-empty.html',
+	'text!./app/views/templates/person-info.html',
 	'text!./app/views/templates/loading.html',
 	'models', 'utils', 'facebook', 'view_common'
-], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, defaultLoadingTemplate, Models, Utils) {
+], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, personInfoTemplate, defaultLoadingTemplate, Models, Utils) {
 	var Views = {};
 
 	Views.GenericCollectionView = Backbone.View.extend({
@@ -85,6 +86,7 @@ define(['jquery', 'underscore', 'backbone',
 
 	Views.ItemView = Backbone.View.extend({
 		template: _.template(itemListingTemplate),
+		personInfoTemplate: _.template(personInfoTemplate),
 
 		events: {
 			"click button#btn-pledge": 'pledgeClicked',
@@ -156,8 +158,15 @@ define(['jquery', 'underscore', 'backbone',
 			});
 			
 			var that = this;
-			$.when(buyerQueries).done(function() {
-				var buyerFragment = document.createDocumentFragment();
+			$.when.apply($, buyerQueries)
+			.done(function() {
+				var buyerFragment = document.createElement('div');
+				for (var i = 0; i < buyerObjects.length; ++i) {
+					$(that.personInfoTemplate(buyerObjects.models[i].attributes)).
+						appendTo(buyerFragment);
+				}
+				
+				$('a', buyerFragment).tooltip();
 				that._buyerListPopover = $('div.item-buyers span.item-buyers-list', that.$el);
 				that._buyerListPopover.parents('div.item-listing').on('scroll', function() {
 					if (that._buyerListPopover) {
@@ -167,7 +176,8 @@ define(['jquery', 'underscore', 'backbone',
 				that._buyerListPopover.popover({
 					selector: '#' + this.id,
 					title: 'Hoorah',
-					content: 'Yay',
+					html: true,
+					content: buyerFragment,
 					container: that._buyerListPopover,
 					toggle: 'trigger'
 				});
