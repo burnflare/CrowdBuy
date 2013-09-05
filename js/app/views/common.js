@@ -270,6 +270,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		dismissModal: function() {
+			$('#delete-warning-modal').modal('hide');
 			this.trigger("viewClosed");
 		}
 	});
