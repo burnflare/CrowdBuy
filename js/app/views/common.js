@@ -98,6 +98,12 @@ define(['jquery', 'underscore', 'backbone',
 		initialize: function() {
 			this.listenTo(this.model, "change", this.render);
 			this.id = "item-" + this.model.attributes.id;
+
+			this.deleteListingModal = new Views.DeleteListingView({
+				el: this.$('.modal')
+			});
+			this.listenTo(this.deleteListingModal, "delete", this.deleteListing);
+			this.listenTo(this.deleteListingModal, "dismiss", this.dismissModal);
 		},
 
 		render: function() {
@@ -203,7 +209,28 @@ define(['jquery', 'underscore', 'backbone',
 
 		deleteClicked: function() {
 			// Show the warning message.
-			
+			this.deleteListingModal.$el.modal('show');
+		},
+
+		deleteListing: function() {
+			var serviceUrl = '/service/listings/delete/' + this.model.attributes.id;
+
+			var that = this;
+			$.ajax({
+				url: serviceUrl,
+				dataType: 'json',
+				type: 'GET',
+				success: function() {
+					that.dismissModal();
+				},
+				error: function() {
+					alert("Oops. We couldn't delete the listing - try again later!");
+				}
+			});
+		},
+
+		dismissModal: function() {
+			this.deleteListingModal.$el.modal('hide');
 		}
 	});
 
@@ -214,7 +241,11 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		deleteClicked: function() {
-			
+			this.trigger("delete");
+		},
+
+		keepClicked: function() {
+			this.trigger("dismiss");
 		}
 	});
 
