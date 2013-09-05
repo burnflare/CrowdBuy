@@ -19,7 +19,7 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
                 success: function(results) {
                     that.modal = new Views.ViewItemModal({
         				model: this.item,
-        				el: '#modal-container'
+        				el: '#route-modal-container'
         			});
                 }
             });
