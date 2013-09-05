@@ -9,7 +9,7 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
         },
         
         showListing: function(id) {
-            console.log(id);
+            that = this;
             
             this.item = new Models.Want({
                 id: id
@@ -17,14 +17,12 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
             
             this.item.fetch({
                 success: function(results) {
-                    console.log(results);
+                    that.modal = new Views.ViewItemModal({
+        				model: this.item,
+        				el: '#modal-container'
+        			});
                 }
             });
-            
-			this.modal = new Views.ViewItemModal({
-				model: this.item,
-				el: '#modal-container'
-			});
         }
     });
 });
