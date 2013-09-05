@@ -69,9 +69,11 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 	});
 
 	var App = _.extend({
+		appId: '509825915758193',
+
 		init: function() {
 			FB.init({
-				appId: '509825915758193',
+				appId: this.appId,
 				channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
 				oauth: true
 			});

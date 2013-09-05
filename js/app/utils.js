@@ -63,6 +63,22 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 	};
 	
 	/**
+	 * Gets a one-time URL to display the CrowdBuy custom section for users
+	 * to add to their timeline.
+	 * 
+	 * @returns a Promise object.
+	 */
+	Utils.getFacebookCustomSectionsLink = function() {
+		var promise = $.Deferred();
+		FB.api(App.appId + '?fields=profile_section_url,mobile_profile_section_url',
+			function(response) {
+				promise.resolve(response);
+			});
+			
+		return promise;
+	};
+	
+	/**
 	 * Requests the user's permission to have the following app permissions.
 	 * @param Array or string perms
 	 * @return A Promise object.
