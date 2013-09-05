@@ -101,7 +101,7 @@ define(['jquery', 'underscore', 'backbone',
 			"click button#btn-unpledge": 'unpledgeClicked',
 			"click button#btn-delete": 'deleteClicked',
 			"click div.item-buyers": "buyersClicked",
-            "click a.listing" : "listingClicked"
+            "click" : "listingClicked"
 		},
 
 		initialize: function() {
