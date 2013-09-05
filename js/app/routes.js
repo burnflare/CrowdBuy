@@ -9,6 +9,8 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
         },
         
         showListing: function(id) {
+            console.log(id);
+            
             this.item = new Models.Want({
                 url: '/service/listings/get/' + id
             });
