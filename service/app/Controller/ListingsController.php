@@ -36,10 +36,23 @@ class ListingsController extends AppController
 		'ProductListingComment'
 	);
 	
+	public function beforeFilter()
+	{
+		// Allows the og action to be accessed without user login.
+		$this->Auth->allow('og');
+		parent::beforeFilter();
+	}
+	
 	public function isAuthorized($user)
 	{
+		//If this is an Open Graph ping, we have to allow public access.
+		if (in_array($this->action, array('og')))
+		{
+			return true;
+		}
+		
 		//Fulfil base requirements
-		if (!parent::isAuthorized($user))
+		else if (!parent::isAuthorized($user))
 		{
 			return false;
 		}
@@ -149,6 +162,26 @@ class ListingsController extends AppController
 		//Then we just take the first one.
 		$this->set('listing', $listings[0]);
 		$this->set('_serialize', array('listing'));
+	}
+	
+	/**
+	 * Gets Open Graph metadata about a listing.
+	 */
+	public function og($id)
+	{
+		$listing = $this->ProductListing->findById($id);
+		$result = Semantics3::getInfo($listing['ProductListing']['product_id']);
+		
+		$meta = array(
+			'fb:app_id' => '509825915758193',
+			'og:type'   => 'crowdbuyfb:item',
+			//TODO: Make this clickable.
+			'og:url'    => 'http://' . $_SERVER['SERVER_NAME'] . '/service/listings/get/' . $id,
+			'og:title'  => $result->name,
+			'og:image'  => empty($result->images) ? '' : $result->images[0]
+		);
+		$this->set('og', $meta);
+		$this->render('og', 'og');
 	}
 	
 	public function comment()
