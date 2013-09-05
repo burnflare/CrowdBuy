@@ -230,7 +230,7 @@ define(['jquery', 'underscore', 'backbone',
 			this.modal.undelegateEvents();
 
 			if (isDeleted) {
-				this.model.trigger("destroy");
+				this.model.trigger("remove", this.model);
 			}
 		}
 	});
