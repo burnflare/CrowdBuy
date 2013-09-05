@@ -70,7 +70,7 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		itemDeleted: function(item) {
-			this.remove(item);
+			this.collection.remove(item);
 		},
 
 		_addViewForModel: function(item) {
