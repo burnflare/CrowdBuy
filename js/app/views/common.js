@@ -114,7 +114,9 @@ define(['jquery', 'underscore', 'backbone',
 			return this;
 		},
 
-		pledgeClicked: function() {
+		pledgeClicked: function(e) {
+            e.stopImmediatePropagation();
+            
 			var that = this;
 			$.ajax({
 				url: '/service/me/want',
@@ -129,7 +131,9 @@ define(['jquery', 'underscore', 'backbone',
 			this.model.fetch();
 		},
 
-		unpledgeClicked: function() {
+		unpledgeClicked: function(e) {
+            e.stopImmediatePropagation();
+            
 			$.ajax({
 				url: '/service/me/dontWant',
 				dataType: 'json',
@@ -141,7 +145,9 @@ define(['jquery', 'underscore', 'backbone',
 			this.model.fetch();
 		},
 
-		buyersClicked: function() {
+		buyersClicked: function(e) {
+            e.stopImmediatePropagation();
+            
 			if (this._buyerListPopover) {
 				//We only handle this once.
 				return;
@@ -214,7 +220,9 @@ define(['jquery', 'underscore', 'backbone',
 				});
 		},
 
-		deleteClicked: function() {
+		deleteClicked: function(e) {
+            e.stopImmediatePropagation();
+            
 			if (this.modal) {
 				this.disposeModal();
 			}
