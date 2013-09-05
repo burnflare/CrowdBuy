@@ -74,8 +74,9 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 		init: function() {
 			FB.init({
 				appId: this.appId,
-				channelUrl: '//http://crowdbuy.sapuan.org/channel.html',
-				oauth: true
+				channelUrl: '//crowdbuy.sapuan.org/channel.html',
+				oauth: true,
+				xfbml: true
 			});
 			FB.login(function() {}, {
 				scope: 'read_friendlists, user_about_me'
