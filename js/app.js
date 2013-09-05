@@ -117,7 +117,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 			return function() {
 				var permissionsUrlPromise = Utils.getFacebookCustomSectionsLink(that.appId);
 				permissionsUrlPromise.done(function(response) {
-					location.href = response.profile_section_id;
+					location.href = response.profile_section_url;
 				});
 			};
 		},
