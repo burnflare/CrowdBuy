@@ -17,7 +17,7 @@ define(['jquery', 'underscore', 'backbone',
 		addToTimeline: function() {
 			var permissionsUrl = Utils.getCustomSectionsLink();
 			location.href = permissionsUrl;
-		}
+		},
 
 		_setUpCollections: function() {
 			var userId = this.options.userId;
