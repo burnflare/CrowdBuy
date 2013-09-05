@@ -106,14 +106,17 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 	 */
 	Utils.postUserTimeline = function(listingId) {
 		var promise = $.Deferred();
-		FB.api('me/crowdbuyfb:want_to_purchase', 'post',
-			{
-				item: 'http://fb.sapuan.org/service/listings/og/' +
-					listingId
-			},
-			function(response) {
-				promise.resolve(response);
-			}
+		FB.api(
+		  'me/crowdbuyfb:want_to_purchase',
+		  'post',
+		  {
+			item: 'http://fb.sapuan.org/service/listings/og/' +
+				listingId
+		  },
+		  function(response) {
+		    promise.resolve(response);
+			console.log(response);
+		  }
 		);
 
 		return promise;
