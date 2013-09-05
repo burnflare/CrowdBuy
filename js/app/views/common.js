@@ -100,7 +100,7 @@ define(['jquery', 'underscore', 'backbone',
 			this.id = "item-" + this.model.attributes.id;
 
 			this.deleteListingModal = new Views.DeleteListingView({
-				el: this.$('.modal')
+				el: this.$('#delete-warning-modal')
 			});
 			this.listenTo(this.deleteListingModal, "delete", this.deleteListing);
 			this.listenTo(this.deleteListingModal, "dismiss", this.dismissModal);
