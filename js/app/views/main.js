@@ -10,15 +10,6 @@ define(['jquery', 'underscore', 'backbone',
 			this._setUpCollections();
 		},
 
-		events: {
-			"click button#add-to-timeline": "addToTimeline"
-		},
-
-		addToTimeline: function() {
-			var permissionsUrl = Utils.getCustomSectionsLink();
-			location.href = permissionsUrl;
-		},
-
 		_setUpCollections: function() {
 			var userId = this.options.userId;
 			yourCollection = new Models.Wants([], {

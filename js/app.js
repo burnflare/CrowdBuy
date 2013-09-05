@@ -108,6 +108,13 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'bootstrap'], f
 
 				};
 			})(this));
+
+			$('#add-to-timeline').click(this.addToTimeline);
+		},
+
+		addToTimeline: function() {
+			var permissionsUrl = Utils.getCustomSectionsLink();
+			location.href = permissionsUrl;
 		},
 
 		loadHome: function() {
