@@ -1,0 +1,26 @@
+<div id="view-listing-modal" class="modal fade" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title">ITEM LISTING</h3>
+				
+				<div class="modal-body">
+					<div class="basic-info">
+						<div>
+							<img class="pull-left" width="64px" height="64px" src="<%= imageUrl %>">
+							<div>
+								<strong><%= name %></strong><br/>
+								<strong>Cost: </strong><%= price %>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success col-xs-5">I&#39;m in!</button>
+					<button type="button" class="btn btn-danger col-xs-5 pull-right" data-dismiss="modal">Never mind.</button>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

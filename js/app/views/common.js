@@ -5,9 +5,10 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/person-info.html',
 	'text!./app/views/templates/loading.html',
 	'text!./app/views/templates/delete-modal.html',
+    'text!./app/views/templates/view-modal.html',
 	'models', 'utils', 'facebook', 'view_common'
 ], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, personInfoTemplate, defaultLoadingTemplate,
-	deleteModalTemplate, Models, Utils) {
+	deleteModalTemplate, viewModalTemplate, Models, Utils) {
 	var Views = {};
 
 	Views.GenericCollectionView = Backbone.View.extend({
@@ -99,7 +100,8 @@ define(['jquery', 'underscore', 'backbone',
 			"click button#btn-pledge": 'pledgeClicked',
 			"click button#btn-unpledge": 'unpledgeClicked',
 			"click button#btn-delete": 'deleteClicked',
-			"click div.item-buyers": "buyersClicked"
+			"click div.item-buyers": "buyersClicked",
+            "click a.listing" : "listingClicked"
 		},
 
 		initialize: function() {
@@ -112,7 +114,9 @@ define(['jquery', 'underscore', 'backbone',
 			return this;
 		},
 
-		pledgeClicked: function() {
+		pledgeClicked: function(e) {
+            e.stopImmediatePropagation();
+            
 			var that = this;
 			$.ajax({
 				url: '/service/me/want',
@@ -127,7 +131,9 @@ define(['jquery', 'underscore', 'backbone',
 			this.model.fetch();
 		},
 
-		unpledgeClicked: function() {
+		unpledgeClicked: function(e) {
+            e.stopImmediatePropagation();
+            
 			$.ajax({
 				url: '/service/me/dontWant',
 				dataType: 'json',
@@ -139,7 +145,9 @@ define(['jquery', 'underscore', 'backbone',
 			this.model.fetch();
 		},
 
-		buyersClicked: function() {
+		buyersClicked: function(e) {
+            e.stopImmediatePropagation();
+            
 			if (this._buyerListPopover) {
 				//We only handle this once.
 				return;
@@ -212,7 +220,9 @@ define(['jquery', 'underscore', 'backbone',
 				});
 		},
 
-		deleteClicked: function() {
+		deleteClicked: function(e) {
+            e.stopImmediatePropagation();
+            
 			if (this.modal) {
 				this.disposeModal();
 			}
@@ -223,6 +233,18 @@ define(['jquery', 'underscore', 'backbone',
 			});
 			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
 		},
+        
+        listingClicked: function() {
+			if (this.modal) {
+				this.disposeModal();
+			}
+
+			this.modal = new Views.ViewItemModal({
+				model: this.model,
+				el: '#modal-container'
+			});
+			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
+        },
 
 		disposeModal: function(isDeleted) {
 			this.modal.undelegateEvents();
@@ -282,6 +304,28 @@ define(['jquery', 'underscore', 'backbone',
 			this.$('.item-listing').html(fragment);
 		},
 		subView: Views.ItemView
+	});
+    
+	Views.ViewItemModal = Backbone.View.extend({
+		template: _.template(viewModalTemplate),
+
+		initialize: function() {
+            this.listenTo(this.model, 'change', this.render);
+            this.model.fetch();
+		},
+
+		render: function() {
+			this.$el.html(this.template(this.model.attributes));
+			$('#view-listing-modal').modal('show');
+		},
+
+		events: {
+			"click button.btn-danger": "closeModal"
+		},
+
+		closeModal: function() {
+			this.trigger("viewClosed");
+		}
 	});
 
 	return Views;

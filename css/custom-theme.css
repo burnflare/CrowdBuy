@@ -17,6 +17,10 @@ h1, h2, h3, h4, h5, h6, p, body {
 .listing {
 	width: 100%;
 	min-height: 125px;
+    color: black !important;
+    text-decoration: none !important;
+    user-select: none;
+    cursor: pointer;
 }
 
 .item-listing {
