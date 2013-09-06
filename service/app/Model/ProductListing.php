@@ -28,7 +28,8 @@ class ProductListing extends AppModel
 	 * @var array
 	 */
 	public $findMethods = array(
-		'visible' => true
+		'visible' => true,
+		'random' => true
 	);
 	
 	protected function _findVisible($state, $query, $results = array())
@@ -40,6 +41,16 @@ class ProductListing extends AppModel
 				'ProductListing.creator_id' =>
 					self::getFacebookFriends(AuthComponent::user('id'))
 			));
+			return $query;
+		}
+		return $results;
+	}
+	
+	protected function _findRandom($state, $query, $results = array())
+	{
+		if ($state === 'before')
+		{
+			$query['order'] = 'RAND()';
 			return $query;
 		}
 		return $results;
