@@ -312,9 +312,13 @@ define(['jquery', 'underscore', 'backbone',
 
 		initialize: function() {
 			this.listenTo(this.model, 'change', this.render);
-			this.model.fetch();
-			this.$el.html(defaultLoadingModalTemplate);
-			$('#loading-modal').modal('show');
+			if(!this.model.attributes.id) {
+				this.model.fetch();
+				this.$el.html(defaultLoadingModalTemplate);
+				$('#loading-modal').modal('show');
+			} else {
+				this.render();
+			}
 		},
 
 		render: function() {
