@@ -1,0 +1,5 @@
+RewriteEngine on
+
+RewriteCond %{DOCUMENT_ROOT}/$1 !-f
+RewriteCond %{DOCUMENT_ROOT}/$1 !-d
+RewriteRule (.*) /app.html#$1 [NE,R]
