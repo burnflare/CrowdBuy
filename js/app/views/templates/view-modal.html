@@ -20,8 +20,15 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-success col-xs-5">I&#39;m in!</button>
-					<button type="button" class="btn btn-danger col-xs-5 pull-right" data-dismiss="modal">Never mind.</button>
+<% if (owner === FB.getUserID()) { %>
+					<button type="button" class="btn btn-danger col-xs-3">Delete this.</button>
+					<button type="button" class="btn btn-primary col-xs-3" id="item-modal-share">Share this.</button>
+					<button type="button" class="btn btn-success col-xs-4 pull-right" data-dismiss="modal">Head back.</button>
+<% } else { %>
+					<button type="button" class="btn btn-success col-xs-3">I&#39;m in!</button>
+					<button type="button" class="btn btn-primary col-xs-3" id="item-modal-share">Share this.</button>
+					<button type="button" class="btn btn-danger col-xs-4 pull-right" data-dismiss="modal">Never mind.</button>
+<% } %>
 				</div>
 			</div>
 		</div><!-- /.modal-content -->
