@@ -35,6 +35,13 @@ class MeController extends AppController
 		'ProductSuggestion'
 	);
 	
+	public function beforeFilter()
+	{
+		// Allows the og action to be accessed without user login.
+		$this->Auth->allow('unregister');
+		parent::beforeFilter();
+	}
+	
 	public function login()
 	{
 		$userId = FB::getUser();
@@ -72,6 +79,24 @@ class MeController extends AppController
 
 		$this->Auth->login(array('id' => $userId));
 		$this->set('_serialize', array());
+	}
+	
+	/**
+	 * Facebook deauthorise callback.
+	 */
+	public function unregister()
+	{
+		$userId = FB::getUser();
+		if (empty($userId))
+		{
+			throw new ForbiddenException();
+		}
+		
+		//For now, we just invalidate the user's OAuth token.
+		$this->Person->id = $userId;
+		$this->Person->save(array(
+				'oauth_token' => null
+			));
 	}
 
 	/**

@@ -4,11 +4,12 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/item-listing-empty.html',
 	'text!./app/views/templates/person-info.html',
 	'text!./app/views/templates/loading.html',
+	'text!./app/views/templates/loading-modal.html',
 	'text!./app/views/templates/delete-modal.html',
-    'text!./app/views/templates/view-modal.html',
+	'text!./app/views/templates/view-modal.html',
 	'models', 'utils', 'facebook', 'view_common'
 ], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, personInfoTemplate, defaultLoadingTemplate,
-	deleteModalTemplate, viewModalTemplate, Models, Utils) {
+	defaultLoadingModalTemplate, deleteModalTemplate, viewModalTemplate, Models, Utils) {
 	var Views = {};
 
 	Views.GenericCollectionView = Backbone.View.extend({
@@ -305,26 +306,98 @@ define(['jquery', 'underscore', 'backbone',
 		},
 		subView: Views.ItemView
 	});
-    
+
 	Views.ViewItemModal = Backbone.View.extend({
 		template: _.template(viewModalTemplate),
 
 		initialize: function() {
-            this.listenTo(this.model, 'change', this.render);
-            this.model.fetch();
+			this.listenTo(this.model, 'change', this.render);
+			if(!this.model.attributes.id) {
+				this.model.fetch();
+				this.$el.html(defaultLoadingModalTemplate);
+				$('#loading-modal').modal('show');
+			} else {
+				this.render();
+			}
 		},
 
 		render: function() {
+			$('#loading-modal').removeClass('fade');
+			$('#loading-modal').modal('hide');
 			this.$el.html(this.template(this.model.attributes));
 			$('#view-listing-modal').modal('show');
 		},
 
 		events: {
-			"click button.btn-danger": "closeModal"
+			"click button.item-modal-delete": "deleteClicked",
+			"click button.item-modal-want": "pledgeClicked",
+			"click button.item-modal-dontwant": "unpledgeClicked",
+			"click button.item-modal-share": "share",
+			"click button.item-modal-close": "closeModal"
+		},
+
+		deleteClicked: function(e) {
+			e.stopImmediatePropagation();
+
+			if (this.modal) {
+				this.disposeModal();
+			}
+
+			$('#view-listing-modal').removeClass('fade');
+			$('#view-listing-modal').modal('hide');
+
+			this.modal = new Views.DeleteListingView({
+				model: this.model,
+				el: '#modal-container'
+			});
+			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
+		},
+
+		pledgeClicked: function(e) {
+			e.stopImmediatePropagation();
+
+			var that = this;
+			$.ajax({
+				url: '/service/me/want',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_listing_id: this.model.attributes.id
+				}
+			}).success(function() {
+				Utils.postUserTimeline(that.model.attributes.id);
+			});
+			this.model.fetch();
+		},
+
+		unpledgeClicked: function(e) {
+			e.stopImmediatePropagation();
+
+			$.ajax({
+				url: '/service/me/dontWant',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_listing_id: this.model.attributes.id
+				}
+			});
+			this.model.fetch();
+		},
+		
+		share: function() {
+			Utils.postUserFeed(this.model.attributes.id)
+		},
+		disposeModal: function(isDeleted) {
+			this.modal.undelegateEvents();
+
+			if (isDeleted) {
+				this.model.trigger("delete", this.model);
+			}
 		},
 
 		closeModal: function() {
 			this.trigger("viewClosed");
+			this.undelegateEvents();
 		}
 	});
 

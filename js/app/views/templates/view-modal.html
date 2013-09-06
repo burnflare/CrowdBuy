@@ -20,7 +20,20 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn col-xs-5 pull-right" data-dismiss="modal">Close</button>
+<% if (!userId) { var userId = FB.getUserID(); } %>
+<% if (owner === userId) { %>
+					<button type="button" class="btn btn-danger col-xs-3 item-modal-delete">Delete this.</button>
+					<button type="button" class="btn btn-primary col-xs-3 item-modal-share">Share this.</button>
+					<button type="button" class="btn btn-success col-xs-4 pull-right item-modal-close" data-dismiss="modal">Head back.</button>
+<% } else { %>
+					<% if (owner !== userId && (buyers.indexOf(userId) === -1)) { %>
+						<button type="button" id="btn-pledge" class="btn btn-success col-xs-3 item-modal-want">I&#39;m in!</button>
+					<% } else if (buyers.indexOf(userId) !== -1) { %>
+						<button type="button" id="btn-unpledge" class="btn btn-warning col-xs-3 item-modal-dontwant">I want out.</button>
+					<% } %>
+					<button type="button" class="btn btn-primary col-xs-3 item-modal-share">Share this.</button>
+					<button type="button" class="btn btn-danger col-xs-4 pull-right item-modal-close" data-dismiss="modal">Never mind.</button>
+<% } %>
 				</div>
 			</div>
 		</div><!-- /.modal-content -->

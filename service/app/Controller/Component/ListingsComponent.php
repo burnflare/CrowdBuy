@@ -10,9 +10,12 @@ class ListingsComponent extends Component
 				return $item['ProductListing']['product_id'];
 			}, $listings);
 		$products = Semantics3::getInfo($productIds);
-		$products = array_combine(array_map(function($item) {
-				return $item->sem3_id;
-			}, $products), $products);
+		if (!empty($products))
+		{
+			$products = array_combine(array_map(function($item) {
+					return $item->sem3_id;
+				}, $products), $products);
+		}
 		
 		foreach ($listings as &$listing)
 		{

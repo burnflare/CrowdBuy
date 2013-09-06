@@ -1,7 +1,7 @@
 define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], function($, _, Backbone, Models, Utils, Views) {
     return Backbone.Router.extend({
         routes: {
-            'listing/:id': 'showListing'
+            'listings/:id': 'showListing'
         },
         
         initialize: function() {
@@ -9,8 +9,8 @@ define(['jquery', 'underscore', 'backbone', 'models', 'utils', 'view_common'], f
         },
         
         showListing: function(id) {
-            this.item = new Models.Want({
-                id: id
+            this.item = new Models.Want([], {
+                url: '/service/listings/get/' + id
             });
             
             this.modal = new Views.ViewItemModal({

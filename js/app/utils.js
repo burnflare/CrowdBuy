@@ -108,8 +108,7 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 		var promise = $.Deferred();
 		FB.api('me/crowdbuyfb:want_to_purchase', 'post',
 			{
-				item: 'http://fb.sapuan.org/service/listings/og/' +
-					listingId
+				item: 'http://fb.sapuan.org/listings/' + listingId
 			},
 			function(response) {
 				promise.resolve(response);
@@ -117,6 +116,27 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 		);
 
 		return promise;
+	};
+	
+	Utils.postUserFeed = function(listingId) {
+		$.get('/service/listings/get/' + listingId, null, null, 'json').success(function(response) {
+			FB.ui({
+					method: 'feed',
+					name: response.listing.ProductListing.product.name,
+					link: 'http://apps.facebook.com/509825915758193/listings/' + listingId,
+					picture: response.listing.ProductListing.product.images ?
+						response.listing.ProductListing.product.images[0] : null,
+					caption: 'CrowdBuy',
+					description: response.listing.ProductListing.product.description
+				},
+			function(response) {
+				/*if (response && response.post_id) {
+					// Post published
+				} else {
+					// Post not published
+				}*/
+			});
+		});
 	};
 
 	Utils.dropTimeFromIsoDate = function(isoDateString) {
