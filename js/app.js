@@ -114,7 +114,7 @@ requirejs(["jquery", "underscore", "backbone", "views", "utils", 'routes', 'boot
 			})(this));
 
 			var that = this;
-			$('#recommend-to-friends').click(function() { that.recommendToFriends(); })
+			$('#recommend-to-friends').click(function() { that.recommendToFriends(); });
 			$('#add-to-timeline').click(function() { that.addToTimeline(); });
 			$('#privacy-policy').click(function() { $('#privacy-policy-modal').modal('show'); });
             
