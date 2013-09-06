@@ -73,3 +73,8 @@ h1, h2, h3, h4, h5, h6, p, body {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+.title-link, .title-link:link {
+    color: black;
+    text-decoration: none;
+}
