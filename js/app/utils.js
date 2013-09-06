@@ -124,9 +124,10 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 			FB.ui({
 					method: 'feed',
 					name: response.listing.ProductListing.product.name,
-					link: 'http://apps.facebook.com/509825915758193/#listings/' + listingId,
+					link: 'http://apps.facebook.com/509825915758193/listings/' + listingId,
 					picture: response.listing.ProductListing.product.images ?
 						response.listing.ProductListing.product.images[0] : null,
+					caption: 'CrowdBuy',
 					description: response.listing.ProductListing.product.description
 				},
 			function(response) {
