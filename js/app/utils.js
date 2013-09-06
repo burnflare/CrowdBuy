@@ -108,8 +108,7 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 		var promise = $.Deferred();
 		FB.api('me/crowdbuyfb:want_to_purchase', 'post',
 			{
-				item: 'http://fb.sapuan.org/service/listings/og/' +
-					listingId
+				item: 'http://fb.sapuan.org/listings/' + listingId
 			},
 			function(response) {
 				promise.resolve(response);
