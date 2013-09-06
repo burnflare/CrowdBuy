@@ -1,6 +1,3 @@
 [submodule "service/cakephp"]
 	path = service/cakephp
 	url = https://github.com/cakephp/cakephp.git
-[submodule "service/app/Plugin/facebook"]
-	path = service/app/Plugin/facebook
-	url = https://github.com/webtechnick/CakePHP-Facebook-Plugin.git
