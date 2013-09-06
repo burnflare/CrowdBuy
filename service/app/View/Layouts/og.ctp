@@ -18,19 +18,7 @@
  */
 
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
-
-if (in_array($_SERVER['HTTP_USER_AGENT'], array(
-  'facebookexternalhit/1.1 (+https://www.facebook.com/externalhit_uatext.php)',
-  'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
-))) {
-	//We are facebook. Proceed.
-} else {
-	//Redirect user
-	$redirectURL = array_search('cb:url', $og);
-	header( "Location: " .  $redirectURL );
-}
 ?>
-
 <!DOCTYPE html>
 <html>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# crowdbuyfb: http://ogp.me/ns/fb/crowdbuyfb#">
