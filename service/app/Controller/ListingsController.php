@@ -63,7 +63,7 @@ class ListingsController extends AppController
 		{
 			$listingId = $this->request->params['pass'][0];
 			if ($this->ProductListing->isFriendsOnly($listingId) &&
-				!$this->ProductListing->isVisible($listingId, $auth['id']))
+				!$this->ProductListing->isVisible($listingId, $user['id']))
 			{
 				return false;
 			}
@@ -82,7 +82,7 @@ class ListingsController extends AppController
 		
 		//The owner of a listing can delete it.
 		else if ($this->action === 'delete')
-		{return true;
+		{
 			$listingId = $this->request->params['pass'][0];
 			return $this->ProductListing->isOwnedBy($listingId, $user['id']);
 		}
