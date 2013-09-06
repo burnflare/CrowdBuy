@@ -1,5 +1,11 @@
 RewriteEngine on
 
+#Specifically, handle Open Graph requests for listing specially
+RewriteCond %{HTTP_USER_AGENT} ^facebookexternalhit/(.+)$
+RewriteCond %{REQUEST_URI} !=^service/.*$
+RewriteRule listings/(.*)$ /service/listings/og/$1 [R,L]
+
+#In general, for all URLs which do not match a file or directory
 RewriteCond %{DOCUMENT_ROOT}/$1 !-f
 RewriteCond %{DOCUMENT_ROOT}/$1 !-d
 RewriteRule (.*) /index.html#$1 [NE,R]
