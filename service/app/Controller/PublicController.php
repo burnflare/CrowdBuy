@@ -30,18 +30,17 @@ class PublicController extends AppController
 	 * @var array
 	 */
 	public $uses = array(
-		'ProductListings'
+		'ProductListing'
 	);
 
 	public function wants()
 	{
-		$listings = array_map(function($item) {
-			return array('ProductListing' => $item['ProductListings']);
-		}, $this->ProductListings->find('all', array(
+		$listings = $this->ProductListing->find('random', array(
 			'conditions' => array(
-				'ProductListings.friends_only' => 0
-			)
-		)));
+				'ProductListing.friends_only' => 0
+			),
+			'limit' => 10
+		));
 		
 		$this->Listings->augmentProductInfo($listings);
 		$this->set('listings', $listings);
