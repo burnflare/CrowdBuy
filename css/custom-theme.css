@@ -1,5 +1,8 @@
+h1 {
+	font-family: 'Raleway';
+}
 h1, h2, h3, h4, h5, h6, p, body {
-	font-family: 'Raleway', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: 'Lucida Grande', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .page-header {
