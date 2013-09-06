@@ -178,9 +178,10 @@ class ListingsController extends AppController
 		$meta = array(
 			'fb:app_id' => '509825915758193',
 			'og:type'   => 'crowdbuyfb:item',
-			'og:url'    => 'http://' . $_SERVER['SERVER_NAME'] . '/app.html#listing/' . $id,
+			'og:url'    => 'http://' . $_SERVER['SERVER_NAME'] . '/service/listings/og/' . $id,
 			'og:title'  => $result->name,
-			'og:image'  => empty($result->images) ? '' : $result->images[0]
+			'og:image'  => empty($result->images) ? '' : $result->images[0],
+			'cb:url'	=> 'http://' . $_SERVER['SERVER_NAME'] . '/app.html#listing/' . $id
 		);
 		$this->set('og', $meta);
 		$this->render('og', 'og');
