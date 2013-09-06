@@ -23,7 +23,7 @@
 <% if (owner === userId) { %>
 					<button type="button" class="btn btn-danger col-xs-3 item-modal-delete">Delete this.</button>
 					<button type="button" class="btn btn-primary col-xs-3 item-modal-share">Share this.</button>
-					<button type="button" class="btn btn-success col-xs-4 pull-right itme-modal-close" data-dismiss="modal">Head back.</button>
+					<button type="button" class="btn btn-success col-xs-4 pull-right item-modal-close" data-dismiss="modal">Head back.</button>
 <% } else { %>
 					<% if (owner !== userId && (buyers.indexOf(userId) === -1)) { %>
 						<button type="button" id="btn-pledge" class="btn btn-success col-xs-3 item-modal-want">I&#39;m in!</button>
