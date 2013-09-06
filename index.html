@@ -22,7 +22,7 @@
 		window.fbAsyncInit = function() {
 	function doLogin() {
 		FB.login(function(response) {}, {
-			scope: 'read_friendlists'
+			scope: 'read_friendlists, user_about_me'
 		});
 	}
 
