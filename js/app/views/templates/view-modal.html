@@ -20,6 +20,7 @@
 				</div>
 
 				<div class="modal-footer">
+<% if (!userId) { var userId = FB.getUserID(); } %>
 <% if (owner === userId) { %>
 					<button type="button" class="btn btn-danger col-xs-3 item-modal-delete">Delete this.</button>
 					<button type="button" class="btn btn-primary col-xs-3 item-modal-share">Share this.</button>
