@@ -4,11 +4,12 @@ define(['jquery', 'underscore', 'backbone',
 	'text!./app/views/templates/item-listing-empty.html',
 	'text!./app/views/templates/person-info.html',
 	'text!./app/views/templates/loading.html',
+	'text!./app/views/templates/loading-modal.html',
 	'text!./app/views/templates/delete-modal.html',
-    'text!./app/views/templates/view-modal.html',
+	'text!./app/views/templates/view-modal.html',
 	'models', 'utils', 'facebook', 'view_common'
 ], function($, _, Backbone, mainTemplate, itemListingTemplate, itemListingEmptyTemplate, personInfoTemplate, defaultLoadingTemplate,
-	deleteModalTemplate, viewModalTemplate, Models, Utils) {
+	defaultLoadingModalTemplate, deleteModalTemplate, viewModalTemplate, Models, Utils) {
 	var Views = {};
 
 	Views.GenericCollectionView = Backbone.View.extend({
@@ -305,16 +306,20 @@ define(['jquery', 'underscore', 'backbone',
 		},
 		subView: Views.ItemView
 	});
-    
+
 	Views.ViewItemModal = Backbone.View.extend({
 		template: _.template(viewModalTemplate),
 
 		initialize: function() {
-            this.listenTo(this.model, 'change', this.render);
-            this.model.fetch();
+			this.listenTo(this.model, 'change', this.render);
+			this.model.fetch();
+			this.$el.html(defaultLoadingModalTemplate);
+			$('#loading-modal').modal('show');
 		},
 
 		render: function() {
+			$('#loading-modal').removeClass('fade');
+			$('#loading-modal').modal('hide');
 			this.$el.html(this.template(this.model.attributes));
 			$('#view-listing-modal').modal('show');
 		},
