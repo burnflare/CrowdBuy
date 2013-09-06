@@ -325,24 +325,72 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		events: {
-			"click button.item-modal-delete": "doDelete",
-			"click button.item-modal-imin": "imin",
+			"click button.item-modal-delete": "deleteClicked",
+			"click button.item-modal-want": "pledgeClicked",
+			"click button.item-modal-dontwant": "unpledgeClicked",
 			"click button.item-modal-share": "share",
 			"click button.item-modal-close": "closeModal"
 		},
 
-		doDelete: function() {
-			
+		deleteClicked: function(e) {
+			e.stopImmediatePropagation();
+
+			if (this.modal) {
+				this.disposeModal();
+			}
+
+			$('#view-listing-modal').removeClass('fade');
+			$('#view-listing-modal').modal('hide');
+
+			this.modal = new Views.DeleteListingView({
+				model: this.model,
+				el: '#modal-container'
+			});
+			this.listenTo(this.modal, 'viewClosed', this.disposeModal);
 		},
 
-		imin: function() {
-			
+		pledgeClicked: function(e) {
+			e.stopImmediatePropagation();
+
+			var that = this;
+			$.ajax({
+				url: '/service/me/want',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_listing_id: this.model.attributes.id
+				}
+			}).success(function() {
+				Utils.postUserTimeline(that.model.attributes.id);
+			});
+			this.model.fetch();
+		},
+
+		unpledgeClicked: function(e) {
+			e.stopImmediatePropagation();
+
+			$.ajax({
+				url: '/service/me/dontWant',
+				dataType: 'json',
+				type: 'POST',
+				data: {
+					product_listing_id: this.model.attributes.id
+				}
+			});
+			this.model.fetch();
 		},
 		
 		share: function() {
 			Utils.postUserFeed(this.model.attributes.id)
 		},
-		
+		disposeModal: function(isDeleted) {
+			this.modal.undelegateEvents();
+
+			if (isDeleted) {
+				this.model.trigger("delete", this.model);
+			}
+		},
+
 		closeModal: function() {
 			this.trigger("viewClosed");
 		}
