@@ -90,7 +90,7 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 		
 		var promise = $.Deferred();
 		FB.login(function(response) {
-			promise.resolve(response);
+			promise.resolve.apply(this, arguments);
 		}, {
 			scope: perms.join(', ')
 		});
@@ -106,14 +106,17 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 	 */
 	Utils.postUserTimeline = function(listingId) {
 		var promise = $.Deferred();
-		FB.api('me/crowdbuyfb:want_to_purchase', 'post',
-			{
-				item: 'http://fb.sapuan.org/listings/' + listingId
-			},
+		Utils.requestFbPermission('publish_actions').done(
 			function(response) {
-				promise.resolve(response);
-			}
-		);
+				FB.api('me/crowdbuyfb:want_to_purchase', 'post',
+					{
+						item: 'http://fb.sapuan.org/listings/' + listingId
+					},
+					function(response) {
+						promise.resolve(response);
+					}
+				);
+			});
 
 		return promise;
 	};
