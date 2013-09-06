@@ -55,7 +55,6 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 			viewToLoad.render();
 			displayedView = viewToLoad;
 		}
-		$('#page-content').fadeIn();
 		return displayedView;
 	};
 
