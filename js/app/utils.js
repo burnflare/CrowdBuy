@@ -118,6 +118,26 @@ define(["jquery", "underscore", "backbone"], function($, _, Backbone) {
 
 		return promise;
 	};
+	
+	Utils.postUserFeed = function(listingId) {
+		$.get('/service/listings/get/' + listingId, null, null, 'json').success(function(response) {
+			FB.ui({
+					method: 'feed',
+					name: response.listing.ProductListing.product.name,
+					link: 'http://apps.facebook.com/509825915758193/#listings/' + listingId,
+					picture: response.listing.ProductListing.product.images ?
+						response.listing.ProductListing.product.images[0] : null,
+					description: response.listing.ProductListing.product.description
+				},
+			function(response) {
+				/*if (response && response.post_id) {
+					// Post published
+				} else {
+					// Post not published
+				}*/
+			});
+		});
+	};
 
 	Utils.dropTimeFromIsoDate = function(isoDateString) {
 		var dropIndex = isoDateString.indexOf(" ");

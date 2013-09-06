@@ -325,9 +325,24 @@ define(['jquery', 'underscore', 'backbone',
 		},
 
 		events: {
-			"click button.btn-danger": "closeModal"
+			"click button.item-modal-delete": "doDelete",
+			"click button.item-modal-imin": "imin",
+			"click button.item-modal-share": "share",
+			"click button.item-modal-close": "closeModal"
 		},
 
+		doDelete: function() {
+			
+		},
+
+		imin: function() {
+			
+		},
+		
+		share: function() {
+			Utils.postUserFeed(this.model.attributes.id)
+		},
+		
 		closeModal: function() {
 			this.trigger("viewClosed");
 		}
