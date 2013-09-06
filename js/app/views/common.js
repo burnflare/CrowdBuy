@@ -393,6 +393,7 @@ define(['jquery', 'underscore', 'backbone',
 
 		closeModal: function() {
 			this.trigger("viewClosed");
+			this.undelegateEvents();
 		}
 	});
 
